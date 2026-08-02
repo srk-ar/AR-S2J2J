@@ -1,0 +1,17 @@
+### Instrumental coverage
+
+The processed instrumental database contains `r RECORDS_N` records with L, T, and V components for each record, corresponding to `r RECORDS_N_COMPONENTS` processed time histories. The pseudoacceleration response spectra for the `r RECORDS_N` records cover `r length(RECORDS_TN)` periods between `r formatC(min(RECORDS_TN), format = "f", digits = 3L)` and `r formatC(max(RECORDS_TN), format = "f", digits = 3L)` s at a damping ratio of `r formatC(100 * RECORDS_XI, format = "f", digits = 0L)`%. The histories share a sampling frequency of `r formatC(RECORDS_FS, format = "f", digits = 0L)` Hz and have durations ranging from `r formatC(RECORDS_DURATION[1L], format = "f", digits = 2L)` to `r formatC(RECORDS_DURATION[2L], format = "f", digits = 2L)` s.
+
+The source-to-receptor distance and maximum instantaneous charge (MIC) reported by the blasting contractor are available for `r RECORDS_N_META` records. These pairs relate the instrumental histories in that subset to the distance and charge conditions of the monitored blasts.
+
+### Amplitude distributions
+
+The PPA and PPV distributions describe the model-fitting sample. The sample comprises the local observations and the S11D observations outside the local distance or charge envelope, according to the criterion defined in the methodology; it is not a weighted mixture of the two data sources. Missing values are excluded separately for each response, so each panel reports the available number of observations and its breakdown by data source. The OOF sample used by the retained formulation is reported in the predictive-model chapter. The abscissae show physical amplitudes on a logarithmic scale, and the columns show interval counts.
+
+#### PPV
+
+{{< include /_fig/records.PPV.qmd >}}
+
+#### PPA
+
+{{< include /_fig/records.PPA.qmd >}}

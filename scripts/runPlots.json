@@ -1,0 +1,6 @@
+{
+  "Fmax"    : [80],
+  "P"       : 0.90,
+  "DIR"     : ["D50"],
+  "OVERRIDE": false
+}

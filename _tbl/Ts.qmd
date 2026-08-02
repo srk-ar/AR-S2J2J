@@ -1,0 +1,207 @@
+```{r}
+#| include: true
+root <- here::here()
+if (!exists("TR.target"))   TR.target   <- TR.gmdp[6]
+if (!exists("IDg.target")) IDg.target  <- IDg.gmdp[4]
+if (!exists("CAP", inherits = FALSE)) CAP <- "Fundamental Periods in [sec] and shear moduli in [MPa] for a slope of %d [m] height, for material classifications (USCS) representative of tailings storage facilities (TSF) and waste rock dumps (WRD)."
+```
+
+
+:::{.content-visible when-format='docx'}
+
+```{r}
+#| include: true
+#| label: tbl-IDg_0
+#| tbl-cap: !expr CAP |> sprintf(IDg.target|> gsub(pattern="S",replacement="") |> as.numeric())
+p.target <- c("mean")
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+&nbsp;
+:::
+
+
+:::{.content-hidden when-format='docx'}
+
+:::{.panel-tabset .full-width }
+
+#### `r IDg.gmdp[1]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-IDg_1
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[1]|> gsub(pattern="S",replacement="") |> as.numeric())
+p.target <- c("mean")
+IDg.target <- IDg.gmdp[1]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+
+#### `r IDg.gmdp[2]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-IDg_2
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[2]|> gsub(pattern="S",replacement="") |> as.numeric())
+p.target <- c("mean")
+IDg.target <- IDg.gmdp[2]
+source(file.path(root,"scripts","tbl/Ts.R"))
+
+TBL
+```
+
+
+#### `r IDg.gmdp[3]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-IDg_3
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[3]|> gsub(pattern="S",replacement="") |> as.numeric())
+p.target <- c("mean")
+IDg.target <- IDg.gmdp[3]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+
+#### `r IDg.gmdp[4]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-IDg_4
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[4]|> gsub(pattern="S",replacement="") |> as.numeric())
+p.target <- c("mean")
+IDg.target <- IDg.gmdp[4]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+
+#### `r IDg.gmdp[5]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-IDg_5
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[5]|> gsub(pattern="S",replacement="") |> as.numeric())
+p.target <- c("mean")
+IDg.target <- IDg.gmdp[5]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+
+#### `r IDg.gmdp[6]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-IDg_6
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[6]|> gsub(pattern="S",replacement="") |> as.numeric())
+p.target <- c("mean")
+IDg.target <- IDg.gmdp[6]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+
+
+#### `r IDg.gmdp[7]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-IDg_7
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[7]|> gsub(pattern="S",replacement="") |> as.numeric())
+p.target <- c("mean")
+IDg.target <- IDg.gmdp[7]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+#### `r IDg.gmdp[8]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-IDg_8
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[8]|> gsub(pattern="S",replacement="") |> as.numeric())
+p.target <- c("mean")
+IDg.target <- IDg.gmdp[8]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+
+#### `r IDg.gmdp[9]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-IDg_9
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[9]|> gsub(pattern="S",replacement="") |> as.numeric())
+p.target <- c("mean")
+IDg.target <- IDg.gmdp[9]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+
+#### `r IDg.gmdp[10]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-IDg_10
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[10]|> gsub(pattern="S",replacement="") |> as.numeric())
+
+p.target <- c("mean")
+IDg.target <- IDg.gmdp[10]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+#### `r IDg.gmdp[11]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-IDg_11
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[11]|> gsub(pattern="S",replacement="") |> as.numeric())
+
+p.target <- c("mean")
+IDg.target <- IDg.gmdp[11]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+
+#### `r IDg.gmdp[12]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-IDg_12
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[12]|> gsub(pattern="S",replacement="") |> as.numeric())
+
+p.target <- c("mean")
+IDg.target <- IDg.gmdp[12]
+source(file.path(root,"scripts","tbl/Ts.R"))
+TBL
+```
+
+:::
+
+
+:::
+
+
+```{r}
+#| include: false
+rm(IDg.target, TR.target, p.target, CAP)
+```

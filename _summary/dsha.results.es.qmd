@@ -1,0 +1,8 @@
+```{r}
+#| include: false
+source(file.path(root, "scripts", "setup", "summary", "dshaResults.R"))
+```
+
+La evaluación consideró `r .fmti(nrow(DSHASummary$scenarios))` escenarios de ruptura postulados: `r paste(DSHASummary$scenarios[, sprintf("%s (régimen %s, $M_w=%s$ y distancia epicentral de %s km)", ID, TRT, .fmt(Mw, 1), .fmt(Repi, 1))], collapse = "; ")`. En roca de referencia, $V_{S30}=760$ m/s, la PGA media y la PGA correspondiente al percentil 84 de cada escenario son, respectivamente, `r paste(DSHASummary$scenarios[, sprintf("%s: %s g y %s g", ID, .fmt(PGA.mean), .fmt(PGA.p84))], collapse = "; ")`.
+
+En PGA, `r DSHASummary$governorMean` define el máximo de las medias y `r DSHASummary$governorQ84` define el máximo de los percentiles 84. Las envolventes independientes alcanzan `r .fmt(DSHASummary$envelope$PGA.mean)` g para el MCE basado en las medias y `r .fmt(DSHASummary$envelope$PGA.p84)` g para el MCE (84%). Como referencia probabilística, la PGA media del espectro de amenaza uniforme para $T_R=10{,}000$ años es `r .fmt(DSHASummary$probabilisticPGA)` g. Estos valores describen la comparación en PGA; en los demás períodos, el escenario que define cada envolvente se selecciona nuevamente para el período y el estadístico correspondientes.

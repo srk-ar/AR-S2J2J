@@ -1,0 +1,33 @@
+```{r}
+#| include: false
+if (!exists("CAP")) CAP <- "Characteristic values of %s PPV at $D=%d$ m for the exported predictive levels."
+if (!exists("RESP")) RESP <- c(ppvL = "longitudinal", ppvT = "transversal", ppvV = "vertical", ppv = "resultant")
+if (!exists("D.set")) D.set <- seq(100L, 500L, 50L)
+```
+
+::: {.panel-tabset .full-width}
+
+```{r}
+#| results: asis
+#| echo: false
+for (.D in D.set) {
+  cat(sprintf("\n### $D=%d\\ m$\n\n::: {.panel-tabset}\n", .D))
+  for (.ID in names(RESP)) {
+    cat(sprintf("\n#### $%s$\n\n", .ID))
+    NGR::knitBlock(path = "/_tbl/conditional.PPV.cell.qmd",
+                   stem = sprintf("tcond-D%d-%s", .D, .ID),
+                   labels = "rewrite",
+                   vars = list(ID = .ID, D_TARGET = .D,
+                               CAPTION = sprintf(CAP, RESP[[.ID]], .D)),
+                   root = root)
+  }
+  cat("\n:::\n")
+}
+```
+
+:::
+
+```{r}
+#| include: false
+rm(CAP, RESP, D.set)
+```

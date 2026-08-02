@@ -1,0 +1,6 @@
+```{r}
+#| include: false
+CAP <- "Coeficientes sísmicos basados en desempeño $k_h$ [%% PGA] en función del desplazamiento residual admisible $D_a$ [cm] para la geometría %s. Los valores se reportan para el movimiento objetivo con AEP 1/%.0f [1/año]."
+```
+
+{{< include /_fig/kh.qmd >}}

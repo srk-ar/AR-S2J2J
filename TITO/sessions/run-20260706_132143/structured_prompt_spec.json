@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "task_file": "/Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/md/gap-component-attenuation-and-scaling.prompt.md",
+  "slot_count": 5,
+  "constraint_count": 3,
+  "slots": [
+    {"ordinal": 1, "title": "Treatment of component PPV/PPA responses in blast-vibration literature", "instruction": "Review how blast-vibration literature treats component PPV and PPA responses: whether they are modelled separately by component (e.g., transverse, vertical, longitudinal), jointly as correlated responses, or summarised through vector or resultant peak quantities. Write in flowing paragraphs."},
+    {"ordinal": 2, "title": "Methods for multivariate or constrained response prediction", "instruction": "Identify the methods and diagnostics used for multivariate or constrained response prediction when blast vibration components are correlated or linked by a vector quantity. Write in flowing paragraphs."},
+    {"ordinal": 3, "title": "Literature precedent for component-peak scaling of recorded time histories", "instruction": "Assess whether the blast-vibration literature contains precedents for scaling recorded blast vibration time histories to match predicted component peak accelerations or velocities. Write in flowing paragraphs."},
+    {"ordinal": 4, "title": "Description of scenario scaling to distinguish from related methods", "instruction": "Determine how scenario scaling of recorded blast time histories to predicted component peaks should be characterised so that it is not confused with spectral matching, target-spectrum adjustment, or synthetic blast waveform simulation. Write in flowing paragraphs."},
+    {"ordinal": 5, "title": "Limitations of peak-component scaling relative to physics-based source models", "instruction": "Identify the limitations that should be stated when scenario waveforms are scaled by peak component response rather than generated from a physics-based blast source model. Write in flowing paragraphs."}
+  ],
+  "constraints": [
+    "The output is written in English.",
+    "Scope is restricted to blast-vibration literature; generic scaled-distance attenuation overviews that do not address the component-wise or multivariate modelling gap are outside scope.",
+    "The subject is component-wise responses (PPV and PPA by axis), not resultant or vector peak quantities alone."
+  ]
+}

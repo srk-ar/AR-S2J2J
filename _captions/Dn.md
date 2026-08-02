@@ -1,0 +1,1 @@
+Newmark sliding-block model. Residual displacements [cm] for geometry %s (scenario %d). Ensemble, rigid, and flexible curves are shown with fractiles. Values are reported for target ground motion with 1/%.0f AEP [1/yr].

@@ -1,0 +1,48 @@
+```{=html}
+<script>
+(function () {
+  function fireSlideEnter() {
+    var event = document.createEvent("Event");
+    event.initEvent("slideenter", true, true);
+    document.dispatchEvent(event);
+  }
+
+  function reflowHighcharts() {
+    if (!window.Highcharts || !Highcharts.charts) return;
+    Highcharts.charts.forEach(function (chart) {
+      if (chart && chart.renderTo && chart.renderTo.offsetParent !== null) {
+        chart.reflow();
+      }
+    });
+  }
+
+  function scheduleReflow() {
+    [0, 100, 300].forEach(function (delay) {
+      window.setTimeout(function () {
+        fireSlideEnter();
+        reflowHighcharts();
+      }, delay);
+    });
+  }
+
+  document.addEventListener("tabby", scheduleReflow, true);
+  document.addEventListener("DOMContentLoaded", scheduleReflow);
+})();
+</script>
+```
+
+
+## <br>Contents
+
+::: {.index}
+
+- [ ] Observed PPV and PPA Distributions
+- [ ] Predictive Domain and Available Observations by Response
+- [ ] Out-of-Fold (OOF) Predictive Performance
+- [ ] Predictions — PPV and PPA
+- [ ] Residuals — PPV and PPA
+- [ ] Demand Curves — PPV and PPA
+- [ ] Scenario Family and PPV-Based Scale Factors
+- [ ] PPA of PPV-Scaled Scenario Realizations
+
+:::

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "task_file": "/Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/md/gap-eemd-filtering-validation.prompt.md",
+  "slot_count": 5,
+  "constraint_count": 2,
+  "slots": [
+    {"ordinal": 1, "title": "Authoritative EMD/EEMD Filtering References", "instruction": "Identify the EMD/EEMD filtering references that are most authoritative for engineering vibration or transient signal records. Write in flowing paragraphs."},
+    {"ordinal": 2, "title": "Supported Component Removal Practices", "instruction": "Assess what the literature supports regarding removal of high-frequency IMFs, residual or trend terms, or selected modal components in EMD/EEMD filtering and reconstruction. Write in flowing paragraphs."},
+    {"ordinal": 3, "title": "Known Limitations To Report", "instruction": "Explain the known limitations that should be reported, including mode mixing, end effects, non-uniqueness, sensitivity to ensemble or noise parameters, and loss of physical interpretability. Write in flowing paragraphs."},
+    {"ordinal": 4, "title": "Validation Checks For EEMD-Filtered Histories", "instruction": "Identify validation checks that are recommended or defensible for EEMD-filtered engineering histories, including peak preservation, energy preservation, frequency content, drift or baseline checks, response spectra, visual review, and any other relevant diagnostics. Write in flowing paragraphs."},
+    {"ordinal": 5, "title": "Description Without Overclaiming", "instruction": "Explain how EEMD filtering should be described without overclaiming that retained modes are physically unique blast-wave components. Write in flowing paragraphs."}
+  ],
+  "constraints": [
+    "Prepare material for an English technical report.",
+    "Focus on claim support, limitations, and validation expectations for EEMD as an engineering filtering/reconstruction method, not on basic definitions of EMD or EEMD."
+  ]
+}

@@ -1,0 +1,1 @@
+Attenuation with epicentral distance of the median spectral acceleration Sa(Tn = %s s) [g] for the %s ground-motion model set at Mw = %s, reference rock condition Vs30 = 760 m/s and 5%% critical damping. The weighted mixture is reported at quantiles p = %s; the shaded band spans the 5th to 95th percentiles of the conditional distribution.

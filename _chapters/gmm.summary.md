@@ -1,0 +1,30 @@
+Ground-motion prediction equations (GMPEs) provide the ground-motion term of the assessment: the conditional probability $P[I > i^* \mid m, \mathbf r]$ that an intensity measure exceeds a given level for an earthquake of specified magnitude and distance, which the hazard integral weights by the recurrence of the sources and which the deterministic assessment computes directly on the postulated scenarios. Each GMPE predicts the full distribution of the intensity [@Boore2008]:
+
+$$
+\ln I \approx \hat{\eta}_I(m,\mathbf{r},F,S) + \varepsilon\,\sigma_{\ln I}
+$$
+
+where $I$ is the intensity measure (peak or spectral acceleration), $\hat{\eta}_I$ its median as a function of magnitude $m$, source-to-site distance $\mathbf r$, faulting style $F$, and site condition $S$; $\sigma_{\ln I}$ is the standard deviation of the logarithmic residuals, partitioned into between-event and within-event components; and $\varepsilon$ is the standard normal variate representing record-to-record dispersion.
+
+The choice of model is one of the principal sources of epistemic uncertainty in the analysis: candidate GMPEs are calibrated on distinct datasets, adopt distinct functional forms, and encode distinct assumptions about source scaling, geometric spreading, anelastic attenuation, and site amplification, and their medians can diverge substantially across the engineering-relevant magnitude--distance ranges. The assessment represents this uncertainty through an independent logic tree for each tectonic region type, with four regimes covered: Active Shallow Crust (ASC), Stable Continental Crust (SCC), Subduction Interface (SIF), and Subduction Intraslab (SIS).
+
+For Active Shallow Crust (ASC) the tree assembles ten models: the backbone GMPE of the European ESHM20 model by Kotha *et al.* [-@Kotha2020], calibrated on the Engineering Strong Motion dataset; the NGA-West2 model of Campbell and Bozorgnia [-@CampbellBozorgnia2014], the vertical-component model of Bozorgnia and Campbell [-@BozorgniaCampbell2016], and the NGA-West2 formulation of Stewart *et al.* [-@Stewart2016]; the model of Boore *et al.* [-@Boore2021Greece], which adapts the NGA-West2 family to Greek strong motions; the formulations of Chao *et al.* [-@Chao2020] and Phung *et al.* [-@Phung2020] calibrated for Taiwan; the New Zealand model of Atkinson [-@Atkinson2022NZ] and the backbone GMPE of Stafford developed for the 2022 New Zealand National Seismic Hazard Model [-@Bradley2022NZ]; and the formulation of Aristeidou *et al.* [-@Aristeidou2024]. For Stable Continental Crust (SCC) the set comprises six branches: the collapsed USGS NGA-East model [@Goulet2017], the ESHM20 craton formulation [@WeatherillCotton2020], Pezeshk *et al.* [-@Pezeshk2011], Atkinson and Boore [-@AtkinsonBoore2006] with their 2011 update, the `Atkinson2008prime` variant adjusted by Atkinson and Boore [-@AtkinsonBoore2011], and the Yilgarn Craton model of Somerville *et al.* [-@Somerville2009]. For Subduction Interface (SIF) the tree combines ten models: the global NGA-Subduction family of Abrahamson *et al.* [-@AbrahamsonEtAl2016; -@AbrahamsonEtAl2018], Abrahamson and Gulerce [-@AbrahamsonGulerce2022], Kuehn *et al.* [-@Kuehn2020], and Parker *et al.* [-@Parker2022], together with the regional models of Montalva *et al.* [-@Montalva2017] for Chile, Si *et al.* [-@Si2020] for Japan, Atkinson and Macias [-@AtkinsonMacias2009] for Cascadia, Chao *et al.* [-@Chao2020] and Phung *et al.* [-@Phung2020] for Taiwan, and Atkinson [-@Atkinson2022NZ] for New Zealand. For Subduction Intraslab (SIS), the tree assembles the intraslab variants of the same ten families, with the model of Jaimes *et al.* [-@Jaimes2020] for Mexico in place of the Cascadia formulation.
+
+The branches of each tree carry equal weight. In regions whose catalog of strong ground motions is insufficient to statistically discriminate among candidate formulations, assigning differential weights would introduce apparent precision without empirical support and would risk biasing the reported range of epistemic uncertainty; uniform weighting -- the maximum-entropy distribution under a state of equal prior knowledge [@Springer2023LT] -- preserves the full range of scientifically credible predictions, in line with international practice for assessments in regions with sparse recordings [@NRCSSHAC2012].
+
+The logic tree is propagated by evaluating the hazard separately for each branch and combining the resulting curves with their weights [@OpenQuakeEngine]. For evaluations conditioned on a fixed cell $\mathbf{x}=(M_w,R_{epi},h,T_n,V_{S30})$, the lognormal branch distributions form the weighted mixture
+
+$$
+F_{S_a}(a\mid\mathbf{x}) = \sum_{k=1}^{N} w_k\,\Phi\!\left[\frac{\ln a-\mu_k(\mathbf{x})}{\sigma_k(\mathbf{x})}\right].
+$$
+
+In this expression, $a$ is the acceleration level, $k$ identifies one of the $N$ branches, $w_k$ is its weight, $\mu_k(\mathbf{x})$ and $\sigma_k(\mathbf{x})$ are the logarithmic median and the total logarithmic standard deviation predicted by that branch, and $\Phi$ is the standard normal cumulative distribution function. The probability-$p$ quantile and the arithmetic mean of the mixture are
+
+$$
+S_a^{(p)}(\mathbf{x})=F_{S_a}^{-1}(p\mid\mathbf{x}),
+\qquad
+\operatorname{E}[S_a\mid\mathbf{x}]
+=\sum_{k=1}^{N}w_k\exp\!\left[\mu_k(\mathbf{x})+\frac{\sigma_k^2(\mathbf{x})}{2}\right].
+$$
+
+The chapter applies this formulation to the distance attenuation curves and to the response spectra for a given magnitude, depth, and reference condition; the p5–p95 band represents the joint dispersion of the medians across branches and of the aleatory variability of each formulation. The conditional distributions of the GMMs provide the ground-motion term of the PSHA and of the deterministic assessment of the postulated scenarios. The probabilistic estimation of Newmark displacements proceeds from the uniform hazard spectra produced by the PSHA; the influence of the GMMs reaches that stage through those spectra [@VerriKozlowski2026Newmark].

@@ -1,0 +1,25 @@
+```{r}
+#| include: true
+root <- here::here()
+if (!exists("Tn.target") || length(Tn.target) != 1L) Tn.target <- 0
+if (!exists("p.target") || !length(p.target)) p.target <- c("0.10", "0.16", "0.50", "0.84", "0.90")
+TRT.target <- GMPETable[ID %in% ID.target, TRT][1]
+# Snap to the producer magnitude grid: the caption quotes the cell plotted.
+AUX <- sort(unique(GMPETable[ID %in% ID.target, Mw]))
+Mw.target <- AUX[which.min(abs(Mw.target - AUX))]
+rm(AUX)
+if (!exists("CAP", inherits = FALSE)) CAP <- "Attenuation with epicentral distance of the median spectral acceleration Sa(Tn = %s s) [g] for the %s ground-motion model set at Mw = %s, reference rock condition Vs30 = 760 m/s and 5%% critical damping. The weighted mixture is reported at quantiles p = %s; the shaded band spans the 5th to 95th percentiles of the conditional distribution."
+```
+
+```{r}
+#| include: true
+#| label: fig-gmpe
+#| fig-cap: !expr CAP |> sprintf(Tn.target, TRT.target, Mw.target, paste(p.target, collapse = ", "))
+source(file.path(root, "scripts", "fig/GMPE.R"))
+PLOT
+```
+
+```{r}
+#| include: false
+rm(list = intersect(c("CAP", "Tn.target", "dep.target", "TRT.target"), ls()))
+```

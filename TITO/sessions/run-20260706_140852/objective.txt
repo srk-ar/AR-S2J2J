@@ -1,0 +1,130 @@
+RUNTIME CONTEXT
+- Workflow: session-prompt
+- Session: 1/1
+- Model: gpt-5.5
+- Effort: xhigh
+- Executor contract: the configured executor receives this objective via stdin and must emit only the manifest-defined artifact(s).
+- Memory tools available under namespace 'tito.T5'; use only as cache, never cite memory as evidence.
+PROMPT WORKFLOW (TASK -> SLOT-BASED STRUCTURED PROMPT)
+
+You will read a free-form TASK_FILE and produce one normalized prompt document
+with optional CONTEXT plus a fixed SLOTS + CONSTRAINTS layout.
+
+Inputs (absolute paths provided):
+- TASK_FILE: /Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/tasks/gap-tsf-blasting-pore-pressure-liquefaction.md
+- INPUT_DIR (optional):          # Not used for evidence in this workflow
+- SESSION_DIR: /Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/sessions/run-20260706_140852
+- FORMAT_RULES: /usr/local/libexec/tito/rules/format.session.md        # rules/format.session.md (style only)
+- AUDIT_RULES: /usr/local/libexec/tito/rules/audit.md          # Internal check discipline only
+- MANIFEST: /Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/sessions/run-20260706_140852/manifest.json    # CLI-provided manifest (authoritative I/O)
+
+Goal:
+Produce ONE markdown file representing the structured prompt.
+Output filename is controlled by MANIFEST:
+  /Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/sessions/run-20260706_140852/<MANIFEST.outputs.primary>
+Do NOT derive output filenames from TASK_FILE or workflow names.
+
+The structured prompt must follow this contract:
+- Optionally include a `## CONTEXT` section before `## SLOTS` when TASK_FILE contains
+  global objective, background, physical setting, or shared framing that applies
+  to multiple work items.
+- Contain a `## SLOTS` section.
+- Contain a `## CONSTRAINTS` section for true global constraints only.
+- Preserve the original intent and ordering of TASK_FILE.
+- Represent each distinct underlying work item once.
+- Avoid audit notes, coverage notes, citations, confidence footnotes, source
+  IDs, hidden rationale, or implementation details in the generated prompt.
+
+Slot definition:
+- A slot is a distinct underlying work item requested by TASK_FILE.
+- A slot is NOT every mention, bullet, sentence, or paraphrase.
+- Global objective, background, physical setting, and shared context are
+  framing material, not slots, unless TASK_FILE explicitly asks for them as a
+  separate question, deliverable, output, or work item.
+- Repeated or paraphrased requests MUST be merged into one slot.
+- Separate slots are allowed only when TASK_FILE gives a clear discriminant:
+  topic, entity, scale, method, regime, period, or output.
+- Tightly coupled sub-steps of one underlying work item stay in that slot.
+- If two candidate final slots cannot be separated using only TASK_FILE, fail
+  instead of emitting an ambiguous prompt.
+
+Method:
+
+1) Read TASK_FILE and identify candidate work items
+   - Read TASK_FILE once, end to end.
+   - Identify explicit questions, subtasks, requested outputs, and deliverables.
+   - Identify global objective, background, physical setting, and shared
+     context that frame multiple work items.
+   - Group candidates by underlying work item before writing any slot.
+   - Merge repeated/paraphrased candidates unless TASK_FILE gives a clear
+     discriminant: topic, entity, scale, method, regime, period, or output.
+   - Preserve the order of first appearance for the final merged work items.
+   - Identify explicit global constraints that clearly apply to the entire
+     downstream workflow, not just to one work item.
+   - Do not infer voice, notation, preferred sources, or execution policy from
+     context unless TASK_FILE states them explicitly as document-wide
+     requirements.
+
+2) Build optional CONTEXT section
+   - If TASK_FILE contains global objective, background, physical setting, or
+     shared context that applies to multiple slots, add `## CONTEXT` before
+     `## SLOTS`.
+   - The CONTEXT section must use only TASK_FILE information.
+   - CONTEXT is framing only. Do not include separate work-item instructions
+     there, and do not promote framing material into a slot.
+   - If TASK_FILE contains no useful shared framing, omit `## CONTEXT`.
+
+3) Build SLOTS section
+   - Add the heading `## SLOTS`.
+   - Create one slot per distinct underlying work item after grouping.
+   - For each slot, add a heading:
+     - `### SLOT N: <short title>` where N is 1-based and `<short title>` is
+       derived from TASK_FILE wording.
+   - Under each slot heading, add a short description that:
+     - Uses only information from TASK_FILE.
+     - States what must be done for that work item.
+     - Preserves slot-specific instructions inside the slot.
+     - Does not introduce new objectives or sub-goals.
+     - Does not repeat global constraints that belong in `## CONSTRAINTS`.
+     - Ends with presentation guidance only when TASK_FILE gives a format
+       signal. If TASK_FILE gives no format signal, end with:
+       "Write in flowing paragraphs."
+
+4) Build CONSTRAINTS section
+   - Add the heading `## CONSTRAINTS`.
+   - List only explicit document-wide constraints as `- ...` bullets, such as:
+     - Language or locale requirements for the entire output.
+     - Document-wide structural rules explicitly stated in TASK_FILE.
+     - Global length/formatting constraints that apply to every slot.
+   - Do not move slot-specific instructions into global CONSTRAINTS.
+   - Constraints MUST be paraphrases of explicit, document-wide requirements
+     stated in TASK_FILE.
+   - Do not invent constraints.
+   - Do not describe tools, workflows, executor behavior, or implementation
+     details here.
+
+5) Internal coverage and overlap check
+   - Use TASK_FILE as the only evidence source.
+   - Use AUDIT_RULES only as internal discipline. Do not emit AUDIT_RULES
+     formatting or audit-style notes in the generated prompt.
+   - Verify that each final slot is justified by TASK_FILE.
+   - Verify that every explicit underlying work item is covered once.
+   - Verify that global objective/background/context is not emitted as a slot
+     unless TASK_FILE explicitly requests it as a separate work item.
+   - Verify that global constraints are not repeated in slots.
+   - Compare final slots pairwise:
+     - Merge duplicates and paraphrases.
+     - Keep separate slots only when their discriminant is explicit in TASK_FILE:
+       topic, entity, scale, method, regime, period, or output.
+     - If separation is still ambiguous, stop and report the conflict instead
+       of writing the prompt.
+
+6) Apply formatting rules and write output file
+   - If FORMAT_RULES is a non-empty path, read and apply those style rules
+     without changing slot meaning or constraint meaning.
+   - Read MANIFEST and use `outputs.primary` as the only valid output filename.
+   - Use Write tool to save the structured prompt to:
+     /Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/sessions/run-20260706_140852/<MANIFEST.outputs.primary>
+   - Write only the prompt document with optional `## CONTEXT`, required
+     `## SLOTS`, and required `## CONSTRAINTS`.
+   - Confirm: "Structured prompt written to /Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/sessions/run-20260706_140852/<MANIFEST.outputs.primary>"

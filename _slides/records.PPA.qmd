@@ -1,0 +1,3 @@
+## <br>Observed PPA Distributions
+
+{{< include /_fig/records.PPA.qmd >}}

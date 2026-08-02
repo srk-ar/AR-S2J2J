@@ -1,0 +1,1 @@
+This part derives the performance-based seismic design parameters. The chain starts from the ground stiffness and the fundamental periods of the slopes, evaluates the permanent Newmark displacements for the target motion, and culminates in the seismic coefficients $k_{\max}$ and $k_h$ associated with the admissible displacement.

@@ -1,0 +1,80 @@
+```{r}
+#| include: false
+if (!exists("CAP", inherits = FALSE)) CAP <- "Probability of exceedance curves for maximum horizontal pseudo-spectral acceleration Sa(Tn) [g] with 5%% critical damping, evaluated for structural periods from %g to %g s and reference site conditions Vs30 = %s m/s."
+Target <- .currentTarget("ID.target")
+```
+
+:::{.content-visible when-format='docx'}
+
+```{r}
+#| eval: !expr knitr::pandoc_to("docx")
+#| include: true
+ID.target <- .resolveIDTarget(
+  AEPTable,
+  "POE.qmd",
+  target = Target,
+  siteID = .currentTarget("siteID.target"),
+  base = TRUE
+)
+Tn.target <- 0
+Vs30.target <- 800
+Vref.target <- .resolveValueTarget(Vref.gmdp, "Vref.target", "POE.qmd")
+```
+
+```{r}
+#| eval: !expr knitr::pandoc_to("docx")
+#| include: true
+#| label: fig-poe_pga_docx
+#| fig-cap: !expr CAP |> sprintf(min(Tn.target), max(Tn.target), Vs30.target)
+source(file.path(root,"scripts","fig/POE.R"))
+PLOT
+```
+
+:::
+
+
+:::{.content-hidden when-format='docx'}
+
+
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+if (!exists("Vs30.target") || !length(Vs30.target)) {
+  Vs30.target <- .resolveValueTarget(Vref.gmdp, "Vs30.target", "POE.qmd")
+}
+if (!exists("Vref.target") || !length(Vref.target)) {
+  Vref.target <- .resolveValueTarget(Vref.gmdp, "Vref.target", "POE.qmd")
+}
+ID.target <- .resolveIDTarget(
+  AEPTable,
+  "POE.qmd",
+  target = Target,
+  siteID = .currentTarget("siteID.target"),
+  base = TRUE
+)
+if (!exists("p.target") || !length(p.target)) p.target <- p.gmdp
+if (!exists("Tn.target") || !length(Tn.target)) Tn.target <- Tn.gmdp
+```
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-poe
+#| fig-cap: !expr CAP |> sprintf(min(Tn.target), max(Tn.target), Vs30.target)
+source(file.path(root,"scripts","fig/POE.R"))
+PLOT
+```
+
+:::
+
+
+```{r}
+#| include: false
+rm(list = intersect(c(
+  "ID.target", "p.target", "Vs30.target", "Vref.target", "Tn.target",
+  "CAP"
+), ls()))
+if (exists("Target", inherits = FALSE) && length(Target)) ID.target <- Target
+rm(list = intersect("Target", ls()))
+```

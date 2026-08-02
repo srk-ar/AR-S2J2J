@@ -1,0 +1,14 @@
+```{r}
+#| include: false
+FAMILY_LABEL <- "PPA"
+COMPONENT_LABELS <- c(
+  resultant = "resultante",
+  L = "longitudinal",
+  T = "transversal",
+  V = "vertical"
+)
+CAP1 <- "%s: residuos OOF en función de la predicción retenida. La línea horizontal identifica residuo cero y los símbolos distinguen la procedencia de las observaciones."
+CAP2 <- "%s: distribución de los mismos residuos OOF en la escala $\\log_{10}$. Sus cuantiles empíricos determinan los niveles p50, p90 y p95."
+```
+
+{{< include /_fig/residuals.PPA.qmd >}}

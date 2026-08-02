@@ -1,0 +1,41 @@
+```{r}
+#| echo: false
+#| results: asis
+# Mw.gmm: scalar for a flat magnitude, or a named vector keyed by TRT
+# for scenario-linked magnitudes (e.g. c(ASC = 7.7, SCC = 5.5, SIF = 9)).
+# No shared ephemerals here: knitBlock children run in the global env
+# and rm() the canonical names (AUX et al.).
+for (Trt in sort(unique(GMPETable$TRT))) {
+  Mw.target <- if (!exists("Mw.gmm", inherits = FALSE)) 6.5 else if (is.null(names(Mw.gmm))) Mw.gmm[[1L]] else if (Trt %in% names(Mw.gmm)) Mw.gmm[[Trt]] else 6.5
+  cat(sprintf(
+    "\n\n## Ground Motion Models<br>%s (%s)\n\n",
+    switch(Trt,
+      ASC = "Active Shallow Crust",
+      SCC = "Stable Continental Crust",
+      SIF = "Subduction Interface",
+      SIS = "Subduction Intraslab",
+      Trt
+    ),
+    Trt
+  ))
+  cat("::: {.panel-tabset}\n\n")
+  cat("### Attenuation\n\n")
+  NGR::knitBlock(
+    path = "/_fig/GMPE.qmd",
+    stem = paste0("gmm-", tolower(Trt), "-att"),
+    labels = "rewrite",
+    vars = list(ID.target = unique(GMPETable[TRT == Trt, ID]), Mw.target = Mw.target),
+    root = root
+  )
+  cat("\n\n### Spectra\n\n")
+  NGR::knitBlock(
+    path = "/_fig/GMPE.PSA.qmd",
+    stem = paste0("gmm-", tolower(Trt), "-psa"),
+    labels = "rewrite",
+    vars = list(ID.target = unique(GMPETable[TRT == Trt, ID]), Mw.target = Mw.target, Repi.target = 100),
+    root = root
+  )
+  cat("\n\n:::\n\n")
+}
+rm(Trt, Mw.target)
+```

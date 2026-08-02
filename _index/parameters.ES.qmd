@@ -1,0 +1,3 @@
+# Parte III — Parámetros de Diseño Sísmico
+
+{{< include /_chapters/parameters.es.md >}}

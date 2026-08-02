@@ -1,0 +1,45 @@
+```{r}
+#| include: true
+MCERIDHadTarget <- exists("ID.target", inherits = FALSE)
+MCERIDTarget <- .currentTarget("ID.target")
+MCERIDRequest <- MCERIDTarget
+if (!length(MCERIDRequest)) MCERIDRequest <- .currentTarget("ID.gmdp")
+ID.target <- .resolveIDTarget(
+  ASCETable,
+  "MCER.qmd",
+  target = MCERIDRequest,
+  siteID = .currentTarget("siteID.target"),
+  base = TRUE
+)
+MCERPTarget <- .currentTarget("p.target")
+Sa.log   <- TRUE
+Tn.log   <- TRUE
+if (!exists("CAP", inherits = FALSE)) CAP <- "Risk-targeted MCER spectrum according to ASCE 7-22, spectral accelerations Sa(Tn) [g] with 5%% critical damping. Vs30=%d m/s."
+```
+
+:::{.content-visible when-format='docx'}
+
+```{r}
+#| include: true
+#| label: fig-mcer_docx
+#| fig-cap: !expr CAP |> sprintf(800)
+Vs30.target <- 800
+source(file.path(root, "scripts", "fig/MCER.R"))
+PLOT
+```
+
+:::
+
+:::{.content-hidden when-format='docx'}
+{{< include /_fig/MCER_Vs30.qmd >}}
+:::
+
+```{r}
+#| include: false
+rm(
+  ID.target, MCERIDRequest, MCERPTarget, Vs30.target,
+  Sa.log, Tn.log, CAP
+)
+if (MCERIDHadTarget) ID.target <- MCERIDTarget
+rm(MCERIDHadTarget, MCERIDTarget)
+```

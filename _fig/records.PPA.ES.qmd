@@ -1,0 +1,12 @@
+```{r}
+#| include: false
+FAMILY_LABEL <- "PPA"
+CAP <- paste0(
+  "Distribución observada de %s en la muestra QDS de observaciones admitidas para la modelación ",
+  "($n = %d$; %s; rango %.3g--%.3g %s). ",
+  "Las columnas muestran el conteo por intervalo; la curva de densidad ",
+  "reescalada puede activarse desde la leyenda."
+)
+```
+
+{{< include /_fig/records.PPA.qmd >}}

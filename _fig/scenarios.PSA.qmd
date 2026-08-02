@@ -1,0 +1,276 @@
+```{r}
+#| include: false
+if (!exists("CAP", inherits = FALSE)) {
+  CAP <- paste(
+    "Five-percent-damped pseudoacceleration spectra for product %s at",
+    "predictive level p=%s. The panel fixes Q=%s kg; each curve is the",
+    "pointwise median of %s realizations for the indicated distance.",
+    "Tn=0 corresponds to PGA."
+  )
+}
+
+SCENARIO.CFG.FILE <- file.path(root, "scripts", "runScenarios.json")
+SCENARIO.CFG <- jsonlite::read_json(
+  SCENARIO.CFG.FILE,
+  simplifyVector = TRUE
+)
+SCENARIO.CFG.REQ <- c(
+  "InputID", "D.grid", "MIC.grid", "P", "D50", "nTheta"
+)
+if (length(setdiff(SCENARIO.CFG.REQ, names(SCENARIO.CFG)))) {
+  stop("scenarios.PSA.qmd: runScenarios.json is incomplete.", call. = FALSE)
+}
+SCENARIO.INPUT.CFG <- as.character(SCENARIO.CFG$InputID)
+SCENARIO.D.CFG <- as.numeric(SCENARIO.CFG$D.grid)
+SCENARIO.Q.CFG <- as.numeric(SCENARIO.CFG$MIC.grid)
+SCENARIO.P.CFG <- as.numeric(SCENARIO.CFG$P)
+SCENARIO.NTHETA.CFG <- as.integer(SCENARIO.CFG$nTheta)
+if (length(SCENARIO.INPUT.CFG) != 1L ||
+    !nzchar(SCENARIO.INPUT.CFG) ||
+    !length(SCENARIO.D.CFG) ||
+    !length(SCENARIO.Q.CFG) ||
+    length(SCENARIO.P.CFG) != 1L ||
+    !is.finite(SCENARIO.P.CFG) ||
+    isTRUE(SCENARIO.CFG$D50)) {
+  stop("scenarios.PSA.qmd: unsupported scenario configuration.",
+       call. = FALSE)
+}
+
+SCENARIO.PATH <- file.path(root, "data", "records", "scenarios")
+SCENARIO.DIRS <- list.dirs(
+  SCENARIO.PATH,
+  recursive = FALSE,
+  full.names = TRUE
+)
+if (!length(SCENARIO.DIRS)) {
+  stop("scenarios.PSA.qmd: no generated scenarios were found.", call. = FALSE)
+}
+
+SCENARIO.INVENTORY <- data.table::rbindlist(lapply(
+  SCENARIO.DIRS,
+  function(PATH.sc) {
+    ScenarioID <- basename(PATH.sc)
+    JSON.FILES <- list.files(
+      PATH.sc,
+      pattern = "\\.json$",
+      full.names = TRUE
+    )
+    JSON.FILE <- file.path(PATH.sc, sprintf("%s.json", ScenarioID))
+    PSW.FILE <- file.path(PATH.sc, "PSW.csv")
+    if (length(JSON.FILES) != 1L ||
+        !file.exists(JSON.FILE) ||
+        !identical(
+          normalizePath(JSON.FILES, mustWork = TRUE),
+          normalizePath(JSON.FILE, mustWork = TRUE)
+        ) ||
+        !file.exists(PSW.FILE)) {
+      stop(sprintf(
+        "scenarios.PSA.qmd: incomplete scenario product %s.",
+        ScenarioID
+      ), call. = FALSE)
+    }
+    J <- jsonlite::read_json(JSON.FILE, simplifyVector = TRUE)
+    REQ <- c(
+      "InputID", "OutputID", "D", "MIC", "P", "Fmax", "xi",
+      "D50", "D100", "nTheta", "TargetUnits"
+    )
+    if (length(setdiff(REQ, names(J))) ||
+        !identical(as.character(J$OutputID), ScenarioID)) {
+      stop(sprintf(
+        "scenarios.PSA.qmd: invalid sidecar for %s.",
+        ScenarioID
+      ), call. = FALSE)
+    }
+    data.table::data.table(
+      ScenarioID = ScenarioID,
+      PATH.sc = PATH.sc,
+      PSW.file = PSW.FILE,
+      InputID = as.character(J$InputID),
+      D = as.numeric(J$D),
+      MIC = as.numeric(J$MIC),
+      P = as.numeric(J$P),
+      Fmax = as.numeric(J$Fmax),
+      xi = as.numeric(J$xi),
+      D50 = isTRUE(J$D50),
+      D100 = isTRUE(J$D100),
+      nTheta = as.integer(J$nTheta),
+      TargetUnits = as.character(J$TargetUnits)
+    )
+  }
+), use.names = TRUE)
+
+SCENARIO.EXPECTED <- data.table::CJ(
+  D = SCENARIO.D.CFG,
+  MIC = SCENARIO.Q.CFG,
+  P = SCENARIO.P.CFG,
+  unique = TRUE
+)
+SCENARIO.ACTUAL <- unique(
+  SCENARIO.INVENTORY[, .(D, MIC, P)]
+)
+if (nrow(data.table::fsetdiff(SCENARIO.EXPECTED, SCENARIO.ACTUAL)) ||
+    nrow(data.table::fsetdiff(SCENARIO.ACTUAL, SCENARIO.EXPECTED)) ||
+    any(SCENARIO.INVENTORY$InputID != SCENARIO.INPUT.CFG) ||
+    data.table::uniqueN(SCENARIO.INVENTORY$Fmax) != 1L ||
+    any(abs(SCENARIO.INVENTORY$xi - 0.05) > 1e-12) ||
+    any(SCENARIO.INVENTORY$D50) ||
+    any(SCENARIO.INVENTORY$D100) ||
+    any(SCENARIO.INVENTORY$nTheta != SCENARIO.NTHETA.CFG) ||
+    data.table::uniqueN(SCENARIO.INVENTORY$TargetUnits) != 1L) {
+  stop("scenarios.PSA.qmd: scenario sidecars do not satisfy the configured contract.",
+       call. = FALSE)
+}
+
+SCENARIO.AUDIT <- data.table::fread(
+  file.path(root, "data", "audit", "summary.csv")
+)
+SCENARIO.AUDIT.REQ <- c("ScenarioID", "PASS")
+if (length(setdiff(SCENARIO.AUDIT.REQ, names(SCENARIO.AUDIT))) ||
+    !setequal(
+      SCENARIO.AUDIT$ScenarioID,
+      SCENARIO.INVENTORY$ScenarioID
+    ) ||
+    any(is.na(SCENARIO.AUDIT$PASS)) ||
+    any(!SCENARIO.AUDIT$PASS)) {
+  stop("scenarios.PSA.qmd: the scenario audit is incomplete or not fully satisfactory.",
+       call. = FALSE)
+}
+
+SCENARIO.COMPONENTS <- c("H1", "H2", "UP")
+SCENARIO.PSA.COLS <- paste0("PSA.", SCENARIO.COMPONENTS)
+SCENARIO.PSA.LIST <- vector("list", nrow(SCENARIO.INVENTORY))
+SCENARIO.RECORDS.REF <- NULL
+SCENARIO.PERIODS.REF <- NULL
+for (i in seq_len(nrow(SCENARIO.INVENTORY))) {
+  ROW <- SCENARIO.INVENTORY[i]
+  PS <- data.table::fread(ROW$PSW.file)
+  REQ <- c("RecordID", "xi", "Tn", SCENARIO.PSA.COLS)
+  if (length(setdiff(REQ, names(PS))) ||
+      anyDuplicated(PS, by = c("RecordID", "xi", "Tn")) ||
+      any(!is.finite(PS$xi)) ||
+      any(abs(PS$xi - ROW$xi) > 1e-12) ||
+      any(!is.finite(PS$Tn)) ||
+      any(PS$Tn < 0) ||
+      any(!is.finite(
+        PS[, unlist(.SD), .SDcols = SCENARIO.PSA.COLS]
+      )) ||
+      any(PS[, unlist(.SD), .SDcols = SCENARIO.PSA.COLS] <= 0)) {
+    stop(sprintf(
+      "scenarios.PSA.qmd: invalid PSA schema in %s.",
+      ROW$ScenarioID
+    ), call. = FALSE)
+  }
+  RECORDS <- sort(unique(as.character(PS$RecordID)))
+  PERIODS <- sort(unique(as.numeric(PS$Tn)))
+  if (is.null(SCENARIO.RECORDS.REF)) {
+    SCENARIO.RECORDS.REF <- RECORDS
+    SCENARIO.PERIODS.REF <- PERIODS
+  } else if (!identical(RECORDS, SCENARIO.RECORDS.REF) ||
+             !identical(PERIODS, SCENARIO.PERIODS.REF)) {
+    stop("scenarios.PSA.qmd: record population or period grid changes between scenarios.",
+         call. = FALSE)
+  }
+  LONG <- data.table::melt(
+    PS,
+    id.vars = c("RecordID", "xi", "Tn"),
+    measure.vars = SCENARIO.PSA.COLS,
+    variable.name = "OCID",
+    value.name = "PSA"
+  )
+  LONG[, OCID := sub("^PSA\\.", "", as.character(OCID))]
+  AUX <- LONG[, .(
+    q50 = stats::median(PSA),
+    N = data.table::uniqueN(RecordID)
+  ), by = .(OCID, Tn)]
+  AUX[, `:=`(
+    ScenarioID = as.character(ROW$ScenarioID),
+    D = as.numeric(ROW$D),
+    MIC = as.numeric(ROW$MIC),
+    P = as.numeric(ROW$P)
+  )]
+  data.table::setcolorder(
+    AUX,
+    c("ScenarioID", "D", "MIC", "P", "OCID", "Tn", "q50", "N")
+  )
+  SCENARIO.PSA.LIST[[i]] <- AUX
+}
+
+SCENARIO_PSA <- data.table::rbindlist(
+  SCENARIO.PSA.LIST,
+  use.names = TRUE
+)
+if (!setequal(unique(SCENARIO_PSA$OCID), SCENARIO.COMPONENTS) ||
+    anyDuplicated(
+      SCENARIO_PSA,
+      by = c("ScenarioID", "OCID", "Tn")
+    ) ||
+    any(!is.finite(SCENARIO_PSA$q50)) ||
+    any(SCENARIO_PSA$q50 <= 0) ||
+    data.table::uniqueN(SCENARIO_PSA$N) != 1L) {
+  stop("scenarios.PSA.qmd: aggregated scenario PSA is inconsistent.",
+       call. = FALSE)
+}
+
+SCENARIO_INPUT_ID <- unique(SCENARIO.INVENTORY$InputID)
+SCENARIO_P <- unique(SCENARIO.INVENTORY$P)
+SCENARIO_CHARGES <- sort(unique(SCENARIO.INVENTORY$MIC))
+SCENARIO_N_RECORDS <- unique(SCENARIO_PSA$N)
+SCENARIO_TARGET_UNITS <- unique(SCENARIO.INVENTORY$TargetUnits)
+```
+
+::: {.panel-tabset .full-width}
+
+```{r}
+#| results: asis
+#| echo: false
+#| include: !expr knitr::is_html_output()
+for (.OCID in SCENARIO.COMPONENTS) {
+  cat(sprintf("\n#### %s\n\n", .OCID))
+  cat("::: {.panel-tabset .full-width}\n")
+  for (.MIC in SCENARIO_CHARGES) {
+    cat(sprintf(
+      "\n##### $Q=%s\\,\\mathrm{kg}$\n\n",
+      format(.MIC, trim = TRUE, scientific = FALSE)
+    ))
+    .CAPTION <- sprintf(
+      CAP,
+      SCENARIO_INPUT_ID,
+      formatC(SCENARIO_P, format = "f", digits = 2L),
+      format(.MIC, trim = TRUE, scientific = FALSE),
+      SCENARIO_N_RECORDS
+    )
+    NGR::knitBlock(
+      path = "/_fig/scenarios.PSA.cell.qmd",
+      stem = sprintf(
+        "scenarios-psa-%s-q%s",
+        tolower(.OCID),
+        gsub("[.]", "p", format(.MIC, trim = TRUE))
+      ),
+      labels = "rewrite",
+      vars = list(
+        OCID.target = .OCID,
+        MIC.target = .MIC,
+        CAPTION = .CAPTION
+      ),
+      root = root
+    )
+  }
+  cat("\n:::\n")
+}
+```
+
+:::
+
+```{r}
+#| include: false
+rm(list = intersect(c(
+  "CAP", "SCENARIO.ACTUAL", "SCENARIO.AUDIT", "SCENARIO.AUDIT.REQ",
+  "SCENARIO.CFG", "SCENARIO.CFG.FILE", "SCENARIO.CFG.REQ",
+  "SCENARIO.D.CFG", "SCENARIO.DIRS", "SCENARIO.EXPECTED",
+  "SCENARIO.INPUT.CFG", "SCENARIO.INVENTORY", "SCENARIO.NTHETA.CFG",
+  "SCENARIO.P.CFG", "SCENARIO.PATH", "SCENARIO.PERIODS.REF",
+  "SCENARIO.PSA.COLS", "SCENARIO.PSA.LIST", "SCENARIO.Q.CFG",
+  "SCENARIO.RECORDS.REF", ".CAPTION", ".MIC", ".OCID", "i", "LONG",
+  "AUX", "PERIODS", "PS", "RECORDS", "REQ", "ROW"
+), ls()))
+```

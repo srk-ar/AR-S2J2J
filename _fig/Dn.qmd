@@ -1,0 +1,97 @@
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+Target <- .currentTarget("ID.target")
+ID.target <- .resolveDerivedIDTarget(
+  DnTable,
+  "Dn.qmd",
+  suffix = ".max",
+  target = Target,
+  siteID = .currentTarget("siteID.target")
+)
+IDn.target <- c("ensemble", "rigid", "flexible")
+IDg.target <- IDg.gmdp
+Da.target  <- Da.gmdp
+p.target   <- p.gmdp
+TR.label <- prettyNum(TR.gmdp, big.mark = ",", scientific = FALSE)
+if (!exists("CAP", inherits = FALSE)) CAP <- "Newmark sliding-block model. Residual displacements [cm] for geometry %s (scenario %d). Ensemble, rigid, and flexible curves are shown with fractiles. Values are reported for target ground motion with 1/%.0f AEP [1/yr]."
+```
+
+:::{.panel-tabset .full-width}
+
+#### $`r TR.label[1]`$
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/Dn_IDg.qmd", stem = .composeTargetStem("dn-tr1"), labels = "rewrite", vars = list(TR.target = TR.gmdp[1]), root = root)
+```
+
+#### $`r TR.label[2]`$
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/Dn_IDg.qmd", stem = .composeTargetStem("dn-tr2"), labels = "rewrite", vars = list(TR.target = TR.gmdp[2]), root = root)
+```
+
+#### $`r TR.label[3]`$
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/Dn_IDg.qmd", stem = .composeTargetStem("dn-tr3"), labels = "rewrite", vars = list(TR.target = TR.gmdp[3]), root = root)
+```
+
+#### $`r TR.label[4]`$
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/Dn_IDg.qmd", stem = .composeTargetStem("dn-tr4"), labels = "rewrite", vars = list(TR.target = TR.gmdp[4]), root = root)
+```
+
+#### $`r TR.label[5]`$
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/Dn_IDg.qmd", stem = .composeTargetStem("dn-tr5"), labels = "rewrite", vars = list(TR.target = TR.gmdp[5]), root = root)
+```
+
+#### $`r TR.label[6]`$
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/Dn_IDg.qmd", stem = .composeTargetStem("dn-tr6"), labels = "rewrite", vars = list(TR.target = TR.gmdp[6]), root = root)
+```
+
+#### $`r TR.label[7]`$
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/Dn_IDg.qmd", stem = .composeTargetStem("dn-tr7"), labels = "rewrite", vars = list(TR.target = TR.gmdp[7]), root = root)
+```
+
+#### $`r TR.label[8]`$
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/Dn_IDg.qmd", stem = .composeTargetStem("dn-tr8"), labels = "rewrite", vars = list(TR.target = TR.gmdp[8]), root = root)
+```
+
+:::
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: false
+rm(list = intersect(c(
+  "ID.target", "IDn.target", "IDg.target", "Da.target", "p.target",
+  "TR.target", "TR.label", "TR_UNIT", "CAP"
+), ls()))
+if (exists("Target", inherits = FALSE) && length(Target)) ID.target <- Target
+rm(list = intersect("Target", ls()))
+```

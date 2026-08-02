@@ -1,0 +1,91 @@
+:::{.content-hidden when-format='docx'}
+
+:::{.panel-tabset .full-width }
+
+#### `r Site.label[7]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-mcer_vs30_1500
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[7])
+
+Vs30.target <- Vs30.gmdp[7]
+source(file.path(root,"scripts","fig/MCER.R"))
+PLOT
+```
+
+#### `r Site.label[6]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-mcer_vs30_1250
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[6])
+
+Vs30.target <- Vs30.gmdp[6]
+source(file.path(root,"scripts","fig/MCER.R"))
+PLOT
+```
+
+#### `r Site.label[5]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-mcer_vs30_800
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[5])
+
+Vs30.target <- Vs30.gmdp[5]
+source(file.path(root,"scripts","fig/MCER.R"))
+PLOT
+```
+
+#### `r Site.label[4]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-mcer_vs30_560
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[4])
+
+Vs30.target <- Vs30.gmdp[4]
+source(file.path(root,"scripts","fig/MCER.R"))
+PLOT
+```
+
+#### `r Site.label[3]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-mcer_vs30_360
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[3])
+
+Vs30.target <- Vs30.gmdp[3]
+source(file.path(root,"scripts","fig/MCER.R"))
+PLOT
+```
+
+#### `r Site.label[2]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-mcer_vs30_270
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[2])
+
+Vs30.target <- Vs30.gmdp[2]
+source(file.path(root,"scripts","fig/MCER.R"))
+PLOT
+```
+
+#### `r Site.label[1]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-mcer_vs30_180
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[1])
+
+Vs30.target <- Vs30.gmdp[1]
+source(file.path(root,"scripts","fig/MCER.R"))
+PLOT
+```
+
+:::
+
+:::

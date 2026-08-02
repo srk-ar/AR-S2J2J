@@ -1,0 +1,73 @@
+```{r}
+#| include: false
+CAP <- c(
+  executive = paste(
+    "Desempeño OOF del modelo retenido para la familia PPV y la PPA",
+    "resultante. N es el número de pares OOF comunes; el RMSE OOF se expresa",
+    "en la unidad física indicada. Delta RMSE es la reducción respecto de",
+    "t=0 en la escala log10(response), y Delta R2 es el aumento correspondiente",
+    "del R2 OOF. PPV.L, PPV.T y PPV.V se conservan porque definen los objetivos",
+    "por componente utilizados para construir los escenarios."
+  ),
+  performance = paste(
+    "Desempeño OOF del ensemble ponderado por la inversa del RMSE OOF en",
+    "la iteración retenida $t^*$ de cada respuesta, definida como la primera",
+    "iteración que alcanza el máximo $R^2$ OOF. $N$ es el número de pares",
+    "observación--predicción OOF; $R^2=\\operatorname{Cor}^2(z,",
+    "\\hat z_{\\mathrm{OOF}})$. El RMSE logarítmico se calcula sobre",
+    "$z=\\log_{10}y$; el RMSE físico utiliza las predicciones OOF",
+    "retransformadas y se expresa en mm/s para PPV y en g para PPA."
+  ),
+  conditioning = paste(
+    "Comparación OOF sobre la misma muestra entre la formulación",
+    "independiente $t=0$, que utiliza las covariables físicas, y la",
+    "formulación retenida $t^*$, que puede incorporar predicciones p50 de las",
+    "respuestas acompañantes. $N$ es el número de pares observación--predicción",
+    "OOF comunes. Ambos RMSE se calculan sobre $\\log_{10}(response)$;",
+    "$\\Delta\\mathrm{RMSE}=100[1-",
+    "\\mathrm{RMSE}_{t^*}/\\mathrm{RMSE}_{t=0}]$ y",
+    "$\\Delta R^2=R^2_{t^*}-R^2_{t=0}$. La iteración se retiene por $R^2$",
+    "OOF, no por RMSE."
+  ),
+  bands = paste(
+    "Cuantiles empíricos del residuo OOF con signo",
+    "$z-\\hat z_{\\mathrm{OOF}}$ de la formulación retenida. $q_{50}$,",
+    "$q_{90}$ y $q_{95}$ son correcciones aditivas en escala $\\log_{10}$;",
+    "las columnas p90/p50 y p95/p50 son los factores multiplicativos",
+    "$10^{q_p-q_{50}}$."
+  ),
+  learnersPPV = paste(
+    "Métricas OOF formales de SSEL en la iteración retenida $t^*$ de cada",
+    "respuesta PPV. Se conservan los nombres de columna de `metrics.csv`:",
+    "`response` identifica la amplitud modelada; `method` es el identificador",
+    "exacto del método en SSEL; `n` es la cantidad de filas de entrenamiento;",
+    "`rmse` es la raíz del error cuadrático medio OOF; y `r2` es el cuadrado",
+    "de la correlación muestral entre observaciones y predicciones OOF. Como",
+    "las respuestas se modelan mediante $z=\\log_{10}y$, `rmse` se expresa",
+    "en unidades de $\\log_{10}(response)$; `r2` es adimensional. Las filas",
+    "incluyen los cinco base learners y las formulaciones `ensemble.R2` y",
+    "`ensemble.RMSE`."
+  ),
+  learnersPPA = paste(
+    "Métricas OOF formales de SSEL en la iteración retenida $t^*$ de cada",
+    "respuesta PPA. Se conservan los nombres de columna de `metrics.csv`:",
+    "`response` identifica la amplitud modelada; `method` es el identificador",
+    "exacto del método en SSEL; `n` es la cantidad de filas de entrenamiento;",
+    "`rmse` es la raíz del error cuadrático medio OOF; y `r2` es el cuadrado",
+    "de la correlación muestral entre observaciones y predicciones OOF. Como",
+    "las respuestas se modelan mediante $z=\\log_{10}y$, `rmse` se expresa",
+    "en unidades de $\\log_{10}(response)$; `r2` es adimensional. Las filas",
+    "incluyen los cinco base learners y las formulaciones `ensemble.R2` y",
+    "`ensemble.RMSE`."
+  )
+)
+TABS <- c(
+  performance = "Desempeño OOF",
+  conditioning = "Formulación independiente y retenida",
+  bands = "Correcciones por cuantiles residuales",
+  learnersPPV = "Métodos y ensembles PPV",
+  learnersPPA = "Métodos y ensembles PPA"
+)
+```
+
+{{< include /_tbl/metrics.qmd >}}

@@ -1,0 +1,36 @@
+```{r}
+#| include: false
+if (!exists("CAP", inherits = FALSE)) CAP <- "Seismic hazard deaggregation summary at the reference rock condition Vs30 = 760 m/s: each cell reports the modal (Mw, R [km]) block — the largest percent contributor to the exceedance of the Tn spectral acceleration at return period TR — on the same aggregated (Mw, R) grid as the deaggregation heatmaps. Rows: return period TR [yr]. Columns: structural period Tn [s]."
+DT <- RMwTable
+if ("siteID" %in% names(DT) && exists("siteID.target", inherits = FALSE)) {
+  DT <- DT[siteID %in% siteID.target]
+}
+if ("ID" %in% names(DT)) {
+  ID.target <- .resolveIDTarget(
+    DT,
+    "RMw.qmd",
+    target = .currentTarget("ID.target"),
+    siteID = .currentTarget("siteID.target"),
+    base = TRUE
+  )
+  DT <- DT[ID %in% ID.target]
+}
+Tn.target <- sort(unique(as.numeric(DT$Tn)))
+TR.target <- sort(unique(as.numeric(DT$TR)))
+rm(DT)
+```
+
+```{r}
+#| include: true
+#| label: tbl-rmw-b
+#| tbl-cap: !expr CAP
+source(file.path(root,"scripts","tbl/RMw.R"))
+TBL
+```
+&nbsp;
+
+```{r}
+#| include: false
+rm(Tn.target, TR.target, CAP)
+rm(list = intersect("ID.target", ls()))
+```

@@ -1,0 +1,7 @@
+Pseudo-static seismic design of slopes requires a horizontal coefficient that represents the seismic excitation acting on the sliding mass. This chapter derives that coefficient from displacement performance, following the framework of Bray and Travasarou [-@BrayTravasarou2009] and Macedo et al. [-@MacedoEtAl2018]. The coefficient $k_{\max}$ is the minimum yield acceleration $k_y$ compatible with a displacement performance objective,
+
+$$k_{\max}(p_e \mid D_a) = \inf\{k_y : \Pr[D_n(k_y) > D_a] \leq p_e\},$$
+
+where $D_n$ is the Newmark displacement, $D_a$ the allowable displacement, and $p_e$ the target exceedance probability. The calibration links the hazard level—an annual exceedance probability set by the consequence class of the facility, from $1/100$ per annum for operational loading to $1/10{,}000$ per annum for extreme scenarios at high-consequence facilities—to the dynamic properties of the slope, the yield acceleration $k_y$ and the fundamental period $T_s$.
+
+Inversion of the $D_n(k_y)$ curves is performed for each model and each realization before the families are combined; the numerical quantile associated with that objective satisfies $q = 1 - p_e$. The normalized coefficient $k_h = 100\,k_{\max}/\mathrm{PGA}_{\mathrm{rock}}$ expresses the result as a percentage of the mean reference-rock PGA. The coefficients are reported by slope and hazard level, and translate the allowable-displacement criterion into the seismic excitation used in the pseudo-static verification.

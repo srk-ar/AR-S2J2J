@@ -1,0 +1,15 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+```
+
+# Clasificación sísmica del sitio {#sec-classification}
+
+## Resumen ejecutivo {#sec-class_summary}
+
+{{< include /_chapters/classification.summary.es.md >}}
+
+## Metodología {#sec-class_method-es}
+
+{{< include /_chapters/classification.es.md >}}

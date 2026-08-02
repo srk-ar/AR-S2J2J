@@ -1,0 +1,46 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+DATASET <- "QDS"
+ModelConfig <- jsonlite::read_json(
+  file.path(root, "scripts", "manifest.json"), simplifyVector = TRUE
+)
+RESPONSES <- as.character(ModelConfig$responses$names)
+RESPONSE_LABELS <- c(
+  ppv = "PPV",
+  ppvL = "PPV.L",
+  ppvT = "PPV.T",
+  ppvV = "PPV.V",
+  ppa = "PPA",
+  ppaL = "PPA.L",
+  ppaT = "PPA.T",
+  ppaV = "PPA.V"
+)
+PathDataset <- file.path(root, "data", "datasets", sprintf("%s.csv", DATASET))
+PathResiduals <- file.path(root, "data", "summary", "residuals_oof.csv")
+PathSources <- file.path(root, "data", "domains", "sources.csv")
+if (!length(RESPONSES) ||
+    !setequal(names(RESPONSE_LABELS), RESPONSES) ||
+    any(!file.exists(c(
+  PathDataset, PathResiduals, PathSources
+)))) {
+  stop("model.support: required model products are missing.", call. = FALSE)
+}
+if (!exists("CAP", inherits = FALSE)) {
+  CAP <- "Model-fitting observations and OOF pairs for the retained formulation, by data source and response. Available observations are those with finite response values in the independent formulation; OOF pairs are the observation--prediction pairs in the retained OOF residual table. Distance and maximum instantaneous charge (MIC) ranges refer to the available observations."
+}
+```
+
+```{r}
+#| include: true
+#| label: tbl-model-support
+#| tbl-cap: !expr CAP
+source(file.path(root, "scripts", "tbl", "model.support.R"))
+TBL
+```
+
+```{r}
+#| include: false
+rm(CAP, DATASET, ModelConfig, PathDataset, PathResiduals, PathSources,
+   RESPONSE_LABELS, RESPONSES)
+```

@@ -1,0 +1,133 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+source(file.path(root, "scripts", "setup", "report.R"))
+Standard.target <- c("GISTM", "CDA", "ANCOLD")
+```
+
+# Tailings Storage Facilities Design Criteria {#sec-criteria}
+
+## Executive Summary {#sec-tsf_summary}
+
+{{< include /_chapters/tailings.summary.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_summary/criteria_summary.qmd",
+    stem = "criteria-summary",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-criteria-summary-site",
+    context = "resumen de criterios de relaves"
+  )
+}
+rm(i)
+```
+
+
+## Methodology {#sec-tsf_method}
+
+{{< include /_chapters/tailings.md >}}
+
+## Results {#sec-criteria_results}
+
+### Operational Stages {#sec-criteria_results_obe}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_tbl/DEQ_OBE.qmd",
+    stem = "criteria-obe-table",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-criteria-obe-site",
+    context = "tailings operational criteria table"
+  )
+  .knitReportBlock(
+    path = "/_fig/DEQ_OBE.qmd",
+    stem = "criteria-obe-figure",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    context = "tailings operational criteria figure"
+  )
+}
+rm(i)
+```
+
+### Closure Stages {#sec-criteria_results_sse}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_tbl/DEQ_SSE.qmd",
+    stem = "criteria-sse-table",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-criteria-sse-site",
+    context = "tailings closure criteria table"
+  )
+  .knitReportBlock(
+    path = "/_fig/DEQ_SSE.qmd",
+    stem = "criteria-sse-figure",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    context = "tailings closure criteria figure"
+  )
+}
+rm(i)
+```
+
+### Post-Closure Stages {#sec-criteria_results_pce}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_tbl/DEQ_PCE.qmd",
+    stem = "criteria-pce-table",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-criteria-pce-site",
+    context = "tailings post-closure criteria table"
+  )
+  .knitReportBlock(
+    path = "/_fig/DEQ_PCE.qmd",
+    stem = "criteria-pce-figure",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    context = "tailings post-closure criteria figure"
+  )
+}
+rm(i, SiteTable)
+```

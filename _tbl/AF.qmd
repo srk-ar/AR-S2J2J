@@ -1,0 +1,103 @@
+```{r}
+#| include: true
+root <- here::here()          
+```
+
+:::{.content-hidden when-format='docx'}
+:::{.panel-tabset .full-width }
+
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| tbl-cap: !expr CAP  |> sprintf(min(TR.target),max(TR.target),min(Vs30.target),max(Vs30.target),"mean")
+p.target <- "mean"
+source(file.path(root,"scripts","tbl/AF.R"))
+TBL
+```
+&nbsp;
+:::
+:::
+
+
+:::{.content-hidden when-format='docx'}
+:::{.panel-tabset .full-width }
+
+
+#### mean {.unnumbered}
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: af5
+#| tbl-cap: !expr CAP  |> sprintf(min(TR.target),max(TR.target),min(Vs30.target),max(Vs30.target),"mean")
+p.target <- "mean"
+source(file.path(root,"scripts","tbl/AF.R"))
+TBL
+```
+
+
+
+#### 50% {.unnumbered}
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: af6
+#| tbl-cap: !expr CAP  |> sprintf(min(TR.target),max(TR.target),min(Vs30.target),max(Vs30.target),0.50)
+p.target <- 0.50
+source(file.path(root,"scripts","tbl/AF.R"))
+TBL
+```
+
+
+#### 84% $(+1\ \sigma)$ {.unnumbered}
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: af7
+#| tbl-cap: !expr CAP  |> sprintf(min(TR.target),max(TR.target),min(Vs30.target),max(Vs30.target),0.84)
+p.target <- 0.84
+source(file.path(root,"scripts","tbl/AF.R"))
+TBL
+
+```
+
+
+#### 90% $(+1.28\ \sigma)$ {.unnumbered}
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: af8
+#| tbl-cap: !expr CAP  |> sprintf(min(TR.target),max(TR.target),min(Vs30.target),max(Vs30.target),0.90)
+p.target <- 0.90
+source(file.path(root,"scripts","tbl/AF.R"))
+TBL
+
+```
+
+
+
+#### 95% $(+1.65\ \sigma)$ {.unnumbered}
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: af9
+#| tbl-cap: !expr CAP  |> sprintf(min(TR.target),max(TR.target),min(Vs30.target),max(Vs30.target),0.95)
+p.target <- 0.95
+source(file.path(root,"scripts","tbl/AF.R"))
+TBL
+```
+
+
+:::
+
+:::
+
+
+```{r}
+#| include: false
+rm(p.target, Vs30.target, TR.target, CAP)
+```

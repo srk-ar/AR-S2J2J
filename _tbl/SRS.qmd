@@ -1,0 +1,53 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+if (!exists("CAP", inherits = FALSE)) {
+  Site <- .reportLabel()
+  Site <- if (nzchar(Site)) {
+    sprintf(" for %s", Site)
+  } else if (exists("params", inherits = FALSE) && !is.null(params$site)) {
+    sprintf(" for %s", params$site)
+  } else {
+    ""
+  }
+  CAP <- paste0(
+    "Selected ground motions", Site,
+    ". Mw = moment magnitude; Repi = epicentral distance; PGA = peak ground ",
+    "acceleration; AI = Arias intensity; CAV = cumulative absolute velocity; ",
+    "CAV5 = thresholded cumulative absolute velocity; SF = c_i, the ",
+    "suite-level record-scale coefficient applied after modal reconstruction ",
+    "and energy normalization, not the total amplitude change from the ",
+    "original recording. Intensity measures are reported for the final ",
+    "matched H1 component."
+  )
+  rm(Site)
+}
+if (!exists("PathSRS", inherits = FALSE)) {
+  if (exists("SRS.target", inherits = FALSE)) {
+    PathSRS <- file.path(root, "gmsp", "match", SRS.target)
+  } else {
+    SRS_ROOT <- file.path(root, "gmsp", "match")
+    SRS_RUNS <- list.dirs(SRS_ROOT, full.names = TRUE, recursive = FALSE)
+    if (length(SRS_RUNS) != 1L) {
+      stop("SRS table: set SRS.target or PathSRS before including _tbl/SRS.qmd.", call. = FALSE)
+    }
+    PathSRS <- SRS_RUNS[[1L]]
+    SRS.target <- basename(PathSRS)
+  }
+}
+```
+
+```{r}
+#| label: tbl-srs-records
+#| tbl-cap: !expr CAP
+source(file.path(root, "scripts", "tbl", "SRS.R"))
+TBL
+```
+
+```{r}
+#| include: false
+rm(list = intersect(c(
+  "PathSRS", "SRS.target", "SRS_ROOT", "SRS_RUNS", "CAP", "N",
+  "SRS_SITE_TEXT"
+), ls()))
+```

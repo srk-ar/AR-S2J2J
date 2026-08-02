@@ -1,0 +1,40 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+```
+
+```{r}
+#| include: false
+if (!exists("_INCLUDE_RECORD_SELECTION", inherits = FALSE)) {
+  assign("_INCLUDE_RECORD_SELECTION", FALSE)
+}
+assign(
+  "_TEXT_RECORD_SELECTION",
+  "Select, through magnitude and distance windows tied to the scenarios that control the hazard and with at most one record per event, a set of strong-motion records that represents the amplitude, duration, and frequency content of the seismic demand; process each horizontal component by removing the low-frequency mode associated with drift and noise and normalizing the energy of the reconstructed signal; scale the set to reproduce the mean of the site-specific target spectrum and to contain the individual spectra within its envelopes; and verify the resulting compatibility through the error of the spectral mean, the PGA ratio, and the contained fraction of ordinates, preserving the identification of events, stations, and intensity measures for the dynamic deformation analyses."
+)
+```
+
+# Executive Summary
+
+## Background
+
+```{r}
+#| echo: false
+#| results: asis
+FILE <- file.path(root, "_chapters", "executive.background.md")
+if (file.exists(FILE)) cat(readLines(FILE, warn = FALSE), sep = "\n")
+rm(FILE)
+```
+
+## Objectives
+
+{{< include /_chapters/intro.objectives.md >}}
+
+## Format
+
+{{< include /_chapters/intro.format.md >}}
+
+## Summary
+
+{{< include /_summary/executive.site.qmd >}}

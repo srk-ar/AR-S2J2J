@@ -1,0 +1,1 @@
+Escenarios de material representativos de instalaciones de almacenamiento de relaves (TSF) y botaderos de estéril (WRD) utilizados en los análisis de desplazamientos de Newmark y de períodos fundamentales, con clasificación de los materiales del talud según el Sistema Unificado de Clasificación de Suelos (USCS).

@@ -1,0 +1,106 @@
+```{r}
+#| include: false
+if (!exists("CAP", inherits = FALSE)) CAP <- "Source-disaggregated annual probability of exceedance curves for maximum horizontal pseudo-spectral acceleration Sa(Tn=%g s) [g] with 5%% critical damping and reference site conditions Vs30 = %s m/s."
+if (!exists("Vs30.target") || !length(Vs30.target)) {
+  Vs30.target <- .resolveValueTarget(sort(unique(AEPSTable$Vs30)), "Vs30.target", "AEPS.qmd")
+}
+Target <- .currentTarget("ID.target")
+ID.target <- .resolveIDTarget(
+  AEPSTable,
+  "AEPS.qmd",
+  target = Target,
+  siteID = .currentTarget("siteID.target"),
+  base = TRUE
+)
+Sa.log <- TRUE
+AEP.log <- TRUE
+```
+
+:::{.content-visible when-format='docx'}
+
+```{r}
+#| eval: !expr knitr::pandoc_to("docx")
+#| include: true
+#| label: fig-aeps_pga_docx
+#| fig-cap: !expr CAP |> sprintf(0, 800)
+Vs30.target <- 800
+Tn.target <- 0
+source(file.path(root,"scripts","fig/AEPS.R"))
+PLOT
+```
+
+:::
+
+
+:::{.content-hidden when-format='docx'}
+:::{.panel-tabset .full-width }
+
+### $T_n=0$ (PGA)
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-aeps_pga
+#| fig-cap: !expr CAP |> sprintf(0, Vs30.target)
+ 
+Tn.target <- 0
+source(file.path(root,"scripts","fig/AEPS.R"))
+PLOT
+```
+
+### $0.10\,s$
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-aeps_tn010
+#| fig-cap: !expr CAP |> sprintf(0.1, Vs30.target)
+ 
+Tn.target <- 0.1
+source(file.path(root,"scripts","fig/AEPS.R"))
+PLOT
+```
+
+### $0.20\,s$
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-aeps_tn020
+#| fig-cap: !expr CAP |> sprintf(0.2, Vs30.target)
+ 
+Tn.target <- 0.2
+source(file.path(root,"scripts","fig/AEPS.R"))
+PLOT
+```
+
+### $0.50\,s$
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-aeps_tn050
+#| fig-cap: !expr CAP |> sprintf(0.5, Vs30.target)
+ 
+Tn.target <- 0.5
+source(file.path(root,"scripts","fig/AEPS.R"))
+PLOT
+```
+
+### $1.0\,s$
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-aeps_tn100
+#| fig-cap: !expr CAP |> sprintf(1.0, Vs30.target)
+ 
+Tn.target <- 1.0
+source(file.path(root,"scripts","fig/AEPS.R"))
+PLOT
+```
+
+:::
+
+:::
+```{r}
+#| include: false
+rm(ID.target, Vs30.target, Tn.target, Sa.log, AEP.log, CAP)
+if (exists("Target", inherits = FALSE) && length(Target)) ID.target <- Target
+rm(list = intersect("Target", ls()))
+```

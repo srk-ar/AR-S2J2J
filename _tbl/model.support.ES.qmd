@@ -1,0 +1,6 @@
+```{r}
+#| include: false
+CAP <- "Observaciones admitidas para el modelamiento y pares OOF de la formulación retenida, por procedencia y respuesta. N.available cuenta las respuestas finitas disponibles para la formulación independiente; N.OOF cuenta los pares evaluados en la tabla de residuos OOF de la formulación retenida. Los rangos de distancia y MIC corresponden a las observaciones disponibles."
+```
+
+{{< include /_tbl/model.support.qmd >}}

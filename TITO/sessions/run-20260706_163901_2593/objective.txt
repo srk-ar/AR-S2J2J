@@ -1,0 +1,10 @@
+MANIFEST:     /Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/sessions/run-20260706_163901_2593/manifest.json
+TASK:         /Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/tasks/gap-tsf-blasting-guidance.md
+OUTPUT:       /Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/sessions/run-20260706_163901_2593/T8.prompt.md
+WORKFLOW:     /usr/local/libexec/tito/workflows/prompt.session.md
+FORMAT_RULES: /usr/local/libexec/tito/rules/format.session.md
+AUDIT_RULES:  /usr/local/libexec/tito/rules/audit.md
+
+Read WORKFLOW, FORMAT_RULES, and AUDIT_RULES.
+Then execute the prompt workflow using TASK.
+Write the structured prompt to OUTPUT.

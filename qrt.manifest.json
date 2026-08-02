@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 2,
+  "artifacts": [
+    {
+      "alias": "report.es",
+      "kind": "quarto",
+      "path": "html/report.es",
+      "required": true,
+      "renderSource": "report.es.qmd",
+      "profile": "book",
+      "siteSlug": "ars2j2j-es",
+      "domain": "ars2j2j-es.srk.ar"
+    },
+    {
+      "alias": "report.en",
+      "kind": "quarto",
+      "path": "html/report.en",
+      "required": true,
+      "renderSource": "report.en.qmd",
+      "profile": "book",
+      "siteSlug": "ars2j2j-en",
+      "domain": "ars2j2j-en.srk.ar"
+    },
+    {
+      "alias": "ppt",
+      "kind": "quarto",
+      "path": "html/ppt",
+      "required": true,
+      "renderSource": "ppt.qmd",
+      "profile": "revealjs",
+      "siteSlug": "ars2j2j-ppt",
+      "domain": "ars2j2j-ppt.srk.ar"
+    }
+  ]
+}

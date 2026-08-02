@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "workflow": "research",
+  "session_id": "run-20260706_140944_27580",
+  "structured_prompt_task_file": "/Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/md/gap-tsf-blasting-pore-pressure-liquefaction.prompt.md",
+  "structured_prompt_spec_file": "/Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/sessions/run-20260706_140944_27580/structured_prompt_spec.json",
+  "coordination_mode": "slot-aware-session-local",
+  "single_writer_policy": "session-writer-only-final-artifact",
+  "session_writer_role": "session_writer",
+  "slot_worker_role": "slot_researcher",
+  "handoff_contract": "Slot workers may gather evidence and draft slot-local notes, but only the session writer may emit manuscript paragraphs into the manifest-defined primary output.",
+  "memory_namespace_root": "tito.T5",
+  "memory_coordination_policy": "",
+  "memory_read_contract": "",
+  "memory_write_contract": "",
+  "progress_marker_format": "",
+  "slot_count": 5,
+  "slots": [
+    {"ordinal": 1, "title": "References Connecting Blast Loading to Saturated-Tailings Response", "memory_namespace_label": "slot-01", "memory_namespace": "tito.T5.slot-01", "writer_role": "session_writer", "worker_role": "slot_researcher"},
+    {"ordinal": 2, "title": "Model Families and Equations", "memory_namespace_label": "slot-02", "memory_namespace": "tito.T5.slot-02", "writer_role": "session_writer", "worker_role": "slot_researcher"},
+    {"ordinal": 3, "title": "Frequency, Duration, and Short High-Frequency Pulses", "memory_namespace_label": "slot-03", "memory_namespace": "tito.T5.slot-03", "writer_role": "session_writer", "worker_role": "slot_researcher"},
+    {"ordinal": 4, "title": "Material Parameters and Motion-Record Limits", "memory_namespace_label": "slot-04", "memory_namespace": "tito.T5.slot-04", "writer_role": "session_writer", "worker_role": "slot_researcher"},
+    {"ordinal": 5, "title": "Conservative Report Wording", "memory_namespace_label": "slot-05", "memory_namespace": "tito.T5.slot-05", "writer_role": "session_writer", "worker_role": "slot_researcher"}
+  ]
+}

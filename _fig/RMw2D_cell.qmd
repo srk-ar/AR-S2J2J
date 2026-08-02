@@ -1,0 +1,27 @@
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: false
+if (!exists("CAP", inherits = FALSE)) CAP <- "Seismic hazard deaggregation by magnitude and distance at the reference rock condition Vs30 = 760 m/s: percent contribution of each (Mw, R) block of %.1f Mw x %.0f km to the exceedance of the Tn = %g s spectral acceleration with return period TR = %s yr. Contributions sum to 100%% per panel; native bins are aggregated, never interpolated. Modal block: Mw %.2f at R %.0f km (%.1f%% contribution). Mean scenario: Mw %.2f at R %.0f km."
+AUX <- .rmwStats(tn = Tn.target, tr = TR.target)
+CAP.txt <- CAP |> sprintf(
+  AUX$MwBlk, AUX$RBlk, Tn.target, prettyNum(round(AUX$TR, 0), big.mark = ","),
+  AUX$MwMode, AUX$RMode, AUX$pctMode, AUX$MwBar, AUX$RBar
+)
+```
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-rmw2d
+#| fig-cap: !expr CAP.txt
+source(file.path(root, "scripts", "fig/RMw2D.R"))
+PLOT
+```
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: false
+# CAP stays: the language wrapper defines it once for ALL panels of
+# the tabset loop; RMw2D.qmd clears it after the loop.
+rm(list = intersect(c("AUX", "CAP.txt"), ls()))
+```

@@ -1,0 +1,12 @@
+```{r}
+#| include: false
+CAP <- "Familia de escenarios de demanda: condición de distancia, carga y nivel predictivo; objetivos PPV longitudinal, transversal y vertical; y número de realizaciones por escenario."
+CAP.DOCX.FORMAT <- paste(
+  "Rangos de los objetivos PPV por componente para %d escenarios de demanda",
+  "sobre D = %.0f--%.0f m y MIC = %.0f--%.0f kg, con p = %s; la familia",
+  "contiene %s realizaciones triaxiales."
+)
+BIG.MARK <- "."
+```
+
+{{< include /_tbl/scenarios.qmd >}}

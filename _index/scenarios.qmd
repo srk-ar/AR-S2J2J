@@ -1,0 +1,15 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+```
+
+# Calibrated Record Suite {#sec-scenarios}
+
+## Methodology {#sec-scenarios_method}
+
+{{< include /_chapters/scenarios.md >}}
+
+## Results {#sec-scenarios_results}
+
+{{< include /_summary/scenarios.results.qmd >}}

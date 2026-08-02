@@ -1,0 +1,42 @@
+
+```{r}
+#| include: false
+if (!exists("CAP", inherits = FALSE)) CAP <- "Peak ground acceleration design values [%s] for reference site conditions Vs30 = %d m/s. Columns report percentile intervals and mean values are highlighted in bold."
+Target <- .currentTarget("ID.target")
+ID.target <- .resolveDerivedIDTarget(
+  UHSTable,
+  "PGA.qmd",
+  suffix = ".max",
+  target = Target,
+  siteID = .currentTarget("siteID.target")
+)
+if (!exists("TR.target")) TR.target <- TR.gmdp
+if (!exists("PSA_Units")) PSA_Units <- "cm/s2"
+root <- here::here()
+```
+
+:::{.content-visible when-format='docx'}
+
+```{r}
+#| include: true
+#| label: tbl-pga_vs30_800_docx
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, 800)
+Vs30.target <- 800
+source(file.path(root, "scripts", "tbl/PGA.R"))
+TBL
+```
+
+:::
+
+:::{.content-hidden when-format='docx'}
+
+{{< include /_tbl/PGA_Vs30.qmd >}}
+
+:::
+
+```{r}
+#| include: false
+rm(ID.target, TR.target, PSA_Units, CAP, Vs30.target)
+if (exists("Target", inherits = FALSE) && length(Target)) ID.target <- Target
+rm(list = intersect("Target", ls()))
+```

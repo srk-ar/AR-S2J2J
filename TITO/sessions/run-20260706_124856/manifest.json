@@ -1,0 +1,10 @@
+{
+  "id": "T1",
+  "workflow": "compile-prompt",
+  "sessions": [
+    { "path": "../run-20260706_124803/T1.prompt.md" }
+  ],
+  "outputs": {
+    "primary": "T1.compile.prompt.md"
+  }
+}

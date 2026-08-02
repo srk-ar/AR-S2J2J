@@ -1,0 +1,3 @@
+## <br>Residuals — PPA
+
+{{< include /_fig/residuals.PPA.qmd >}}

@@ -1,0 +1,103 @@
+{{< include /_chapters/hazard.summary.es.md >}}
+
+```{r}
+#| include: false
+siteID.target <- siteID.gmdp[[1]]
+```
+
+{{< include /_summary/hazard.results.es.qmd >}}
+
+{{< include /_chapters/dsha.summary.es.md >}}
+
+```{r}
+#| include: false
+siteID.target <- siteID.gmdp[[1]]
+```
+
+{{< include /_summary/dsha.results.es.qmd >}}
+
+{{< include /_chapters/gmm.summary.es.md >}}
+
+```{r}
+#| include: false
+siteID.target <- siteID.gmdp[[1]]
+```
+
+{{< include /_summary/gmm.results.es.qmd >}}
+
+{{< include /_chapters/site.summary.es.md >}}
+
+```{r}
+#| include: false
+siteID.target <- siteID.gmdp[[1]]
+```
+
+{{< include /_summary/site.results.es.qmd >}}
+
+{{< include /_chapters/srs.summary.es.md >}}
+
+```{r}
+#| include: false
+siteID.target <- siteID.gmdp[[1]]
+```
+
+{{< include /_summary/srs_summary.es.qmd >}}
+
+{{< include /_chapters/classification.summary.es.md >}}
+
+```{r}
+#| include: false
+siteID.target <- siteID.gmdp[[1]]
+```
+
+{{< include /_summary/classification.results.es.qmd >}}
+
+{{< include /_chapters/tailings.summary.es.md >}}
+
+```{r}
+#| include: false
+siteID.target <- siteID.gmdp[[1]]
+```
+
+{{< include /_summary/criteria_summary.es.qmd >}}
+
+{{< include /_chapters/structures.summary.es.md >}}
+
+```{r}
+#| include: false
+siteID.target <- siteID.gmdp[[1]]
+```
+
+{{< include /_summary/structures.results.es.qmd >}}
+
+{{< include /_chapters/dynamics.summary.es.md >}}
+
+```{r}
+#| include: false
+siteID.target <- siteID.gmdp[[1]]
+```
+
+{{< include /_summary/dynamics.results.es.qmd >}}
+
+{{< include /_chapters/displacements.summary.es.md >}}
+
+```{r}
+#| include: false
+siteID.target <- siteID.gmdp[[1]]
+```
+
+{{< include /_summary/displacements.results.es.qmd >}}
+
+{{< include /_chapters/coefficients.summary.es.md >}}
+
+```{r}
+#| include: false
+siteID.target <- siteID.gmdp[[1]]
+```
+
+{{< include /_summary/coefficients.results.es.qmd >}}
+
+```{r}
+#| include: false
+rm(list = intersect(c("siteID.target"), ls()))
+```

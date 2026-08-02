@@ -1,0 +1,85 @@
+## <br>`r if (exists("TITLE", inherits = FALSE)) TITLE else "Performance-Based Seismic Coefficient $k_h$"`
+
+```{r}
+p.target <- c(0.05, 0.10, 0.16, "mean", 0.84, 0.90, 0.95)
+IDn.target <- c("ensemble", "rigid", "flexible")
+.ID.BASE <- .currentTarget("ID.target")
+```
+
+:::{.panel-tabset }
+
+### Design Curves
+
+```{r}
+ID.target <- .resolveDerivedIDTarget(
+  kmaxTable,
+  "kh curves slide",
+  suffix = ".max",
+  target = .ID.BASE,
+  siteID = .currentTarget("siteID.target")
+)
+.ID.BASE <- .targetBaseID(ID.target, "kh slide")
+```
+
+{{< include /_fig/kh.qmd >}}
+
+### Design Tables (Ensemble)
+
+```{r}
+ID.target <- .resolveDerivedIDTarget(
+  kmaxTable,
+  "kh ensemble table slide",
+  suffix = ".max",
+  target = .ID.BASE,
+  siteID = .currentTarget("siteID.target")
+)
+IDg.target <- IDg.gmdp
+IDn.target <- "ensemble"
+p.target <- "mean"
+TR.target <- TR.gmdp
+```
+
+{{< include /_tbl/kh.qmd >}}
+
+### Design Tables (Rigid)
+
+```{r}
+ID.target <- .resolveDerivedIDTarget(
+  kmaxTable,
+  "kh rigid table slide",
+  suffix = ".max",
+  target = .ID.BASE,
+  siteID = .currentTarget("siteID.target")
+)
+IDg.target <- IDg.gmdp
+IDn.target <- "rigid"
+p.target <- "mean"
+TR.target <- TR.gmdp
+```
+
+{{< include /_tbl/kh.qmd >}}
+
+### Design Tables (Flexible)
+
+```{r}
+ID.target <- .resolveDerivedIDTarget(
+  kmaxTable,
+  "kh flexible table slide",
+  suffix = ".max",
+  target = .ID.BASE,
+  siteID = .currentTarget("siteID.target")
+)
+IDg.target <- IDg.gmdp
+IDn.target <- "flexible"
+p.target <- "mean"
+TR.target <- TR.gmdp
+```
+
+{{< include /_tbl/kh.qmd >}}
+
+:::
+
+```{r}
+#| include: false
+rm(list = intersect(c("ID.target", "IDg.target", "IDn.target", "p.target", "TR.target", ".ID.BASE"), ls()))
+```

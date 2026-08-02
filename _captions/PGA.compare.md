@@ -1,0 +1,1 @@
+Mean peak ground acceleration PGA [%s] at the reference rock condition Vs30 = 760 m/s: rows are the probabilistic hazard levels (return period TR) followed by the deterministic scenarios; columns are the hazard models (PSHA) and the scenario values (MCE).

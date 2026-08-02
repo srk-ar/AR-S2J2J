@@ -1,0 +1,1 @@
+Probabilidad de excedencia (PoE) para ordenadas de aceleración espectral horizontal máxima con 5%% de amortiguamiento crítico, Sa(Tn) en [g], para períodos estructurales Tn entre %g y %g s. Las ordenadas espectrales corresponden a condiciones de sitio en roca con Vs30 = %s m/s.

@@ -1,0 +1,80 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+if (!exists("CAP", inherits = FALSE)) CAP <- "Dynamic-demand scenario family: source-to-receptor distance, maximum instantaneous charge, and predictive level; longitudinal, transverse, and vertical PPV targets; and number of realizations per scenario."
+if (!exists("CAP.DOCX.FORMAT", inherits = FALSE)) {
+  CAP.DOCX.FORMAT <- paste(
+    "PPV target ranges by component for %d demand scenarios over",
+    "D = %.0f--%.0f m and MIC = %.0f--%.0f kg at p = %s; the family",
+    "contains %s three-component realizations."
+  )
+}
+if (!exists("BIG.MARK", inherits = FALSE)) BIG.MARK <- ","
+PathAudit <- file.path(root, "data", "audit", "summary.csv")
+if (!file.exists(PathAudit)) {
+  stop("scenarios: audit summary is missing.", call. = FALSE)
+}
+DT <- fread(PathAudit)
+COLS <- c("ScenarioID", "D", "MIC", "n.records")
+if (length(setdiff(COLS, names(DT))) || !nrow(DT) ||
+    DT[, anyDuplicated(ScenarioID)] ||
+    DT[, any(!is.finite(D) | !is.finite(MIC) |
+             !is.finite(n.records) | n.records < 1L)]) {
+  stop("scenarios: scenario inventory is incomplete or invalid.",
+       call. = FALSE)
+}
+P <- sub("^.*\\.(p[0-9]+)$", "\\1", DT$ScenarioID)
+if (any(P == DT$ScenarioID)) {
+  stop("scenarios: predictive level is absent from ScenarioID.",
+       call. = FALSE)
+}
+P <- sort(unique(as.numeric(sub("^p", "", P)) / 100))
+P <- paste(formatC(P, format = "f", digits = 2L), collapse = ", ")
+CAP.DOCX <- sprintf(
+  CAP.DOCX.FORMAT,
+  nrow(DT), min(DT$D), max(DT$D), min(DT$MIC), max(DT$MIC), P,
+  format(sum(DT$n.records), big.mark = BIG.MARK, scientific = FALSE,
+         trim = TRUE)
+)
+rm(COLS, DT, P)
+```
+
+:::{.content-visible when-format='docx'}
+
+```{r}
+#| include: true
+#| eval: !expr knitr::pandoc_to("docx")
+#| label: tbl-scenarios-executive
+#| tbl-cap: !expr CAP.DOCX
+EXECUTIVE <- TRUE
+source(file.path(root, "scripts", "tbl", "scenarios.R"))
+TBL
+```
+
+```{r}
+#| include: false
+#| eval: !expr knitr::pandoc_to("docx")
+rm(EXECUTIVE)
+```
+
+:::
+
+:::{.content-hidden when-format='docx'}
+
+```{r}
+#| include: true
+#| eval: !expr knitr::is_html_output()
+#| label: tbl-scenarios-inventory
+#| tbl-cap: !expr CAP
+source(file.path(root, "scripts", "tbl", "scenarios.R"))
+TBL
+```
+
+:::
+
+```{r}
+#| include: false
+rm(list = intersect(c(
+  "BIG.MARK", "CAP", "CAP.DOCX", "CAP.DOCX.FORMAT", "PathAudit"
+), ls()))
+```

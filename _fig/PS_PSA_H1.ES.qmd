@@ -1,0 +1,26 @@
+```{r}
+#| include: false
+SRS_SITE_TEXT <- .reportLabel()
+if (!nzchar(SRS_SITE_TEXT) && !is.null(params$site) && length(params$site)) {
+  SRS_SITE_TEXT <- trimws(as.character(params$site[[1L]]))
+}
+if (!nzchar(SRS_SITE_TEXT) && !is.null(params$location) && length(params$location)) {
+  SRS_SITE_TEXT <- trimws(as.character(params$location[[1L]]))
+}
+if (!nzchar(SRS_SITE_TEXT)) SRS_SITE_TEXT <- "el proyecto"
+SRS_TARGET_FILL_PREFIX <- "Banda del espectro objetivo"
+CAPTION <- sprintf(
+  paste(
+    "Verificación espectral de los registros seleccionados en %s. Las curvas se",
+    "reportan para la componente H1: las curvas delgadas corresponden a",
+    "espectros PSA(Tn), con 5%% de amortiguamiento, de los registros",
+    "individuales; la curva sólida gruesa corresponde a la media del conjunto",
+    "seleccionado; la curva segmentada corresponde al espectro objetivo usado",
+    "para la verificación; la franja sombreada representa su intervalo de",
+    "compatibilidad."
+  ),
+  SRS_SITE_TEXT
+)
+```
+
+{{< include /_fig/PS_PSA_H1.qmd >}}

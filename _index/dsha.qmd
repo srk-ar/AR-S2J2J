@@ -1,0 +1,63 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+source(file.path(root, "scripts", "setup", "report.R"))
+```
+
+# Deterministic Seismic Hazard Assessment (DSHA) {#sec-mce}
+
+## Executive Summary {#sec-dsha_summary}
+
+{{< include /_chapters/dsha.summary.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_summary/dsha.results.qmd",
+    stem = "dsha-summary",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-dsha-summary-site",
+    context = "DSHA summary"
+  )
+}
+rm(i)
+```
+
+
+## Methodology {#sec-dsha_method}
+
+{{< include /_chapters/dsha.model.md >}}
+
+{{< include /_chapters/dsha.uncertainty.md >}}
+
+## Results {#sec-mce_results}
+
+{{< include /_chapters/dsha.results.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_fig/UHS.compare.qmd",
+    stem = "dsha-compare",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-dsha-results-site",
+    context = "DSHA comparison"
+  )
+}
+rm(i, SiteTable)
+```

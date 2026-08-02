@@ -1,0 +1,65 @@
+```{r}
+#| include: false
+if (!exists("MODEL_PERFORMANCE")) {
+  MODEL_METRICS <- fread(file.path(root, "data", "summary", "metrics.csv"))[method == "ensemble.RMSE", .(response, N = n, RMSE.log10 = rmse, R2 = r2)]
+  MODEL_RESIDUALS <- fread(file.path(root, "data", "summary", "residuals_oof.csv"))
+  MODEL_PHYSICAL <- MODEL_RESIDUALS[is.finite(y_obs) & is.finite(y_hat_oof), .(RMSE.physical = sqrt(mean((10^y_obs - 10^y_hat_oof)^2))), by = response]
+  MODEL_PERFORMANCE <- merge(MODEL_METRICS, MODEL_PHYSICAL, by = "response")
+}
+MODEL_RESIDUAL_STATS <- MODEL_RESIDUALS[is.finite(y_obs) & is.finite(y_hat_oof), .(median = stats::median(y_obs - y_hat_oof), q10 = stats::quantile(y_obs - y_hat_oof, 0.10), q90 = stats::quantile(y_obs - y_hat_oof, 0.90)), by = response]
+```
+
+### Dominio observado
+
+La Figura @fig-model-domain sitúa las observaciones de IMPALA y S11D en el
+plano distancia--carga e identifica las condiciones discretas evaluadas para
+los escenarios. La malla no aporta observaciones adicionales ni sustituye
+la distribución de las observaciones disponibles.
+
+{{< include /_fig/model.domain.ES.qmd >}}
+
+La Tabla @tbl-model-support distingue, para cada respuesta y procedencia, las
+observaciones con amplitud disponible de la muestra utilizada en la evaluación
+OOF de la formulación final.
+Esta separación conserva la diferencia entre la población admitida al ajuste
+independiente y la intersección requerida por el refinamiento multirrespuesta.
+
+{{< include /_tbl/model.support.ES.qmd >}}
+
+### Desempeño OOF
+
+La selección y la evaluación se realizan por respuesta. La Tabla @tbl-metrics-performance presenta la iteración retenida, el número de pares OOF, $R^2$ OOF y RMSE en la escala de ajuste y en unidades físicas. La formulación independiente $t=0$ y la iteración retenida $t^*$ se comparan sobre los mismos pares OOF; los cuantiles de los residuos de la formulación retenida determinan los niveles predictivos p50, p90 y p95.
+
+{{< include /_tbl/metrics.ES.qmd >}}
+
+Las tablas @tbl-metrics-learners-ppv y @tbl-metrics-learners-ppa presentan el
+desempeño OOF de `ranger`, `earth`, `gbm`, `gamSpline` y `glm`, junto con las
+formulaciones `ensemble.R2` y `ensemble.RMSE`. La nómina corresponde a la
+especificación ejecutada del modelo; las métricas se hidratan desde los
+productos OOF de cada método y respuesta.
+
+En la población evaluada, el $R^2$ OOF de las respuestas se encuentra entre `r formatC(min(MODEL_PERFORMANCE$R2), format = "f", digits = 3L)` y `r formatC(max(MODEL_PERFORMANCE$R2), format = "f", digits = 3L)`. Las medianas de los residuos por respuesta permanecen entre `r formatC(min(MODEL_RESIDUAL_STATS$median), format = "f", digits = 3L)` y `r formatC(max(MODEL_RESIDUAL_STATS$median), format = "f", digits = 3L)` en la escala $\log_{10}$.
+
+### Predicciones y residuos OOF
+
+Las figuras de observado frente a predicho y de residuos utilizan las predicciones OOF de la formulación retenida y conservan la procedencia de cada observación. La correspondencia entre observaciones y predicciones se evalúa respecto de la línea 1:1; las distribuciones residuales sustentan las correcciones empíricas de los niveles predictivos.
+
+{{< include /_fig/predictions.ES.qmd >}}
+
+{{< include /_fig/residuals.ES.qmd >}}
+
+### Predicciones de PPV
+
+Las predicciones de PPV se presentan para las componentes longitudinal, transversal y vertical y para su resultante. Cada panel muestra p50, p90 y p95 para las cargas representadas, junto con las observaciones locales y exteriores que participaron en el ajuste. Las predicciones longitudinal, transversal y vertical proporcionan las amplitudes utilizadas posteriormente para escalar las historias de escenario; la resultante se reporta como respuesta complementaria.
+
+{{< include /_fig/demand.PPV.ES.qmd >}}
+
+### Predicciones de PPA
+
+Las predicciones de PPA se presentan para las componentes longitudinal,
+transversal y vertical y para su resultante. Los niveles p50, p90 y p95
+describen la amplitud predictiva en la población evaluada. PPA no controla el
+escalamiento de las historias de escenario; se reporta para completar la
+caracterización del modelo multirrespuesta y su desempeño fuera de muestra.
+
+{{< include /_fig/demand.PPA.ES.qmd >}}

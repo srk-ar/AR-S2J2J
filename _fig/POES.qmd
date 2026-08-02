@@ -1,0 +1,109 @@
+```{r}
+#| include: false
+if (!exists("CAP", inherits = FALSE)) CAP <- "Source-disaggregated probability of exceedance curves for maximum horizontal pseudo-spectral acceleration Sa(Tn=%g s) [g], exposure interval ITo = %g yr, and reference site conditions Vs30 = %s m/s."
+if (!exists("Vs30.target") || !length(Vs30.target)) {
+  Vs30.target <- .resolveValueTarget(sort(unique(AEPSTable$Vs30)), "Vs30.target", "POES.qmd")
+}
+Target <- .currentTarget("ID.target")
+ID.target <- .resolveIDTarget(
+  AEPSTable,
+  "POES.qmd",
+  target = Target,
+  siteID = .currentTarget("siteID.target"),
+  base = TRUE
+)
+if (!exists("POE_MIN") || !length(POE_MIN)) POE_MIN <- 0.50
+ITo <- unique(AEPSTable$ITo)[1]
+
+```
+
+:::{.content-visible when-format='docx'}
+
+```{r}
+#| eval: !expr knitr::pandoc_to("docx")
+#| include: true
+#| label: fig-poes_pga_docx
+#| fig-cap: !expr CAP |> sprintf(0, ITo, 800)
+Vs30.target <- 800
+Tn.target <- 0
+source(file.path(root,"scripts","fig/POES.R"))
+PLOT
+```
+
+:::
+
+
+
+
+:::{.content-hidden when-format='docx'}
+:::{.panel-tabset .full-width }
+
+### $T_n=0$ (PGA)
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-poes_pga
+#| fig-cap: !expr CAP |> sprintf(0, ITo, Vs30.target)
+ 
+Tn.target <- 0
+source(file.path(root,"scripts","fig/POES.R"))
+PLOT
+```
+
+### $0.10\,s$
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-poes_tn010
+#| fig-cap: !expr CAP |> sprintf(0.1, ITo, Vs30.target)
+ 
+Tn.target <- 0.1
+source(file.path(root,"scripts","fig/POES.R"))
+PLOT
+```
+
+### $0.20\,s$
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-poes_tn020
+#| fig-cap: !expr CAP |> sprintf(0.2, ITo, Vs30.target)
+ 
+Tn.target <- 0.2
+source(file.path(root,"scripts","fig/POES.R"))
+PLOT
+```
+
+### $0.50\,s$
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-poes_tn050
+#| fig-cap: !expr CAP |> sprintf(0.5, ITo, Vs30.target)
+ 
+Tn.target <- 0.5
+source(file.path(root,"scripts","fig/POES.R"))
+PLOT
+```
+
+### $1.0\,s$
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-poes_tn100
+#| fig-cap: !expr CAP |> sprintf(1.0, unique(AEPSTable$ITo)[1], Vs30.target)
+ 
+Tn.target <- 1.0
+source(file.path(root,"scripts","fig/POES.R"))
+PLOT
+```
+
+:::
+:::
+
+```{r}
+#| include: false
+rm(ID.target, Vs30.target, Tn.target, POE_MIN, ITo, CAP)
+if (exists("Target", inherits = FALSE) && length(Target)) ID.target <- Target
+rm(list = intersect("Target", ls()))
+```

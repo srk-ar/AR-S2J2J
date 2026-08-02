@@ -1,0 +1,13 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+```
+
+# Resumen ejecutivo {#sec-summary}
+
+{{< include /_summary/records.setup.qmd >}}
+
+{{< include /_summary/executive.setup.qmd >}}
+
+{{< include /_summary/executive.es.qmd >}}

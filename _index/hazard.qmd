@@ -1,0 +1,171 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root,"scripts","setup","setup.R"))
+source(file.path(root, "scripts", "setup", "report.R"))
+```
+
+
+# Probabilistic Seismic Hazard Assessment (PSHA)
+
+## Executive Summary {#sec-hazard_summary}
+
+{{< include /_chapters/hazard.summary.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_summary/hazard.results.qmd",
+    stem = "hazard-summary",
+    sites = SiteTable,
+    i = i,
+    vars = list(
+      ID.target = ID.gmdp,
+      p.target = "mean",
+      Tn.target = Tn.PGA
+    ),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-hazard-summary-site",
+    context = "hazard summary"
+  )
+}
+rm(i)
+```
+
+
+## Methodology {#sec-hazard_method}
+
+{{< include /_chapters/hazard.model.md >}}
+
+{{< include /_chapters/hazard.uncertainty.md >}}
+
+{{< include /_chapters/disagg.model.md >}}
+
+## Results {#sec-hazard_results}
+
+### Annual Exceedance Probability Curves
+
+{{< include /_chapters/hazard.aep.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_fig/AEP.qmd",
+    stem = "hazard-aep",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-hazard-aep-site",
+    context = "hazard AEP"
+  )
+}
+rm(i)
+```
+
+#### By-Source Annual Exceedance Probability Curves
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_fig/AEPS.qmd",
+    stem = "hazard-aeps",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 5L,
+    anchor = "sec-hazard-aeps-site",
+    context = "hazard AEPS"
+  )
+}
+rm(i)
+```
+
+### Probability of Exceedance Curves
+
+{{< include /_chapters/hazard.poe.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_fig/POE.qmd",
+    stem = "hazard-poe",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-hazard-poe-site",
+    context = "hazard POE"
+  )
+}
+rm(i)
+```
+
+#### By-Source Probability of Exceedance Curves
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_fig/POES.qmd",
+    stem = "hazard-poes",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 5L,
+    anchor = "sec-hazard-poes-site",
+    context = "hazard POES"
+  )
+}
+rm(i)
+```
+
+### Hazard Disaggregation Scenarios
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_fig/RMw2D.qmd",
+    stem = "hazard-rmw",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-hazard-rmw-site",
+    context = "hazard RMw figures"
+  )
+  .knitReportBlock(
+    path = "/_tbl/RMw.qmd",
+    stem = "hazard-rmw-table",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    context = "hazard RMw table"
+  )
+}
+rm(i, SiteTable)
+```

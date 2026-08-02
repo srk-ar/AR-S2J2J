@@ -1,0 +1,10 @@
+```{r}
+#| include: false
+source(file.path(root, "scripts", "setup", "summary", "coefficients.R"))
+```
+
+Across the `r CoefficientsSummary$geometryCount` evaluated geometries, for the ensemble and return periods of `r paste(.fmti(CoefficientsSummary$returnPeriods), collapse = ", ")` years, the ranges of the mean were `r paste(CoefficientsSummary$kmax[.matchP(p, "mean"), sprintf("for $D_a=%s$ cm, $k_{\\max}$ = %s–%s g", format(Da, trim = TRUE, scientific = FALSE), .fmt(minimum, 3), .fmt(maximum, 3))], CoefficientsSummary$kh[.matchP(p, "mean"), sprintf("and $k_h$ = %s–%s%% PGA", .fmt(minimum, 0), .fmt(maximum, 0))], sep = " ", collapse = "; ")`.
+
+For the $q=0.84$ quantile, corresponding to a target exceedance probability $p_e=0.16$, the ranges were `r paste(CoefficientsSummary$kmax[.matchP(p, "0.84"), sprintf("for $D_a=%s$ cm, $k_{\\max}$ = %s–%s g", format(Da, trim = TRUE, scientific = FALSE), .fmt(minimum, 3), .fmt(maximum, 3))], CoefficientsSummary$kh[.matchP(p, "0.84"), sprintf("and $k_h$ = %s–%s%% PGA", .fmt(minimum, 0), .fmt(maximum, 0))], sep = " ", collapse = "; ")`.
+
+For the reported subset, the inversion required logarithmic extrapolation beyond the calculated support in `r paste(CoefficientsSummary$extrapolation[, sprintf("$D_a=%s$ cm: %s of %s component curves (%s%%)", format(Da, trim = TRUE, scientific = FALSE), .fmti(extrapolated), .fmti(curves), .fmt(percent, 1))], collapse = "; ")`.

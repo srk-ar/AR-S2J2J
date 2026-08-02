@@ -1,0 +1,15 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+```
+
+# Reliability {#sec-risk}
+
+## Methodology {#sec-risk_method}
+
+{{< include /_chapters/risk.md >}}
+
+## Results {#sec-risk_results}
+
+{{< include /_summary/risk.results.qmd >}}

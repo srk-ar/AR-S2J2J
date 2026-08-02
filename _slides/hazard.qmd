@@ -1,0 +1,74 @@
+## <br>`r if (exists("TITLE", inherits = FALSE)) TITLE else "Seismic Hazard"`
+
+```{r}
+#| include: false
+.ID.BASE <- .currentTarget("ID.target")
+ID.target <- .resolveIDTarget(
+  AEPTable,
+  "hazard slide",
+  target = .ID.BASE,
+  siteID = .currentTarget("siteID.target"),
+  base = TRUE
+)
+.ID.BASE <- ID.target
+```
+
+:::{.panel-tabset }
+
+### Hazard Models
+
+```{r}
+#| echo: false
+#| results: asis
+ID.target <- .ID.BASE
+.SITE <- .currentTarget("siteID.target")
+.STEM <- if (is.character(.SITE) && length(.SITE) == 1L) paste0(tolower(.SITE), "-") else ""
+NGR::knitBlock(path = "/_fig/UHS.compare.qmd", stem = paste0(.STEM, "uhs-compare"), labels = "rewrite", root = root)
+rm(.SITE, .STEM)
+```
+
+### PoE (Total)
+
+{{< include /_fig/POE.qmd >}}
+
+```{r}
+#| echo: false
+#| results: asis
+if (!is.null(AEPSTable) && nrow(AEPSTable)) {
+  .SITE <- .currentTarget("siteID.target")
+  .STEM <- if (is.character(.SITE) && length(.SITE) == 1L) paste0(tolower(.SITE), "-") else ""
+  cat("\n### PoE (By Source)\n\n")
+  ID.target <- .ID.BASE
+  NGR::knitBlock(path = "/_fig/POES.qmd", stem = paste0(.STEM, "poes"), labels = "rewrite", root = root)
+  rm(.SITE, .STEM)
+}
+```
+
+### AEP (Total)
+
+```{r}
+#| include: false
+ID.target <- .ID.BASE
+```
+
+{{< include /_fig/AEP.qmd >}}
+
+```{r}
+#| echo: false
+#| results: asis
+if (!is.null(AEPSTable) && nrow(AEPSTable)) {
+  .SITE <- .currentTarget("siteID.target")
+  .STEM <- if (is.character(.SITE) && length(.SITE) == 1L) paste0(tolower(.SITE), "-") else ""
+  cat("\n### AEP (By Source)\n\n")
+  ID.target <- .ID.BASE
+  NGR::knitBlock(path = "/_fig/AEPS.qmd", stem = paste0(.STEM, "aeps"), labels = "rewrite", root = root)
+  rm(.SITE, .STEM)
+}
+```
+
+:::
+
+```{r}
+#| include: false
+rm(list = intersect(c("ID.target", ".ID.BASE"), ls()))
+```

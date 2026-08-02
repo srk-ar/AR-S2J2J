@@ -1,0 +1,34 @@
+
+```{r}
+#| include: true
+root <- here::here()
+if (!exists("TR.target") || !length(TR.target)) TR.target <- TR.gmdp
+if (!exists("Vs30.target") || !length(Vs30.target)) Vs30.target <- sort(as.numeric(Vs30.gmdp))
+ID.target <- .resolveDerivedIDTarget(
+  DEQTable,
+  "DEQ_PCE.qmd",
+  suffix = ".site",
+  target = .currentTarget("ID.target"),
+  siteID = .currentTarget("siteID.target")
+)
+if (!exists("Tn.target") || !length(Tn.target)) Tn.target <- 0
+if (!exists("PSA_Units") || !length(PSA_Units)) PSA_Units <- "cm/s2"
+if (!exists("CAP", inherits = FALSE)) CAP <- "Post-closure design earthquakes in terms of peak ground acceleration (PGA) [%s] by standard (%s) and consequence class. Values cover AEPs from 1/%d to 1/%d [1/yr] and site conditions with Vs30 from %d to %d [m/s]."
+Stage.target <- c("Operation"   , "Closure",      "Post-Closure")
+```
+
+```{r}
+#| include: true
+#| label: tbl-deq_pce
+#| tbl-cap: !expr CAP  |> sprintf(PSA_Units, paste(Standard.target, collapse = ", "), min(TR.target), max(TR.target), min(Vs30.target), max(Vs30.target))
+
+Stage.target <- "Post-Closure"
+source(file.path(root,"scripts","tbl/DEQ.R"))
+TBL
+```
+
+
+```{r}
+#| include: false
+rm(ID.target, Tn.target, Vs30.target, TR.target, PSA_Units, Stage.target, CAP)
+```

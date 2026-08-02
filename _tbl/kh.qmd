@@ -1,0 +1,34 @@
+```{r}
+#| include: true
+# Targets
+Target <- .currentTarget("ID.target")
+ID.target <- .resolveDerivedIDTarget(
+  kmaxTable,
+  "kh.qmd table",
+  suffix = ".max",
+  target = Target,
+  siteID = .currentTarget("siteID.target")
+)
+if (!exists("IDg.target")) IDg.target <- IDg.gmdp
+if (!exists("Da.target"))  Da.target  <- sort(Da.gmdp)
+if (!exists("IDn.target")) IDn.target <- "ensemble"
+if (!exists("TR.target"))  TR.target  <- 10000
+if (!exists("p.target"))   p.target   <- "mean"
+root <- here::here()
+IDn.label <- IDn.target
+if (!exists("CAP", inherits = FALSE)) CAP <- "Performance-based seismic coefficients $k_h$ [%%PGA] for the %s Newmark scenario as function of admissible residual displacement $D_a$ [cm]. Values are reported for target ground motion with 1/%.0f AEP [1/yr]."
+```
+
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDn.label, TR.target)
+source(file.path(root, "scripts", "tbl/kh.R"))
+TBL
+```
+
+```{r}
+#| include: false
+rm(ID.target, IDg.target, Da.target, TR.target, CAP, IDn.label)
+if (exists("Target", inherits = FALSE) && length(Target)) ID.target <- Target
+rm(list = intersect("Target", ls()))
+```

@@ -1,0 +1,59 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+source(file.path(root, "scripts", "setup", "report.R"))
+```
+
+# Structural Design Criteria {#sec-structures}
+
+## Executive Summary {#sec-str_summary}
+
+{{< include /_chapters/structures.summary.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_summary/structures.results.qmd",
+    stem = "structures-summary",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-structures-summary-site",
+    context = "resumen de criterios de estructuras"
+  )
+}
+rm(i)
+```
+
+
+## Methodology {#sec-str_method}
+
+{{< include /_chapters/structures.MCER.md >}}
+
+## Results {#sec-mcer_results}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_fig/MCER.qmd",
+    stem = "structures-mcer",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-structures-results-site",
+    context = "structural design criteria"
+  )
+}
+rm(i, SiteTable)
+```

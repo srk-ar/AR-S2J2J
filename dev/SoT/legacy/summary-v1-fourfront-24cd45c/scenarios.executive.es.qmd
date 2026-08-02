@@ -1,0 +1,47 @@
+```{r}
+#| include: false
+SCENARIO_AUDIT <- fread(file.path(root, "data", "audit", "summary.csv"))
+SCENARIO_MASTER <- fread(file.path(root, "data", "records", "scenarios", "IMW.csv"))
+SCENARIO_COMPLETE <- unique(SCENARIO_MASTER$ScenarioID)
+if (!nrow(SCENARIO_AUDIT) || !length(SCENARIO_COMPLETE)) {
+  stop("scenarios.executive.es.qmd: scenario audit and inventory must be non-empty.")
+}
+if (!setequal(SCENARIO_AUDIT$ScenarioID, SCENARIO_COMPLETE)) {
+  stop("scenarios.executive.es.qmd: audit and generated scenario inventory do not match.")
+}
+SCENARIO_AUDIT[, p := sub("^.*\\.(p[0-9]+)$", "\\1", ScenarioID)]
+SCENARIO_N <- nrow(SCENARIO_AUDIT)
+SCENARIO_D <- range(SCENARIO_AUDIT$D)
+SCENARIO_Q <- range(SCENARIO_AUDIT$MIC)
+SCENARIO_REALIZATIONS <- range(SCENARIO_AUDIT$n.records)
+SCENARIO_REALIZATION_N <- data.table::uniqueN(
+  SCENARIO_MASTER[, .(ScenarioID, RecordID)]
+)
+if (SCENARIO_REALIZATION_N != sum(SCENARIO_AUDIT$n.records)) {
+  stop("scenarios.executive.es.qmd: inconsistent scenario realization inventory.")
+}
+SCENARIO_REALIZATION_TEXT <- if (
+  SCENARIO_REALIZATIONS[1L] == SCENARIO_REALIZATIONS[2L]
+) {
+  sprintf("Cada condición contiene %d realizaciones.", SCENARIO_REALIZATIONS[1L])
+} else {
+  sprintf(
+    "Cada condición contiene entre %d y %d realizaciones.",
+    SCENARIO_REALIZATIONS[1L], SCENARIO_REALIZATIONS[2L]
+  )
+}
+SCENARIO_P <- SCENARIO_AUDIT[, sort(unique(p))]
+SCENARIO_P_TEXT <- paste(SCENARIO_P, collapse = ", ")
+SCENARIO_P_LABEL <- if (length(SCENARIO_P) == 1L) {
+  "el nivel predictivo"
+} else {
+  "los niveles predictivos"
+}
+SCENARIO_PPV_L <- range(SCENARIO_AUDIT$SF.L)
+SCENARIO_PPV_T <- range(SCENARIO_AUDIT$SF.T)
+SCENARIO_PPV_V <- range(SCENARIO_AUDIT$SF.V)
+```
+
+La familia evaluada comprende `r SCENARIO_N` escenarios sobre una malla discreta de distancias entre `r formatC(SCENARIO_D[1L], format = "f", digits = 0L)` y `r formatC(SCENARIO_D[2L], format = "f", digits = 0L)` m y valores de MIC entre `r formatC(SCENARIO_Q[1L], format = "f", digits = 0L)` y `r formatC(SCENARIO_Q[2L], format = "f", digits = 0L)` kg, para `r SCENARIO_P_LABEL` $`r SCENARIO_P_TEXT`$. `r SCENARIO_REALIZATION_TEXT` En conjunto, la familia contiene `r formatC(SCENARIO_REALIZATION_N, format = "d", big.mark = "\u00A0")` realizaciones triaxiales, una por combinación escenario--registro fuente.
+
+Los objetivos PPV abarcan `r formatC(SCENARIO_PPV_L[1L], format = "f", digits = 2L)`–`r formatC(SCENARIO_PPV_L[2L], format = "f", digits = 2L)` mm/s en L, `r formatC(SCENARIO_PPV_T[1L], format = "f", digits = 2L)`–`r formatC(SCENARIO_PPV_T[2L], format = "f", digits = 2L)` mm/s en T y `r formatC(SCENARIO_PPV_V[1L], format = "f", digits = 2L)`–`r formatC(SCENARIO_PPV_V[2L], format = "f", digits = 2L)` mm/s en V.

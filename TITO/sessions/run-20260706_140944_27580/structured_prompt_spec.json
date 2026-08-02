@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "task_file": "/Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/md/gap-tsf-blasting-pore-pressure-liquefaction.prompt.md",
+  "slot_count": 5,
+  "constraint_count": 1,
+  "slots": [
+    {"ordinal": 1, "title": "References Connecting Blast Loading to Saturated-Tailings Response", "instruction": "Identify peer-reviewed papers, technical manuals, or authoritative tailings/dam references that connect blast-induced vibration or short-duration transient dynamic loading to excess pore-pressure generation, cyclic mobility, or liquefaction in saturated sands, silts, mine tailings, or fine tailings. Write in flowing paragraphs."},
+    {"ordinal": 2, "title": "Model Families and Equations", "instruction": "Describe the model families or equations used to relate cyclic stress or cyclic strain demand, number of equivalent cycles, drainage conditions, and material state to excess pore-pressure ratio or liquefaction triggering. Write in flowing paragraphs."},
+    {"ordinal": 3, "title": "Frequency, Duration, and Short High-Frequency Pulses", "instruction": "Explain how the cited methods treat loading frequency, duration, and short high-frequency pulses, including the limits stated when earthquake-derived cyclic-liquefaction concepts are applied to blast-like loading. Write in flowing paragraphs."},
+    {"ordinal": 4, "title": "Material Parameters and Motion-Record Limits", "instruction": "Identify the material parameters required to evaluate pore-pressure generation or cyclic resistance in saturated tailings, and distinguish which of those parameters cannot be inferred from acceleration or velocity records alone. Write in flowing paragraphs."},
+    {"ordinal": 5, "title": "Conservative Report Wording", "instruction": "Provide conservative wording for a report that evaluates blast-record scenarios as dynamic demand indicators rather than as a calibrated pore-pressure or liquefaction prediction model. Write in flowing paragraphs."}
+  ],
+  "constraints": [
+    "Prepare the response for an English technical report."
+  ]
+}

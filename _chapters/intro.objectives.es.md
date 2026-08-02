@@ -1,0 +1,19 @@
+Los objetivos principales de este estudio son los siguientes:
+
+* **Peligrosidad sísmica:** Cuantificar probabilidades anuales de excedencia para medidas de intensidad del movimiento del suelo en el sitio usando un análisis probabilístico de amenaza sísmica. Calcular curvas de amenaza específicas del sitio y espectros de amenaza uniforme en condiciones de roca de referencia. Realizar desagregación de amenaza para identificar escenarios dominantes de magnitud, distancia y épsilon (residuo normalizado) en cada nivel de amenaza determinante. Resumir los resultados de amenaza como curvas medias y fractiles de probabilidad anual de excedencia para condiciones de sitio definidas.
+* **Respuesta de sitio:** Calcular la aceleración pico del suelo y las ordenadas espectrales específicas del sitio mediante dos ramas ergódicas: la evaluación directa del árbol de modelos de movimiento del suelo, con los términos de sitio propios de cada modelo, en cada condición del proyecto, y la transformación del movimiento en roca de referencia mediante el modelo ergódico de amplificación NGA-East de Stewart y Hashash (2020). Presentar resultados de amenaza y respuesta de sitio como tablas y figuras que resumen valores de aceleración pico del suelo y espectros de amenaza uniforme para todas las clases de sitio y cuantiles evaluados.
+* **Diseño de taludes:** Cuantificar desplazamientos permanentes de taludes y derivar coeficientes sísmicos horizontales basados en el desempeño ($k_{\max}$, $k_h$) para el diseño de estabilidad de taludes. Los desplazamientos se estiman usando un conjunto ponderado de modelos de Newmark de bloque rígido y flexible para todas las clases geométricas, los escenarios de material, los períodos de retorno y los umbrales de desplazamiento admisible. Los coeficientes sísmicos se determinan mediante inversión del marco de desplazamiento para cada objetivo de desempeño prescrito. Resumir los valores de diseño $k_{\max}$ y $k_h$ para todas las combinaciones geometría-material-AEP.
+* **Criterios de diseño:** Establecer criterios de diseño sísmico para depósitos de relaves con base en estándares internacionales y clasificación de consecuencias. Asignar sismos de diseño y objetivos de desempeño para todas las fases del ciclo de vida del proyecto, incluidas operación, cierre y post-cierre, según lo requerido por GISTM, CDA y ANCOLD. Determinar escenarios de sismo máximo creíble (MCE) de acuerdo con requisitos regulatorios. Definir los espectros de diseño probabilísticos y los movimientos sísmicos asociados para cada etapa operacional y calificación de consecuencias. Establecer, para las estructuras convencionales, los espectros MCER del procedimiento específico del sitio de ASCE/SEI 7-22 (IBC 2021) —el sismo máximo considerado ajustado por riesgo— y derivar de ellos los espectros elásticos de diseño, definidos como dos tercios de las ordenadas MCER, con sus parámetros $S_{DS}$ y $S_{D1}$.
+
+```{r}
+#| echo: false
+#| results: asis
+if (isTRUE(get0("_INCLUDE_RECORD_SELECTION", ifnotfound = FALSE))) {
+  cat(sprintf(
+    "\n* **Selección de registros sísmicos:** %s\n",
+    get0("_TEXT_RECORD_SELECTION", ifnotfound = "")
+  ))
+}
+```
+
+* **Modelación de incertidumbre:** Propagar la incertidumbre epistémica mediante ramificación de árboles lógicos y la variabilidad aleatoria mediante integración probabilística en todos los componentes del análisis. Propagar incertidumbres basadas en amenaza y basadas en modelos en la respuesta de sitio mediante muestreo de Monte Carlo para generar espectros fractiles de respuesta de sitio. Agregar incertidumbres en medidas de intensidad del movimiento del suelo, respuesta de sitio y modelos de desplazamiento para generar intervalos de confianza robustos para desplazamientos de Newmark y coeficientes sísmicos basados en el desempeño.

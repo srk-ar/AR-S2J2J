@@ -1,0 +1,1 @@
+Maximum credible earthquake (MCE) response spectra, maximum horizontal spectral acceleration Sa(Tn) [%s] with 5%% critical damping at the reference rock condition Vs30 = %d m/s. Columns report each deterministic scenario at the median, 84th, 90th, and 95th percentiles and the mean of the total-variability mixture.

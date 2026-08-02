@@ -1,0 +1,6 @@
+```{r}
+#| include: false
+source(file.path(root, "scripts", "setup", "summary", "displacements.R"))
+```
+
+Las curvas $D_n(k_y)$ relacionan, para cada talud y nivel de amenaza, la aceleración de fluencia con el desplazamiento permanente esperado. A $k_y=`r .fmt(DisplacementsSummary$ky, 2)`$ g, las curvas medias de las geometrías evaluadas abarcan `r paste(DisplacementsSummary$range[, sprintf("para %s años, %s–%s cm en %s", .fmti(TR), .fmt(minimum, 2), .fmt(maximum, 2), IDn)], collapse = "; ")`. El conjunto global, identificado como *ensemble*, constituye la estimación adoptada para el diseño; las familias *rigid* y *flexible* cuantifican la sensibilidad a la representación dinámica de la masa deslizante. Para un desplazamiento admisible $D_a$, la inversión probabilística de estas curvas determina la aceleración de fluencia $k_{\max}$ que satisface el objetivo de desempeño y permite obtener el coeficiente normalizado $k_h$.

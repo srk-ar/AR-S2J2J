@@ -1,0 +1,108 @@
+{
+  "key": "SampleID",
+  "post": {
+    "location": [
+      "MIC",
+      "D"
+    ],
+    "transform": {
+      "op": "exp",
+      "base": 10
+    }
+  },
+  "dirs": {
+    "domains": "data/domains",
+    "datasets": "data/datasets"
+  },
+  "responses": {
+    "names": [
+      "ppv",
+      "ppvL",
+      "ppvT",
+      "ppvV",
+      "ppa",
+      "ppaL",
+      "ppaT",
+      "ppaV"
+    ],
+    "bounds": {
+      "min": null,
+      "max": null
+    }
+  },
+  "domains": {
+    "Y": {
+      "file": "Y.csv",
+      "role": "response"
+    },
+    "Q": {
+      "file": "Q.csv",
+      "role": "feature"
+    },
+    "D": {
+      "file": "D.csv",
+      "role": "feature"
+    },
+    "S": {
+      "file": "S.csv",
+      "role": "feature"
+    }
+  },
+  "datasets": {
+    "QDS": {
+      "domains": [
+        "Y",
+        "Q",
+        "D",
+        "S"
+      ]
+    }
+  },
+  "parse": {
+    "blastDB": {
+      "path": "data/blastDB.csv",
+      "siteID": "IMPALA",
+      "units": {
+        "ppv": "mm/s",
+        "ppa": "g"
+      },
+      "sources": {
+        "IMPALA": true,
+        "CAV": false,
+        "S11D": true,
+        "PMC11358398": false,
+        "PMC11787524": false,
+        "PMC5997587": false
+      },
+      "admission": {
+        "S11D": "exterior"
+      }
+    },
+    "domain": {
+      "D": {
+        "min": 0,
+        "max": 1000000000.0
+      },
+      "Q": {
+        "min": 0,
+        "max": 1000000000.0
+      }
+    },
+    "grid": {
+      "D": {
+        "min": 100,
+        "max": 1250,
+        "step": 25
+      },
+      "Q": {
+        "min": 150,
+        "max": 400,
+        "step": 25
+      }
+    },
+    "gapThreshold": 60,
+    "dirs": {
+      "kashimaDB": "~/kashimaDB/gmdb.v2/records"
+    }
+  }
+}

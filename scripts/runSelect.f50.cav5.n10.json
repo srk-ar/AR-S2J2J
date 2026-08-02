@@ -1,0 +1,14 @@
+{
+  "PATH.out"     : "data/records/plaxis.F50",
+  "Fmax"         : 50,
+  "P"            : 0.90,
+  "D.range"      : [0, 300],
+  "MIC.range"    : [100, 1000000],
+  "DIR"          : ["H1"],
+  "ID"           : ["AT"],
+  "Samples.N"    : 10,
+  "Sample.method": "rank",
+  "Rank.by"      : ["CAV5"],
+  "Rank.dir"     : "desc",
+  "OVERRIDE"     : false
+}

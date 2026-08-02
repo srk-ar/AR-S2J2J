@@ -1,0 +1,34 @@
+```{r}
+#| include: false
+if (!exists("CAP")) CAP <- "Conditional demand in terms of %s PPV at $D=%d$ m per MIC."
+if (!exists("RESP")) RESP <- c(ppvL = "longitudinal", ppvT = "transversal", ppvV = "vertical", ppv = "resultant")
+if (!exists("D.set")) D.set <- seq(100L, 500L, 50L)
+```
+
+::: {.panel-tabset .full-width}
+
+```{r}
+#| results: asis
+#| echo: false
+#| include: !expr knitr::is_html_output()
+for (.D in D.set) {
+  cat(sprintf("\n### $D=%d\\ m$\n\n::: {.panel-tabset}\n", .D))
+  for (.ID in names(RESP)) {
+    cat(sprintf("\n#### $%s$\n\n", .ID))
+    NGR::knitBlock(path = "/_fig/conditional.PPV.cell.qmd",
+                   stem = sprintf("fcond-D%d-%s", .D, .ID),
+                   labels = "rewrite",
+                   vars = list(ID = .ID, D_TARGET = .D,
+                               CAPTION = sprintf(CAP, RESP[[.ID]], .D)),
+                   root = root)
+  }
+  cat("\n:::\n")
+}
+```
+
+:::
+
+```{r}
+#| include: false
+rm(CAP, RESP, D.set)
+```

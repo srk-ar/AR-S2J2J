@@ -1,0 +1,175 @@
+```{r}
+#| include: false
+RECORDS_PRODUCT_ID <- "F125.Qo.Do.vmd"
+RECORDS_PATH <- file.path(root, "data", "gmsp", RECORDS_PRODUCT_ID)
+RECORDS_FILES <- file.path(
+  RECORDS_PATH,
+  c(sprintf("%s.json", RECORDS_PRODUCT_ID), "IMW.csv", "META.csv", "PSL.csv")
+)
+if (any(!file.exists(RECORDS_FILES))) {
+  stop(sprintf(
+    "records: missing canonical products: %s",
+    paste(basename(RECORDS_FILES[!file.exists(RECORDS_FILES)]), collapse = ", ")
+  ), call. = FALSE)
+}
+
+RECORDS_JSON <- jsonlite::read_json(RECORDS_FILES[1L], simplifyVector = TRUE)
+RECORDS_IMW <- data.table::fread(RECORDS_FILES[2L])
+RECORDS_META <- data.table::fread(RECORDS_FILES[3L])
+RECORDS_PSL_ALL <- data.table::fread(RECORDS_FILES[4L])
+
+RECORDS_COMPONENTS <- c("L", "T", "V")
+RECORDS_IM_REQUIRED <- c(
+  "RecordID", "OCID", "PGA", "PGV", "AI", "CAV", "CAV5",
+  "D0595", "Fs", "dt", "NP", "Dmax"
+)
+RECORDS_PS_REQUIRED <- c("RecordID", "OCID", "xi", "Tn", "ID", "S")
+RECORDS_META_REQUIRED <- c("RecordID", "D", "Q", "Fs")
+
+if (!identical(RECORDS_JSON$OutputID, RECORDS_PRODUCT_ID) ||
+    !identical(RECORDS_JSON$Method, "vmd") ||
+    as.integer(RECORDS_JSON$K.imf) != 10L ||
+    !identical(as.integer(RECORDS_JSON$IMF.remove), 1L)) {
+  stop("records: the sidecar does not satisfy the specified VMD contract.",
+       call. = FALSE)
+}
+if (length(setdiff(RECORDS_IM_REQUIRED, names(RECORDS_IMW))) ||
+    length(setdiff(RECORDS_PS_REQUIRED, names(RECORDS_PSL_ALL))) ||
+    length(setdiff(RECORDS_META_REQUIRED, names(RECORDS_META)))) {
+  stop("records: the canonical-product schema does not match the chapter contract.",
+       call. = FALSE)
+}
+if (!setequal(unique(RECORDS_IMW$OCID), RECORDS_COMPONENTS)) {
+  stop("records: IMW does not contain exactly the L/T/V components.",
+       call. = FALSE)
+}
+if (anyNA(RECORDS_IMW[, ..RECORDS_IM_REQUIRED]) ||
+    any(!is.finite(RECORDS_IMW$PGV)) || any(RECORDS_IMW$PGV <= 0)) {
+  stop("records: IMW contains missing or non-finite values, or non-positive PGV.",
+       call. = FALSE)
+}
+
+RECORDS_N <- data.table::uniqueN(RECORDS_IMW$RecordID)
+RECORDS_N_META <- data.table::uniqueN(RECORDS_META$RecordID)
+RECORDS_N_COMPONENTS <- nrow(RECORDS_IMW)
+if (!identical(as.integer(RECORDS_JSON$NR), as.integer(RECORDS_N))) {
+  stop("records: the number of IMW records does not match the sidecar.",
+       call. = FALSE)
+}
+RECORDS_COUNTS <- RECORDS_IMW[, .N, by = OCID]
+if (any(RECORDS_COUNTS$N != RECORDS_N) ||
+    RECORDS_IMW[, uniqueN(paste(RecordID, OCID))] != nrow(RECORDS_IMW)) {
+  stop("records: the population is incomplete in L/T/V.", call. = FALSE)
+}
+if (!all(RECORDS_META$RecordID %chin% RECORDS_IMW$RecordID) ||
+    data.table::uniqueN(RECORDS_META$RecordID) != nrow(RECORDS_META) ||
+    any(!is.finite(RECORDS_META$D)) || any(!is.finite(RECORDS_META$Q))) {
+  stop("records: the D/Q metadata are not a finite subset of the instrumental database.",
+       call. = FALSE)
+}
+
+RECORDS_XI <- as.numeric(RECORDS_JSON$XI)[1L]
+RECORDS_PSL <- RECORDS_PSL_ALL[
+  ID == "PSA" & abs(xi - RECORDS_XI) < 1e-12 & Tn >= 0
+]
+if (!setequal(unique(RECORDS_PSL$RecordID), unique(RECORDS_IMW$RecordID)) ||
+    !setequal(unique(RECORDS_PSL$OCID), RECORDS_COMPONENTS) ||
+    any(!is.finite(RECORDS_PSL$S)) || any(RECORDS_PSL$S <= 0)) {
+  stop("records: PSL does not contain positive and complete PSA for L/T/V.",
+       call. = FALSE)
+}
+RECORDS_PS_COUNTS <- RECORDS_PSL[, .N, by = .(RecordID, OCID)]
+if (data.table::uniqueN(RECORDS_PS_COUNTS$N) != 1L) {
+  stop("records: the period grids differ among records or components.",
+       call. = FALSE)
+}
+if (anyDuplicated(RECORDS_PSL, by = c("RecordID", "OCID", "Tn"))) {
+  stop("records: PSL contains duplicate periods by record and component.",
+       call. = FALSE)
+}
+
+RECORDS_G <- 9806.65
+RECORDS_FS <- sort(unique(RECORDS_IMW$Fs))
+RECORDS_DT <- sort(unique(RECORDS_IMW$dt))
+if (length(RECORDS_FS) != 1L || length(RECORDS_DT) != 1L) {
+  stop("records: the processed database does not share one temporal discretization.",
+       call. = FALSE)
+}
+RECORDS_DURATION <- range(RECORDS_IMW$Dmax)
+RECORDS_TN <- sort(unique(RECORDS_PSL[Tn > 0, Tn]))
+
+RECORDS_PEAKS <- RECORDS_IMW[, .(
+  PPA16 = stats::quantile(PGA / RECORDS_G, 0.16),
+  PPA50 = stats::median(PGA / RECORDS_G),
+  PPA84 = stats::quantile(PGA / RECORDS_G, 0.84),
+  PPV16 = stats::quantile(PGV, 0.16),
+  PPV50 = stats::median(PGV),
+  PPV84 = stats::quantile(PGV, 0.84)
+), by = OCID]
+
+RECORDS_EDA_FILES <- file.path(root, c(
+  "data/datasets/QDS.csv",
+  "data/domains/sources.csv",
+  "data/domains/units.json",
+  "scripts/manifest.json"
+))
+if (any(!file.exists(RECORDS_EDA_FILES))) {
+  stop(sprintf(
+    "records: missing official amplitude-dataset products: %s",
+    paste(RECORDS_EDA_FILES[!file.exists(RECORDS_EDA_FILES)], collapse = ", ")
+  ), call. = FALSE)
+}
+
+RECORDS_EDA_CONFIG <- jsonlite::read_json(
+  RECORDS_EDA_FILES[3L], simplifyVector = TRUE
+)
+RECORDS_EDA_RESPONSES <- jsonlite::read_json(
+  RECORDS_EDA_FILES[4L], simplifyVector = TRUE
+)$responses$names
+RECORDS_EDA_RESPONSES <- RECORDS_EDA_RESPONSES[
+  grepl("^pp[av][LTV]$", RECORDS_EDA_RESPONSES)
+]
+RECORDS_EDA_SOURCE_NAMES <- as.character(RECORDS_EDA_CONFIG$sources)
+RECORDS_EDA_UNITS <- unlist(RECORDS_EDA_CONFIG[c("ppv", "ppa")])
+if (!length(RECORDS_EDA_RESPONSES) ||
+    any(!c("ppv", "ppa") %in% names(RECORDS_EDA_UNITS)) ||
+    !length(RECORDS_EDA_SOURCE_NAMES)) {
+  stop("records: the manifest or units.json does not define the EDA contract.",
+       call. = FALSE)
+}
+
+RECORDS_EDA <- data.table::fread(
+  RECORDS_EDA_FILES[1L],
+  select = c("SampleID", "set", RECORDS_EDA_RESPONSES)
+)
+RECORDS_EDA_SOURCES <- data.table::fread(RECORDS_EDA_FILES[2L])
+if (anyDuplicated(RECORDS_EDA$SampleID) ||
+    anyDuplicated(RECORDS_EDA_SOURCES$SampleID) ||
+    !setequal(RECORDS_EDA_SOURCES$Source, RECORDS_EDA_SOURCE_NAMES)) {
+  stop("records: the amplitude-dataset keys or sources are invalid.",
+       call. = FALSE)
+}
+
+RECORDS_EDA <- RECORDS_EDA[set == "train"][
+  RECORDS_EDA_SOURCES, on = "SampleID", Source := i.Source
+]
+if (anyNA(RECORDS_EDA$Source) ||
+    nrow(RECORDS_EDA) != nrow(RECORDS_EDA_SOURCES) ||
+    !setequal(RECORDS_EDA$SampleID, RECORDS_EDA_SOURCES$SampleID)) {
+  stop("records: the QDS--sources join is not one-to-one and complete for set=train.",
+       call. = FALSE)
+}
+
+RECORDS_EDA <- data.table::melt(
+  RECORDS_EDA,
+  id.vars = c("SampleID", "Source"),
+  measure.vars = RECORDS_EDA_RESPONSES,
+  variable.name = "response",
+  value.name = "value",
+  variable.factor = FALSE
+)[is.finite(value)][, value := 10^value]
+if (any(!is.finite(RECORDS_EDA$value)) || any(RECORDS_EDA$value <= 0)) {
+  stop("records: the transformation to physical response values is invalid.",
+       call. = FALSE)
+}
+```

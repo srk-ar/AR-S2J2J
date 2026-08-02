@@ -1,0 +1,17 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+```
+
+{{< include /_summary/records.setup.qmd >}}
+
+# Blasting Records {#sec-records}
+
+## Methodology {#sec-records_method}
+
+{{< include /_chapters/records.md >}}
+
+## Results {#sec-records_results}
+
+{{< include /_summary/records.results.qmd >}}

@@ -1,0 +1,22 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+if (!exists("CAP", inherits = FALSE)) CAP <- "Numerical verification of the generated scenarios: vertical PPV target, horizontal quadratic norm, positive component PGA, and combined result."
+PathAudit <- file.path(root, "data", "audit", "summary.csv")
+if (!file.exists(PathAudit)) {
+  stop("audit: audit summary is missing.", call. = FALSE)
+}
+```
+
+```{r}
+#| include: true
+#| label: tbl-scenario-audit
+#| tbl-cap: !expr CAP
+source(file.path(root, "scripts", "tbl", "audit.R"))
+TBL
+```
+
+```{r}
+#| include: false
+rm(CAP, PathAudit)
+```

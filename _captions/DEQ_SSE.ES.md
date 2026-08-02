@@ -1,0 +1,1 @@
+Sismos de diseño de cierre en términos de aceleración máxima del terreno (PGA) [%s] por estándar (%s) y clase de consecuencia. Los valores cubren AEP desde 1/%d hasta 1/%d [1/año] y condiciones de sitio con Vs30 entre %d y %d [m/s].

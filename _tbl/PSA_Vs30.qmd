@@ -1,0 +1,97 @@
+:::{.content-hidden when-format='html'}
+```{r}
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, min(TR.target), max(TR.target), min(Tn.target), max(Tn.target), Vs30.gmdp[5], p.target)
+Vs30.target <- Vs30.gmdp[5]
+source(file.path(root, "scripts", "tbl/PSA.R"))
+TBL
+```
+:::
+
+:::{.content-hidden when-format='docx'}
+:::{.panel-tabset .full-width }
+
+#### `r Site.label[7]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-psa_vs30_1500
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, min(TR.target), max(TR.target), min(Tn.target), max(Tn.target), Vs30.gmdp[7], p.target)
+Vs30.target <- Vs30.gmdp[7]
+source(file.path(root, "scripts", "tbl/PSA.R"))
+TBL
+```
+
+#### `r Site.label[6]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-psa_vs30_1250
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, min(TR.target), max(TR.target), min(Tn.target), max(Tn.target), Vs30.gmdp[6], p.target)
+Vs30.target <- Vs30.gmdp[6]
+source(file.path(root, "scripts", "tbl/PSA.R"))
+TBL
+```
+
+#### `r Site.label[5]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-psa_vs30_800
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, min(TR.target), max(TR.target), min(Tn.target), max(Tn.target), Vs30.gmdp[5], p.target)
+Vs30.target <- Vs30.gmdp[5]
+source(file.path(root, "scripts", "tbl/PSA.R"))
+TBL
+```
+
+#### `r Site.label[4]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-psa_vs30_560
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, min(TR.target), max(TR.target), min(Tn.target), max(Tn.target), Vs30.gmdp[4], p.target)
+Vs30.target <- Vs30.gmdp[4]
+source(file.path(root, "scripts", "tbl/PSA.R"))
+TBL
+```
+
+#### `r Site.label[3]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-psa_vs30_360
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, min(TR.target), max(TR.target), min(Tn.target), max(Tn.target), Vs30.gmdp[3], p.target)
+Vs30.target <- Vs30.gmdp[3]
+source(file.path(root, "scripts", "tbl/PSA.R"))
+TBL
+```
+
+#### `r Site.label[2]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-psa_vs30_270
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, min(TR.target), max(TR.target), min(Tn.target), max(Tn.target), Vs30.gmdp[2], p.target)
+Vs30.target <- Vs30.gmdp[2]
+source(file.path(root, "scripts", "tbl/PSA.R"))
+TBL
+```
+
+#### `r Site.label[1]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: tbl-psa_vs30_180
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, min(TR.target), max(TR.target), min(Tn.target), max(Tn.target), Vs30.gmdp[1], p.target)
+Vs30.target <- Vs30.gmdp[1]
+source(file.path(root, "scripts", "tbl/PSA.R"))
+TBL
+```
+
+:::
+:::
+
+```{r}
+#| include: false
+rm(Vs30.target)
+```

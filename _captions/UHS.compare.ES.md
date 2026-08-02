@@ -1,0 +1,1 @@
+Espectros en la condición de roca de referencia Vs30 = 760 m/s: espectros medios de amenaza uniforme del modelo de amenaza reportado para períodos de retorno TR = %s-%s años (PSHA), superpuestos con los espectros determinísticos de los escenarios en la media y el percentil p = 0.84 (MCE); Sa(Tn) máxima horizontal [g] con 5%% de amortiguamiento crítico.

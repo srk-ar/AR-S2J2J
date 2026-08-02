@@ -1,0 +1,1 @@
+Tasa anual media de excedencia (producto AEP) por fuente para Sa(Tn=%g) [g]. Las ordenadas espectrales corresponden a condiciones de sitio en roca con Vs30 = %s m/s.

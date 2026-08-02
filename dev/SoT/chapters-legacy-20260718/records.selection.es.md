@@ -1,0 +1,11 @@
+La selección restringe la población de realizaciones por banda de frecuencia máxima, nivel predictivo y rangos de distancia y MIC. Dentro de cada escenario, la primera dirección solicitada define las identidades de registro que se comparan mediante las medidas de intensidad disponibles. La selección puede ordenar una o más medidas en sentido ascendente o descendente, o utilizar muestreo aleatorio, y conserva una cantidad declarada de registros por escenario.
+
+Una vez elegidas las identidades, se extraen las combinaciones solicitadas de magnitud del movimiento y dirección sin modificar nuevamente las ordenadas. El resultado es un conjunto de historias identificado por registro, escenario, dirección y magnitud del movimiento. La medida utilizada para ordenar es un descriptor de demanda; no demuestra por sí sola que el registro sea representativo o conservador para la respuesta de los relaves.
+
+Los parámetros de la selección — dirección y magnitud del movimiento, banda de procesamiento, nivel predictivo, cantidad de registros por escenario y criterio de ordenamiento — se declaran en el contrato de cada entrega y exigen una familia de escenarios compatible con esos filtros.
+
+Las identidades seleccionadas se relacionan con su banda de frecuencia, distancia, MIC, nivel predictivo, dirección y medidas de intensidad. A partir de esa relación se construyen el índice del conjunto seleccionado y un inventario de registros únicos que muestra en qué escenarios aparece cada identidad. Esta estructura permite vincular una respuesta geotécnica posterior con la historia que la produjo y con la condición física que determinó su amplitud.
+
+Las visualizaciones de revisión comparan las historias temporales y los espectros de respuesta de los registros seleccionados. Su función es facilitar la inspección del rango de demandas, las repeticiones y los contrastes entre escenarios; no modifican las historias ni reemplazan el control de consistencia. Los productos de esta etapa son, por tanto, material de trazabilidad y revisión técnica, no una nueva etapa de generación de movimiento.
+
+La interpretación del conjunto considera conjuntamente amplitudes pico, duración, intensidad de Arias, CAV, CAV5 y contenido espectral. La traducción de estas demandas en presión de poros, deformación y desempeño corresponde al modelo dinámico y se reporta separadamente.

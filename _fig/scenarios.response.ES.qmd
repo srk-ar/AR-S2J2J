@@ -1,0 +1,23 @@
+```{r}
+#| include: false
+COMPONENT_LABELS <- c(
+  H1 = "horizontal principal H1",
+  H2 = "horizontal ortogonal H2",
+  UP = "vertical UP"
+)
+TABS <- c(H1 = "H1", H2 = "H2", UP = "UP")
+CAP <- paste(
+  "Aceleración pico de partícula exacta de las realizaciones generadas para la",
+  "componente %s. La matriz contiene %s historias fuente y %s condiciones",
+  "$D$--$Q$ en el nivel predictivo $p=%s$; cada celda representa una",
+  "combinación de escenario e historia fuente. Las columnas están ordenadas",
+  "por $D$ y luego $Q$, y se conserva el mismo orden de historias en H1, H2 y",
+  "UP. La escala cromática es logarítmica y la consulta interactiva informa la",
+  "PPA exacta en g. Estos son picos",
+  "absolutos de los acelerogramas generados, no predicciones del modelo PPA.",
+  "Se muestran todos los valores individuales."
+)
+SERIES_LABEL <- "PPA [g]"
+```
+
+{{< include /_fig/scenarios.response.qmd >}}

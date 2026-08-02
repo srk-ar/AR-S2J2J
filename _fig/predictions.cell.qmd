@@ -1,0 +1,10 @@
+```{r}
+#| label: fig-pred
+#| fig-cap: !expr CAPTION
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| echo: false
+#| warning: false
+source(file.path(root, "scripts", "fig", "oof.R"))
+PLOT
+```

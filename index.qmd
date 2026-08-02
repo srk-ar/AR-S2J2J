@@ -1,0 +1,43 @@
+---
+format:
+  html:
+    body-classes: cover-page
+bibliography:
+  - bib/references.bib
+  - bib/psha.bib
+csl: bib/apa.csl
+---
+
+```{r}
+#| include: true
+#| results: asis
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+source(file.path(root, "scripts", "setup", "cover.R"))
+
+ReportTitle <- params$title
+ReportLanguage <- "en"
+QuartoYml <- file.path(root, "_quarto.yml")
+if (file.exists(QuartoYml)) {
+  QuartoMeta <- yaml::read_yaml(QuartoYml)
+  if (!is.null(QuartoMeta$book$title)) ReportTitle <- QuartoMeta$book$title
+  if (!is.null(QuartoMeta$lang) && grepl("^es", QuartoMeta$lang)) ReportLanguage <- "es"
+  if (!is.null(QuartoMeta$book$lang) && grepl("^es", QuartoMeta$book$lang)) ReportLanguage <- "es"
+  AUX <- unlist(c(QuartoMeta$book$chapters, QuartoMeta$book$appendices))
+  if (any(grepl("\\.ES\\.qmd$", AUX))) ReportLanguage <- "es"
+  rm(AUX)
+}
+
+AUX <- trimws(as.character(c(
+  ReportTitle, params$site, params$location, params$project_id
+)))
+AUX <- AUX[!is.na(AUX) & nzchar(AUX)]
+if (length(AUX)) cat(sprintf("# %s {.unnumbered}\n\n", AUX[[1L]]))
+rm(AUX)
+
+ParamsCover <- params
+ParamsCover$title <- ReportTitle
+CoverHTML <- buildCoverReport(ParamsCover)
+cat("```{=html}\n", CoverHTML, "\n```\n", sep = "")
+```
+

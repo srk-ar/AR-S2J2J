@@ -1,0 +1,89 @@
+## <br>`r if (exists("TITLE", inherits = FALSE)) TITLE else "Newmark Displacements $D_n$"`
+
+```{r}
+IDn.target <- c("ensemble", "rigid", "flexible")
+IDg.target <- IDg.gmdp
+Da.target  <- Da.gmdp
+p.target   <- c(0.05, 0.10, 0.16, "mean", 0.84, 0.90, 0.95)
+if (!exists("CAP", inherits = FALSE)) CAP <- "Newmark sliding-block model. Residual displacements [cm] for geometry %s (scenario %d). Ensemble, rigid, and flexible quantiles are reported for target ground motion with 1/%.0f AEP [1/yr]."
+TR.label <- prettyNum(TR.gmdp, big.mark = ",", scientific = FALSE)
+```
+
+```{r}
+ID.target <- .resolveDerivedIDTarget(
+  DnTable,
+  "Newmark slide",
+  suffix = ".max",
+  target = .currentTarget("ID.target"),
+  siteID = .currentTarget("siteID.target")
+)
+```
+
+:::{.panel-tabset .full-width }
+
+#### $T_R\approx `r TR.label[2]`$
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/Dn_IDg.qmd", stem = paste(c(.currentTarget("siteID.target"), "nm-tr2"), collapse = "-"), labels = "rewrite", vars = list(TR.target = TR.gmdp[2]), root = root)
+```
+
+#### $`r TR.label[3]`$
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/Dn_IDg.qmd", stem = paste(c(.currentTarget("siteID.target"), "nm-tr3"), collapse = "-"), labels = "rewrite", vars = list(TR.target = TR.gmdp[3]), root = root)
+```
+
+#### $`r TR.label[4]`$
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/Dn_IDg.qmd", stem = paste(c(.currentTarget("siteID.target"), "nm-tr4"), collapse = "-"), labels = "rewrite", vars = list(TR.target = TR.gmdp[4]), root = root)
+```
+
+#### $`r TR.label[5]`$
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/Dn_IDg.qmd", stem = paste(c(.currentTarget("siteID.target"), "nm-tr5"), collapse = "-"), labels = "rewrite", vars = list(TR.target = TR.gmdp[5]), root = root)
+```
+
+#### $`r TR.label[6]`$
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/Dn_IDg.qmd", stem = paste(c(.currentTarget("siteID.target"), "nm-tr6"), collapse = "-"), labels = "rewrite", vars = list(TR.target = TR.gmdp[6]), root = root)
+```
+
+#### $`r TR.label[7]`$
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/Dn_IDg.qmd", stem = paste(c(.currentTarget("siteID.target"), "nm-tr7"), collapse = "-"), labels = "rewrite", vars = list(TR.target = TR.gmdp[7]), root = root)
+```
+
+#### $`r TR.label[8]`$
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/Dn_IDg.qmd", stem = paste(c(.currentTarget("siteID.target"), "nm-tr8"), collapse = "-"), labels = "rewrite", vars = list(TR.target = TR.gmdp[8]), root = root)
+```
+
+:::
+
+### <br>Fundamental Periods
+
+```{r}
+#| include: false
+CAP <- "Fundamental Periods in [sec] and shear moduli in [MPa] for a slope of %d [m] height, for material classifications (USCS) representative of tailings storage facilities (TSF) and waste rock dumps (WRD)."
+```
+
+{{< include /_tbl/Ts.qmd >}}

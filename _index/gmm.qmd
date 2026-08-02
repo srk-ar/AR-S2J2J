@@ -1,0 +1,74 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root,"scripts","setup","setup.R"))
+```
+
+# Ground Motion Models (GMM) {#sec-gmm_appendix}
+
+## Executive Summary {#sec-gmm_summary}
+
+{{< include /_chapters/gmm.summary.md >}}
+
+{{< include /_summary/gmm.results.qmd >}}
+
+
+## Methodology {#sec-gmm}
+
+{{< include /_chapters/hazard.GMM.md >}}
+
+{{< include /_chapters/gmm.trees.md >}}
+
+{{< include /_chapters/gmm.ASC.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+if (!is.null(GMPETable) && nrow(GMPETable[TRT == "ASC"])) {
+  Mw.target <- if (!exists("Mw.gmm", inherits = FALSE)) 6.5 else if (is.null(names(Mw.gmm))) Mw.gmm[[1L]] else if ("ASC" %in% names(Mw.gmm)) Mw.gmm[["ASC"]] else 6.5
+  NGR::knitBlock(path = "/_fig/GMPE.qmd", stem = "a1-asc-att", labels = "rewrite", vars = list(ID.target = unique(GMPETable[TRT == "ASC", ID]), Mw.target = Mw.target), root = root)
+  NGR::knitBlock(path = "/_fig/GMPE.PSA.qmd", stem = "a1-asc-psa", labels = "rewrite", vars = list(ID.target = unique(GMPETable[TRT == "ASC", ID]), Mw.target = Mw.target, Repi.target = 100), root = root)
+  rm(Mw.target)
+}
+```
+
+{{< include /_chapters/gmm.SCC.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+if (!is.null(GMPETable) && nrow(GMPETable[TRT == "SCC"])) {
+  Mw.target <- if (!exists("Mw.gmm", inherits = FALSE)) 6.5 else if (is.null(names(Mw.gmm))) Mw.gmm[[1L]] else if ("SCC" %in% names(Mw.gmm)) Mw.gmm[["SCC"]] else 6.5
+  NGR::knitBlock(path = "/_fig/GMPE.qmd", stem = "a1-scc-att", labels = "rewrite", vars = list(ID.target = unique(GMPETable[TRT == "SCC", ID]), Mw.target = Mw.target), root = root)
+  NGR::knitBlock(path = "/_fig/GMPE.PSA.qmd", stem = "a1-scc-psa", labels = "rewrite", vars = list(ID.target = unique(GMPETable[TRT == "SCC", ID]), Mw.target = Mw.target, Repi.target = 100), root = root)
+  rm(Mw.target)
+}
+```
+
+{{< include /_chapters/gmm.SIF.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+if (!is.null(GMPETable) && nrow(GMPETable[TRT == "SIF"])) {
+  Mw.target <- if (!exists("Mw.gmm", inherits = FALSE)) 6.5 else if (is.null(names(Mw.gmm))) Mw.gmm[[1L]] else if ("SIF" %in% names(Mw.gmm)) Mw.gmm[["SIF"]] else 6.5
+  NGR::knitBlock(path = "/_fig/GMPE.qmd", stem = "a1-sif-att", labels = "rewrite", vars = list(ID.target = unique(GMPETable[TRT == "SIF", ID]), Mw.target = Mw.target), root = root)
+  NGR::knitBlock(path = "/_fig/GMPE.PSA.qmd", stem = "a1-sif-psa", labels = "rewrite", vars = list(ID.target = unique(GMPETable[TRT == "SIF", ID]), Mw.target = Mw.target, Repi.target = 100), root = root)
+  rm(Mw.target)
+}
+```
+
+{{< include /_chapters/gmm.SIS.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+if (!is.null(GMPETable) && nrow(GMPETable[TRT == "SIS"])) {
+  Mw.target <- if (!exists("Mw.gmm", inherits = FALSE)) 6.5 else if (is.null(names(Mw.gmm))) Mw.gmm[[1L]] else if ("SIS" %in% names(Mw.gmm)) Mw.gmm[["SIS"]] else 6.5
+  NGR::knitBlock(path = "/_fig/GMPE.qmd", stem = "a1-sis-att", labels = "rewrite", vars = list(ID.target = unique(GMPETable[TRT == "SIS", ID]), Mw.target = Mw.target), root = root)
+  NGR::knitBlock(path = "/_fig/GMPE.PSA.qmd", stem = "a1-sis-psa", labels = "rewrite", vars = list(ID.target = unique(GMPETable[TRT == "SIS", ID]), Mw.target = Mw.target, Repi.target = 100), root = root)
+  rm(Mw.target)
+}
+```
+
+{{< include /_chapters/gmm.uncertainty.md >}}

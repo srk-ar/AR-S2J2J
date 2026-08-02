@@ -1,0 +1,102 @@
+:::{.content-hidden when-format='docx'}
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+ID <- "PSA"
+```
+
+:::{.panel-tabset .full-width }
+
+#### H1
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+DIR <- "H1"
+if (exists("CAPTION", inherits = FALSE)) rm(CAPTION)
+source(file.path(root, "scripts", "fig", "PS.R"))
+```
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| label: fig-ps-psa-h1
+#| fig-cap: !expr CAPTION
+PLOT
+```
+
+#### H2
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+DIR <- "H2"
+if (exists("CAPTION", inherits = FALSE)) rm(CAPTION)
+source(file.path(root, "scripts", "fig", "PS.R"))
+```
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| label: fig-ps-psa-h2
+#| fig-cap: !expr CAPTION
+PLOT
+```
+
+#### UP
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+DIR <- "UP"
+if (exists("CAPTION", inherits = FALSE)) rm(CAPTION)
+source(file.path(root, "scripts", "fig", "PS.R"))
+```
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| label: fig-ps-psa-up
+#| fig-cap: !expr CAPTION
+PLOT
+```
+
+#### D50
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+DIR <- "D50"
+if (exists("CAPTION", inherits = FALSE)) rm(CAPTION)
+source(file.path(root, "scripts", "fig", "PS.R"))
+```
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| label: fig-ps-psa-d50
+#| fig-cap: !expr CAPTION
+PLOT
+```
+
+#### D100
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+DIR <- "D100"
+if (exists("CAPTION", inherits = FALSE)) rm(CAPTION)
+source(file.path(root, "scripts", "fig", "PS.R"))
+```
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| label: fig-ps-psa-d100
+#| fig-cap: !expr CAPTION
+PLOT
+```
+
+:::
+
+:::

@@ -1,0 +1,114 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+DATASET <- "QDS"
+PathDataset <- file.path(root, "data", "datasets", sprintf("%s.csv", DATASET))
+PathSources <- file.path(root, "data", "domains", "sources.csv")
+PathScenarios <- file.path(root, "data", "records", "scenarios", "IMW.csv")
+if (any(!file.exists(c(PathDataset, PathSources, PathScenarios)))) {
+  stop("model.domain.compare: required model products are missing.",
+       call. = FALSE)
+}
+
+AUX <- data.table::fread(
+  PathDataset,
+  select = c("set", "D", "MIC", "SD")
+)[set == "train"]
+if (!nrow(AUX) ||
+    AUX[, any(!is.finite(D) | D <= 0 | !is.finite(MIC) | MIC <= 0 |
+              !is.finite(SD) | SD <= 0)]) {
+  stop("model.domain.compare: invalid model-fitting observations.", call. = FALSE)
+}
+N.OBS <- nrow(AUX)
+RANGE.D <- range(AUX$D)
+RANGE.Q <- range(AUX$MIC)
+RANGE.SD <- range(AUX$SD)
+
+AUX <- unique(data.table::fread(
+  PathScenarios,
+  select = c("D", "MIC", "P")
+))
+if (!nrow(AUX) || AUX[, uniqueN(P)] != 1L) {
+  stop("model.domain.compare: invalid scenario conditions.", call. = FALSE)
+}
+N.GRID <- nrow(AUX)
+P.GRID <- unique(AUX$P)
+
+GRID_LABEL <- "Scenario conditions"
+GROUP_LEGEND <- "Set"
+SOURCE_COLORS <- setNames(
+  c("#00838f", "rgba(110,110,110,0.28)", "#d95f02"),
+  c("IMPALA", "S11D", GRID_LABEL)
+)
+CAP.QD <- sprintf(
+  paste(
+    "Observations included in model fitting in the physical $Q$--$D$ domain",
+    "($n=%s$; $D=%s$ m; $Q=%s$ kg), distinguished by source, and %s",
+    "scenario conditions evaluated at $p=%s$. $Q$ denotes maximum",
+    "instantaneous charge (MIC). Scenario markers are demand conditions,",
+    "not observations or selected records; both axes are logarithmic."
+  ),
+  format(N.OBS, big.mark = ","),
+  paste(formatC(round(RANGE.D), format = "d", big.mark = ","), collapse = "--"),
+  paste(formatC(round(RANGE.Q), format = "d", big.mark = ","), collapse = "--"),
+  N.GRID,
+  formatC(P.GRID, format = "f", digits = 2L)
+)
+CAP.QSD <- sprintf(
+  paste(
+    "Observations included in model fitting in the transformed $Q$--$SD$ domain",
+    "($n=%s$; $SD=%s$ m/kg$^{0.5}$; $Q=%s$ kg), distinguished by source,",
+    "and %s scenario conditions evaluated at $p=%s$. $Q$ denotes maximum",
+    "instantaneous charge (MIC), and $SD=D/\\sqrt{Q}$. Scenario markers are",
+    "demand conditions, not observations or selected records; both axes are",
+    "logarithmic."
+  ),
+  format(N.OBS, big.mark = ","),
+  paste(formatC(RANGE.SD, format = "f", digits = 2L), collapse = "--"),
+  paste(formatC(round(RANGE.Q), format = "d", big.mark = ","), collapse = "--"),
+  N.GRID,
+  formatC(P.GRID, format = "f", digits = 2L)
+)
+rm(AUX)
+```
+
+::: {.panel-tabset .full-width}
+
+### Physical domain ($Q$--$D$)
+
+```{r}
+#| label: fig-model-domain-qd
+#| fig-cap: !expr CAP.QD
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| warning: false
+X_AXIS <- "D [m]"
+Y_AXIS <- "Q (MIC) [kg]"
+source(file.path(root, "scripts", "fig", "model.domain.R"))
+PLOT
+```
+
+### Transformed domain ($Q$--$SD$)
+
+```{r}
+#| label: fig-model-domain-qsd
+#| fig-cap: !expr CAP.QSD
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| warning: false
+X_AXIS <- "SD [m/kg^0.5]"
+Y_AXIS <- "Q (MIC) [kg]"
+source(file.path(root, "scripts", "fig", "model.domain.SD.R"))
+PLOT
+```
+
+:::
+
+```{r}
+#| include: false
+rm(
+  CAP.QD, CAP.QSD, DATASET, GRID_LABEL, GROUP_LEGEND, N.GRID, N.OBS,
+  P.GRID, PLOT, PathDataset, PathScenarios, PathSources, RANGE.D, RANGE.Q,
+  RANGE.SD, SOURCE_COLORS, X_AXIS, Y_AXIS
+)
+```

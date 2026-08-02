@@ -1,0 +1,64 @@
+
+:::{.content-hidden when-format='docx'}
+
+:::{.panel-tabset .full-width }
+
+#### `r IDn.gmdp[1]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idn-1
+#| fig-cap: !expr CAP |> sprintf(IDn.gmdp[1], TR.target)
+IDn.target <- IDn.gmdp[1]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+#### `r IDn.gmdp[2]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idn-2
+#| fig-cap: !expr CAP |> sprintf(IDn.gmdp[2], TR.target)
+IDn.target <- IDn.gmdp[2]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+#### `r IDn.gmdp[3]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idn-3
+#| fig-cap: !expr CAP |> sprintf(IDn.gmdp[3], TR.target)
+IDn.target <- IDn.gmdp[3]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+#### `r IDn.gmdp[4]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idn-4
+#| fig-cap: !expr CAP |> sprintf(IDn.gmdp[4], TR.target)
+IDn.target <- IDn.gmdp[4]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### EM (ensemble model)
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idn-5
+#| fig-cap: !expr CAP |> sprintf("EM", TR.target)
+IDn.target <- "ensemble"
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+:::
+
+:::

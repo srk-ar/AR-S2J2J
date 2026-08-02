@@ -1,0 +1,1 @@
+Deterministic scenario %s (%s, Mw %.1f at %d km): total-variability mixture fractiles p = %s of the maximum horizontal Sa(Tn) [g] with 5%% critical damping at the reference rock condition Vs30 = %.0f m/s.

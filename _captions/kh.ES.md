@@ -1,0 +1,1 @@
+Coeficientes sísmicos basados en desempeño $k_h$ [%%PGA] para el escenario Newmark %s en función del desplazamiento residual admisible $D_a$ [cm]. Los valores se reportan para el movimiento objetivo con AEP 1/%.0f [1/año].

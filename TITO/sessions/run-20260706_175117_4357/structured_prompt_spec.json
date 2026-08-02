@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "task_file": "/Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/md/gap-tsf-blast-record-scaling-limitations.prompt.md",
+  "slot_count": 5,
+  "constraint_count": 4,
+  "slots": [
+    {"ordinal": 1, "title": "Support for amplitude-scaling measured records", "instruction": "Assess what support exists in blasting, geotechnical earthquake engineering, or transient dynamic analysis literature for amplitude-scaling measured records for scenario studies. Write in flowing paragraphs."},
+    {"ordinal": 2, "title": "Preserved and non-preserved properties", "instruction": "Explain which properties simple amplitude scaling preserves and which properties it does not preserve, including frequency content, duration, phase relationships, component coherency, wave propagation effects, source/path/site terms, cycle count, and pore-pressure-relevant cumulative demand. Write in flowing paragraphs."},
+    {"ordinal": 3, "title": "Independent component-peak scaling assumptions and limitations", "instruction": "State the assumptions and limitations that should be declared for TSF dynamic response assessment when measured records are scaled independently by component peaks. Write in flowing paragraphs."},
+    {"ordinal": 4, "title": "Distinction from other waveform-adjustment methods", "instruction": "Explain how amplitude scaling differs from spectral matching, target-spectrum adjustment, synthetic waveform generation, and calibrated blast source modelling. Write in flowing paragraphs."},
+    {"ordinal": 5, "title": "Defensible wording for scenario demand histories", "instruction": "Develop defensible wording for describing scaled measured blast records as scenario demand histories for saturated-tailings response. Write in flowing paragraphs."}
+  ],
+  "constraints": [
+    "The output is for an English technical report.",
+    "The work must construct scenario records for TSF dynamic response review, not perform spectral matching.",
+    "The work must not synthesize a physics-based blast source.",
+    "The work must not claim direct pore-pressure prediction from acceleration records alone."
+  ]
+}

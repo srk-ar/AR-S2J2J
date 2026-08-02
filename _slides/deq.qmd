@@ -1,0 +1,99 @@
+## <br>`r if (exists("TITLE", inherits = FALSE)) TITLE else paste(Standard.target, "Design Criteria")`
+
+```{r}
+#| include: false
+.STD <- tolower(Standard.target)
+.STEM <- .STD
+.SITE <- .currentTarget("siteID.target")
+if (is.character(.SITE) && length(.SITE) == 1L && nzchar(.SITE)) .STEM <- paste0(tolower(.SITE), "-", .STD)
+.VARS <- list(
+  Standard.target = Standard.target,
+  ID.target = .currentTarget("ID.target"),
+  siteID.target = .SITE
+)
+.VARS <- .VARS[lengths(.VARS) > 0L]
+root <- normalizePath(here::here())
+```
+
+:::{.panel-tabset .full-width}
+
+### Criteria
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = paste0("/_tbl/", .STD, ".qmd"), stem = .STEM, labels = "rewrite", vars = .VARS, root = root)
+```
+
+### Operation (OBE)
+
+:::{.panel-tabset}
+
+#### UHS
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/DEQ_OBE.qmd", stem = paste0(.STEM, "-obe"), labels = "rewrite", vars = .VARS, root = root)
+```
+
+#### PGA
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_tbl/DEQ_OBE.qmd", stem = paste0(.STEM, "-obe"), labels = "rewrite", vars = .VARS, root = root)
+```
+
+:::
+
+### Closure (SEE)
+
+:::{.panel-tabset}
+
+#### UHS
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/DEQ_SSE.qmd", stem = paste0(.STEM, "-sse"), labels = "rewrite", vars = .VARS, root = root)
+```
+
+#### PGA
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_tbl/DEQ_SSE.qmd", stem = paste0(.STEM, "-sse"), labels = "rewrite", vars = .VARS, root = root)
+```
+
+:::
+
+### Post-Closure (PCE)
+
+:::{.panel-tabset}
+
+#### UHS
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/DEQ_PCE.qmd", stem = paste0(.STEM, "-pce"), labels = "rewrite", vars = .VARS, root = root)
+```
+
+#### PGA
+
+```{r}
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_tbl/DEQ_PCE.qmd", stem = paste0(.STEM, "-pce"), labels = "rewrite", vars = .VARS, root = root)
+```
+
+:::
+
+:::
+
+```{r}
+#| include: false
+rm(list = intersect(c("Standard.target", "TITLE", ".STD", ".STEM", ".SITE", ".VARS"), ls()))
+```

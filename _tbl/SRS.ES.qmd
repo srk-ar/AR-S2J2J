@@ -1,0 +1,26 @@
+```{r}
+#| include: false
+SRS_SITE_TEXT <- .reportLabel()
+if (!nzchar(SRS_SITE_TEXT) && !is.null(params$site) && length(params$site)) {
+  SRS_SITE_TEXT <- trimws(as.character(params$site[[1L]]))
+}
+if (!nzchar(SRS_SITE_TEXT) && !is.null(params$location) && length(params$location)) {
+  SRS_SITE_TEXT <- trimws(as.character(params$location[[1L]]))
+}
+if (!nzchar(SRS_SITE_TEXT)) SRS_SITE_TEXT <- "el proyecto"
+CAP <- sprintf(
+  paste(
+    "Registros sísmicos seleccionados para %s. Mw = magnitud de momento;",
+    "Repi = distancia epicentral; PGA = aceleración máxima del suelo;",
+    "AI = intensidad de Arias; CAV = velocidad absoluta acumulada;",
+    "CAV5 = velocidad absoluta acumulada con umbral; SF = c_i, coeficiente",
+    "de escala aplicado a cada registro del conjunto después de la",
+    "reconstrucción modal y la normalización de energía. El cambio total",
+    "respecto del registro original combina esas tres operaciones. Las medidas de intensidad",
+    "se reportan para la componente H1 final procesada y escalada."
+  ),
+  SRS_SITE_TEXT
+)
+```
+
+{{< include /_tbl/SRS.qmd >}}

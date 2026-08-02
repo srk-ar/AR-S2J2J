@@ -1,0 +1,1 @@
+Operational design earthquakes in terms of peak ground acceleration (PGA) [%s] by standard (%s) and consequence class. Values cover AEPs from 1/%d to 1/%d [1/yr] and site conditions with Vs30 from %d to %d [m/s].

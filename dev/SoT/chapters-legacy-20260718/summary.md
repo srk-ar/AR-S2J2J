@@ -1,0 +1,8 @@
+
+The study prepares traceable blast-induced demand histories for a later TSF dynamic response assessment. Measured vibration records are processed into consistent acceleration, velocity, and displacement histories, filtered with an adaptive EEMD reconstruction, reduced to intensity and spectral descriptors, and used as source waveforms for distance-charge scenarios.
+
+Peak vibration amplitudes are modelled over the distance-MIC domain. Component PPV predictions define the target amplitudes for scenario generation — a single scalar factor rescales velocity and acceleration together — while PPA remains a reported response conditioned on the velocity estimates. The accepted amplitude model attains an out-of-fold $R^2$ of 0.85 for resultant PPV over the training population (0.70 restricted to the site records), and the conditional multi-response formulation materially improved both amplitude families relative to their unconditional baselines.
+
+Scenario generation scales each retained source record to the selected component PPV targets, rotates the horizontal motion into principal directions, computes the intensity and spectral products, audits the generated histories, and selects records for the downstream effective-stress dynamic model. The current scenario set spans source distances from 150 m to 400 m and maximum instantaneous charges from 150 kg to 400 kg at the $p=0.90$ predictive level.
+
+The generated records are dynamic demand histories. Pore-pressure generation, cyclic mobility, deformation, and liquefaction-type response are evaluated in the geotechnical model using the selected material state, drainage, constitutive, and boundary-condition assumptions.

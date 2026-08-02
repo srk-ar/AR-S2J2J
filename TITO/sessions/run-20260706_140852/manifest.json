@@ -1,0 +1,7 @@
+{
+  "id": "T5",
+  "workflow": "prompt",
+  "outputs": {
+    "primary": "T5.prompt.md"
+  }
+}

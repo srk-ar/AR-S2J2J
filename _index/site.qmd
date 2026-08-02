@@ -1,0 +1,112 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root,"scripts","setup","setup.R"))
+source(file.path(root, "scripts", "setup", "report.R"))
+```
+
+
+
+# Site-Response Model {#sec-site-response}
+
+## Executive Summary {#sec-site_summary}
+
+{{< include /_chapters/site.summary.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_summary/site.results.qmd",
+    stem = "site-summary",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-site-summary-site",
+    context = "site summary"
+  )
+}
+rm(i)
+```
+
+
+## Methodology {#sec-site_method}
+
+{{< include /_chapters/site.model.md >}}
+
+{{< include /_chapters/site.amplification.md >}}
+
+{{< include /_chapters/site.uncertainty.md >}}
+
+
+## Results {#sec-site_results}
+
+### Uniform Hazard Spectra (UHS) {#sec-site_results_uhs}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_fig/UHS.qmd",
+    stem = "site-uhs",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-site-uhs-site",
+    context = "site UHS"
+  )
+}
+rm(i)
+```
+
+### Peak Ground Accelerations (PGA)
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_tbl/PGA.qmd",
+    stem = "site-pga",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-site-pga-site",
+    context = "site PGA"
+  )
+}
+rm(i)
+```
+
+### Pseudo-Spectral Accelerations (PSA)
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_tbl/PSA.qmd",
+    stem = "site-psa",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-site-psa-site",
+    context = "site PSA"
+  )
+}
+rm(i, SiteTable)
+```

@@ -1,0 +1,1 @@
+Resumen de desagregación de la amenaza sísmica. Cada celda reporta el par dominante Mw / R [km]. Filas: período de retorno TR. Columnas: período estructural Tn.

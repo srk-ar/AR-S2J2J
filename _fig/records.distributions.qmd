@@ -1,0 +1,162 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+if (!exists("FAMILY", inherits = FALSE) ||
+    length(FAMILY) != 1L ||
+    !FAMILY %in% c("ppv", "ppa")) {
+  stop("records.distributions: set exactly one response family.", call. = FALSE)
+}
+.RECORDS_LOCAL <- !exists("RECORDS_EDA", inherits = FALSE)
+if (.RECORDS_LOCAL) {
+  .RECORDS_CONFIG <- jsonlite::read_json(
+    file.path(root, "scripts", "manifest.json"), simplifyVector = TRUE
+  )
+  .RECORDS_DATASET <- names(.RECORDS_CONFIG$datasets)
+  if (length(.RECORDS_DATASET) != 1L || !nzchar(.RECORDS_DATASET)) {
+    stop("records.distributions: one dataset must be declared.", call. = FALSE)
+  }
+  RECORDS_EDA_FILES <- c(
+    file.path(root, "data", "datasets", sprintf("%s.csv", .RECORDS_DATASET)),
+    file.path(root, "data", "domains", "sources.csv"),
+    file.path(root, "data", "domains", "units.json"),
+    file.path(root, "scripts", "manifest.json")
+  )
+  if (any(!file.exists(RECORDS_EDA_FILES))) {
+    stop("records.distributions: required model products are missing.",
+         call. = FALSE)
+  }
+  RECORDS_EDA_CONFIG <- jsonlite::read_json(
+    RECORDS_EDA_FILES[3L], simplifyVector = TRUE
+  )
+  RECORDS_EDA_RESPONSES <- as.character(
+    .RECORDS_CONFIG$responses$names
+  )
+  RECORDS_EDA_RESPONSES <- RECORDS_EDA_RESPONSES[
+    grepl("^pp[av][LTV]$", RECORDS_EDA_RESPONSES)
+  ]
+  RECORDS_EDA_SOURCE_NAMES <- as.character(RECORDS_EDA_CONFIG$sources)
+  RECORDS_EDA_UNITS <- unlist(RECORDS_EDA_CONFIG[c("ppv", "ppa")])
+  if (!length(RECORDS_EDA_RESPONSES) ||
+      any(!c("ppv", "ppa") %in% names(RECORDS_EDA_UNITS)) ||
+      !length(RECORDS_EDA_SOURCE_NAMES)) {
+    stop("records.distributions: incomplete response or source contract.",
+         call. = FALSE)
+  }
+  RECORDS_EDA <- data.table::fread(
+    RECORDS_EDA_FILES[1L],
+    select = c("SampleID", "set", RECORDS_EDA_RESPONSES)
+  )
+  RECORDS_EDA_SOURCES <- data.table::fread(RECORDS_EDA_FILES[2L])
+  if (anyDuplicated(RECORDS_EDA$SampleID) ||
+      anyDuplicated(RECORDS_EDA_SOURCES$SampleID) ||
+      !setequal(RECORDS_EDA_SOURCES$Source, RECORDS_EDA_SOURCE_NAMES)) {
+    stop("records.distributions: invalid dataset or source keys.",
+         call. = FALSE)
+  }
+  RECORDS_EDA <- RECORDS_EDA[set == "train"][
+    RECORDS_EDA_SOURCES, on = "SampleID", Source := i.Source
+  ]
+  if (anyNA(RECORDS_EDA$Source) ||
+      nrow(RECORDS_EDA) != nrow(RECORDS_EDA_SOURCES) ||
+      !setequal(RECORDS_EDA$SampleID, RECORDS_EDA_SOURCES$SampleID)) {
+    stop("records.distributions: QDS and source keys do not form a complete join.",
+         call. = FALSE)
+  }
+  RECORDS_EDA <- data.table::melt(
+    RECORDS_EDA,
+    id.vars = c("SampleID", "Source"),
+    measure.vars = RECORDS_EDA_RESPONSES,
+    variable.name = "response",
+    value.name = "value",
+    variable.factor = FALSE
+  )[is.finite(value)][, value := 10^value]
+  if (RECORDS_EDA[, any(!is.finite(value) | value <= 0)]) {
+    stop("records.distributions: invalid physical amplitudes.", call. = FALSE)
+  }
+}
+.COMPONENTS <- c("L", "V", "T")
+.RECORDS_IDS <- paste0(FAMILY, .COMPONENTS)
+if (!setequal(
+      .RECORDS_IDS,
+      RECORDS_EDA_RESPONSES[
+        grepl(sprintf("^%s[LTV]$", FAMILY), RECORDS_EDA_RESPONSES)
+      ]
+    )) {
+  stop(sprintf("records.distributions: incomplete %s response family.", FAMILY),
+       call. = FALSE)
+}
+if (!exists("FAMILY_LABEL", inherits = FALSE)) FAMILY_LABEL <- toupper(FAMILY)
+RESP <- setNames(paste(FAMILY_LABEL, .COMPONENTS, sep = "."), .RECORDS_IDS)
+TABS <- setNames(.COMPONENTS, .RECORDS_IDS)
+if (!exists("CAP", inherits = FALSE)) {
+  CAP <- paste0(
+    "Observed %s distribution in the model-fitting sample ",
+    "($n = %d$; %s; range %.3g--%.3g %s). ",
+    "Columns show the number of observations in each amplitude interval; ",
+    "the rescaled density represents the same distribution on the count scale."
+  )
+}
+if (!exists("Y_AXIS", inherits = FALSE)) Y_AXIS <- "Count"
+if (!exists("SERIES", inherits = FALSE)) {
+  SERIES <- c(histogram = "Histogram", density = "Rescaled density")
+}
+if (!exists("TOOLTIP", inherits = FALSE)) {
+  TOOLTIP <- c(
+    amplitude = "Amplitude",
+    count = "Count",
+    density = "Rescaled density"
+  )
+}
+HISTOGRAM_BREAKS <- 50L
+UNIT <- as.character(RECORDS_EDA_UNITS[[FAMILY]])
+if (length(UNIT) != 1L || is.na(UNIT) || !nzchar(UNIT)) {
+  stop(sprintf("records.distributions: units.json does not define %s.", FAMILY),
+       call. = FALSE)
+}
+```
+
+::: {.panel-tabset .full-width}
+
+```{r}
+#| results: asis
+#| echo: false
+#| eval: !expr knitr::is_html_output()
+for (.ID in names(RESP)) {
+  cat(sprintf("\n#### %s\n\n", TABS[[.ID]]))
+  NGR::knitBlock(
+    path = "/_fig/records.distributions.cell.qmd",
+    stem = sprintf("frecords-%s", .ID),
+    labels = "rewrite",
+    vars = list(
+      CAP = CAP,
+      HISTOGRAM_BREAKS = HISTOGRAM_BREAKS,
+      ID = .ID,
+      RESPONSE_LABEL = RESP[[.ID]],
+      SERIES = SERIES,
+      TOOLTIP = TOOLTIP,
+      UNIT = UNIT,
+      Y_AXIS = Y_AXIS
+    ),
+    root = root
+  )
+}
+```
+
+:::
+
+```{r}
+#| include: false
+rm(
+  CAP, FAMILY, FAMILY_LABEL, HISTOGRAM_BREAKS, RESP, SERIES, TABS, TOOLTIP,
+  UNIT, Y_AXIS, .COMPONENTS, .RECORDS_IDS
+)
+if (knitr::is_html_output()) rm(.ID)
+if (.RECORDS_LOCAL) {
+  rm(
+    RECORDS_EDA, RECORDS_EDA_CONFIG, RECORDS_EDA_FILES,
+    RECORDS_EDA_RESPONSES, RECORDS_EDA_SOURCES, RECORDS_EDA_SOURCE_NAMES,
+    RECORDS_EDA_UNITS, .RECORDS_CONFIG, .RECORDS_DATASET
+  )
+}
+rm(.RECORDS_LOCAL)
+```

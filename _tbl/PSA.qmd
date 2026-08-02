@@ -1,0 +1,44 @@
+
+```{r}
+#| include: false
+if (!exists("CAP", inherits = FALSE)) CAP <- "Pseudo-spectral acceleration design values PSA [%s] for return periods from %s to %s yr, structural periods Tn from %g to %g s, reference site conditions Vs30 = %s m/s, and fractile p = %s."
+if (!exists("PSA_Units")) PSA_Units <- "cm/s2"
+if (!exists("Tn.target")) Tn.target <- Tn.gmdp
+if (!exists("TR.target")) TR.target <- TR.gmdp
+if (!exists("p.target"))  p.target  <- "mean"
+Target <- .currentTarget("ID.target")
+ID.target <- .resolveDerivedIDTarget(
+  UHSTable,
+  "PSA.qmd",
+  suffix = ".max",
+  target = Target,
+  siteID = .currentTarget("siteID.target")
+)
+root <- here::here()
+```
+
+:::{.content-visible when-format='docx'}
+
+```{r}
+#| include: true
+#| label: tbl-psa_vs30_800_docx
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, min(TR.target), max(TR.target), min(Tn.target), max(Tn.target), 800, p.target)
+Vs30.target <- 800
+source(file.path(root, "scripts", "tbl/PSA.R"))
+TBL
+```
+
+:::
+
+:::{.content-hidden when-format='docx'}
+
+{{< include /_tbl/PSA_Vs30.qmd >}}
+
+:::
+
+```{r}
+#| include: false
+rm(PSA_Units, Tn.target, TR.target, p.target, CAP, Vs30.target, ID.target)
+if (exists("Target", inherits = FALSE) && length(Target)) ID.target <- Target
+rm(list = intersect("Target", ls()))
+```

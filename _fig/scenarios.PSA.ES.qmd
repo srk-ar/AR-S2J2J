@@ -1,0 +1,12 @@
+```{r}
+#| include: false
+CAP <- paste(
+  "Espectros de pseudoaceleración al 5 %% para el producto %s y el nivel",
+  "predictivo $p=%s$. El panel fija $Q=%s$ kg; cada curva es la mediana",
+  "puntual de %s realizaciones para la distancia indicada. $T_n=0$",
+  "corresponde a PGA. Los límites son comunes entre las cargas de cada",
+  "componente."
+)
+```
+
+{{< include /_fig/scenarios.PSA.qmd >}}

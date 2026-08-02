@@ -1,0 +1,271 @@
+:::{.content-hidden when-format='docx'}
+
+:::{.panel-tabset .full-width }
+
+#### S01
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[1])
+RecordID.target <- RecordIDs[1]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S02
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[2])
+RecordID.target <- RecordIDs[2]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S03
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[3])
+RecordID.target <- RecordIDs[3]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S04
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[4])
+RecordID.target <- RecordIDs[4]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S05
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[5])
+RecordID.target <- RecordIDs[5]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S06
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[6])
+RecordID.target <- RecordIDs[6]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S07
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[7])
+RecordID.target <- RecordIDs[7]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S08
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[8])
+RecordID.target <- RecordIDs[8]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S09
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[9])
+RecordID.target <- RecordIDs[9]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S10
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[10])
+RecordID.target <- RecordIDs[10]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S11
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[11])
+RecordID.target <- RecordIDs[11]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S12
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[12])
+RecordID.target <- RecordIDs[12]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S13
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[13])
+RecordID.target <- RecordIDs[13]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S14
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[14])
+RecordID.target <- RecordIDs[14]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S15
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[15])
+RecordID.target <- RecordIDs[15]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S16
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[16])
+RecordID.target <- RecordIDs[16]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S17
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[17])
+RecordID.target <- RecordIDs[17]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S18
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[18])
+RecordID.target <- RecordIDs[18]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S19
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[19])
+RecordID.target <- RecordIDs[19]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S20
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[20])
+RecordID.target <- RecordIDs[20]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S21
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[21])
+RecordID.target <- RecordIDs[21]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S22
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[22])
+RecordID.target <- RecordIDs[22]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S23
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[23])
+RecordID.target <- RecordIDs[23]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+#### S24
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| fig-cap: !expr .srsItsCaption(RecordIDs[24])
+RecordID.target <- RecordIDs[24]
+source(file.path(root, "scripts", "fig", "ITS.R"))
+PLOT
+```
+
+:::
+
+:::

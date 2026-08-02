@@ -1,0 +1,7 @@
+### Conjunto de modelos y propagación de incertidumbre {#sec-uncertainty_newmark}
+
+La evaluación calcula resultados individuales para AM88, JB07, SR08, BT07 y una quinta formulación seleccionada por el contexto tectónico: BM17 para proyectos con control de subducción y BM19 para proyectos con control cortical. El conjunto global de diseño, identificado como *ensemble*, combina con pesos iguales AM88, SR08, BT07 y la rama BM activa; la familia rígida combina AM88 y SR08, y la familia flexible combina BT07 y la rama BM activa. JB07 recibe peso nulo en las tres familias agregadas y permanece como evaluación individual [@VerriKozlowski2026Newmark].
+
+Para cada $k_y$, los desplazamientos de una familia se resumen a partir de la distribución empírica ponderada de las realizaciones de sus modelos. Todos los modelos reciben la misma muestra conjunta de PGA y aceleraciones espectrales, y una misma realización de $\epsilon$ se comparte entre los modelos y entre todos los valores de $k_y$; cada formulación escala ese residuo mediante su propia $\sigma_{\ln D}$.
+
+Las realizaciones de $D_n$ se calculan para cada clase de material con sus propiedades dinámicas medias. Los fractiles de los perfiles de rigidez y de $T_s$ se reportan en el capítulo de propiedades dinámicas, pero no se propagan como realizaciones adicionales en el cálculo de desplazamientos. Antes de la inversión, los desplazamientos de las clases de material pertenecientes a una misma geometría se promedian aritméticamente para cada período de retorno, valor de $k_y$, realización y modelo.

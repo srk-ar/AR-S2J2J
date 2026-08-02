@@ -1,0 +1,26 @@
+```{r}
+#| label: fig-residscatter
+#| fig-cap: !expr CAPTION1
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| echo: false
+#| warning: false
+source(file.path(root, "scripts", "fig", "residscatter.R"))
+PLOT
+```
+
+```{r}
+#| label: fig-residhist
+#| fig-cap: !expr CAPTION2
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| echo: false
+#| warning: false
+source(file.path(root, "scripts", "fig", "residuals.R"))
+PLOT <- highcharter::hc_size(
+  PLOT,
+  height = if (knitr::pandoc_to("revealjs")) 480 else 650
+)
+PLOT <- highcharter::hc_chart(PLOT, height = NULL)
+PLOT
+```

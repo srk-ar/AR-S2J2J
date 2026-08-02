@@ -1,0 +1,3 @@
+## <br>PPA of PPV-Scaled Scenario Realizations
+
+{{< include /_fig/scenarios.response.qmd >}}

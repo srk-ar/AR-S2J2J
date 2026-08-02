@@ -1,0 +1,133 @@
+
+:::{.content-hidden when-format='docx'}
+
+:::{.panel-tabset .full-width }
+
+#### `r IDg.gmdp[1]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[1], IDg.gmdp[1] |> sub(pattern="^S",replacement="") |> as.numeric(), TR.target)
+IDg.target <- IDg.gmdp[1]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg.gmdp[2]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[2], IDg.gmdp[2] |> sub(pattern="^S",replacement="") |> as.numeric(), TR.target)
+IDg.target <- IDg.gmdp[2]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg.gmdp[3]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[3], IDg.gmdp[3] |> sub(pattern="^S",replacement="") |> as.numeric(), TR.target)
+IDg.target <- IDg.gmdp[3]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg.gmdp[4]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[4], IDg.gmdp[4] |> sub(pattern="^S",replacement="") |> as.numeric(), TR.target)
+IDg.target <- IDg.gmdp[4]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg.gmdp[5]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[5], IDg.gmdp[5] |> sub(pattern="^S",replacement="") |> as.numeric(), TR.target)
+IDg.target <- IDg.gmdp[5]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg.gmdp[6]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[6], IDg.gmdp[6] |> sub(pattern="^S",replacement="") |> as.numeric(), TR.target)
+IDg.target <- IDg.gmdp[6]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg.gmdp[7]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[7], IDg.gmdp[7] |> sub(pattern="^S",replacement="") |> as.numeric(), TR.target)
+IDg.target <- IDg.gmdp[7]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg.gmdp[8]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[8], IDg.gmdp[8] |> sub(pattern="^S",replacement="") |> as.numeric(), TR.target)
+IDg.target <- IDg.gmdp[8]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg.gmdp[9]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[9], IDg.gmdp[9] |> sub(pattern="^S",replacement="") |> as.numeric(), TR.target)
+IDg.target <- IDg.gmdp[9]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg.gmdp[10]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[10], IDg.gmdp[10] |> sub(pattern="^S",replacement="") |> as.numeric(), TR.target)
+IDg.target <- IDg.gmdp[10]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg.gmdp[11]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[11], IDg.gmdp[11] |> sub(pattern="^S",replacement="") |> as.numeric(), TR.target)
+IDg.target <- IDg.gmdp[11]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+#### `r IDg.gmdp[12]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| tbl-cap: !expr CAP |> sprintf(IDg.gmdp[12], IDg.gmdp[12] |> sub(pattern="^S",replacement="") |> as.numeric(), TR.target)
+IDg.target <- IDg.gmdp[12]
+source(file.path(root,"scripts","tbl/kh.R"))
+TBL
+```
+
+:::
+
+:::
+
+```{r}
+#| include: false
+rm(IDg.target)
+```

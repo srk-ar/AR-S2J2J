@@ -1,0 +1,67 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+source(file.path(root, "scripts", "setup", "report.R"))
+```
+
+# Newmark Displacement Estimation {#sec-newmark}
+
+## Executive Summary {#sec-disp_summary}
+
+{{< include /_chapters/displacements.summary.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_summary/displacements.results.qmd",
+    stem = "displacements-summary",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-disp-summary-site",
+    context = "resumen ejecutivo de desplazamientos Newmark"
+  )
+}
+rm(i)
+```
+
+
+## Methodology {#sec-disp_method}
+
+{{< include /_chapters/displacements.model.md >}}
+
+{{< include /_chapters/gmm.ensemble.md >}}
+
+{{< include /_chapters/displacements.uncertainty.md >}}
+
+:::{.content-hidden when-format='docx'}
+
+## Results {#sec-newmark_results}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_fig/Dn.qmd",
+    stem = "displacements-dn",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-newmark-results-site",
+    context = "Newmark displacements"
+  )
+}
+rm(i, SiteTable)
+```
+
+:::

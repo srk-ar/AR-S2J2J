@@ -1,0 +1,54 @@
+```{r}
+#| include: false
+if (!exists("MODEL_PERFORMANCE")) {
+  MODEL_METRICS <- fread(file.path(root, "data", "summary", "metrics.csv"))[method == "ensemble.RMSE", .(response, N = n, RMSE.log10 = rmse, R2 = r2)]
+  MODEL_RESIDUALS <- fread(file.path(root, "data", "summary", "residuals_oof.csv"))
+  MODEL_PHYSICAL <- MODEL_RESIDUALS[is.finite(y_obs) & is.finite(y_hat_oof), .(RMSE.physical = sqrt(mean((10^y_obs - 10^y_hat_oof)^2))), by = response]
+  MODEL_PERFORMANCE <- merge(MODEL_METRICS, MODEL_PHYSICAL, by = "response")
+}
+MODEL_RESIDUAL_STATS <- MODEL_RESIDUALS[is.finite(y_obs) & is.finite(y_hat_oof), .(median = stats::median(y_obs - y_hat_oof), q10 = stats::quantile(y_obs - y_hat_oof, 0.10), q90 = stats::quantile(y_obs - y_hat_oof, 0.90)), by = response]
+```
+
+### Observed domain
+
+Figure @fig-model-domain locates the IMPALA and S11D observations in the distance--charge plane and identifies the discrete conditions evaluated for the scenarios. The grid neither adds observations nor replaces the distribution of the available observations.
+
+{{< include /_fig/model.domain.qmd >}}
+
+Table @tbl-model-support distinguishes, for each response and data source, the observations with available amplitudes from the OOF sample of the retained formulation. This distinction preserves the difference between the population included in the independent fit and the intersection required by the multi-response refinement.
+
+{{< include /_tbl/model.support.qmd >}}
+
+### OOF performance
+
+Selection and evaluation are performed separately for each response. Table @tbl-metrics-performance reports the retained iteration, the number of OOF pairs, OOF $R^2$, and RMSE in the model scale and in physical response units. The independent formulation at $t=0$ and the retained iteration $t^*$ are compared on the same OOF pairs; the residual quantiles from the retained formulation determine predictive levels p50, p90, and p95.
+
+{{< include /_tbl/metrics.qmd >}}
+
+Tables @tbl-metrics-learners-ppv and @tbl-metrics-learners-ppa report the OOF performance of the five specified base learners—random forests, multivariate adaptive regression splines, gradient-boosted trees, spline-based generalized additive models, and linear regression—together with the OOF-$R^2$-weighted and inverse-OOF-RMSE-weighted response-level ensembles. Each row reports the number of OOF pairs and predictive metrics for one method--response combination.
+
+Across the evaluated population, OOF $R^2$ ranges from `r formatC(min(MODEL_PERFORMANCE$R2), format = "f", digits = 3L)` to `r formatC(max(MODEL_PERFORMANCE$R2), format = "f", digits = 3L)`. Median residuals by response range from `r formatC(min(MODEL_RESIDUAL_STATS$median), format = "f", digits = 3L)` to `r formatC(max(MODEL_RESIDUAL_STATS$median), format = "f", digits = 3L)` on the $\log_{10}$ scale.
+
+### OOF predictions and residuals
+
+The observed-versus-predicted and residual figures use OOF predictions from the retained formulation and preserve the source of each observation. Observations and predictions are evaluated relative to the 1:1 line; the residual distributions provide the basis for the empirical adjustments applied to the predictive levels.
+
+{{< include /_fig/predictions.PPV.qmd >}}
+
+{{< include /_fig/predictions.PPA.qmd >}}
+
+{{< include /_fig/residuals.PPV.qmd >}}
+
+{{< include /_fig/residuals.PPA.qmd >}}
+
+### PPV predictions
+
+PPV predictions are presented for the longitudinal, transverse, and vertical components and for their resultant. Each panel shows p50, p90, and p95 for the represented MIC values, together with the local and external observations used for model fitting. The longitudinal, transverse, and vertical predictions provide the amplitudes subsequently used to scale the scenario histories; the resultant is reported as a complementary response.
+
+{{< include /_fig/demand.PPV.qmd >}}
+
+### PPA predictions
+
+PPA predictions are presented for the longitudinal, transverse, and vertical components and for their resultant. Levels p50, p90, and p95 describe predictive amplitude in the evaluated population. PPA does not control the scaling of the scenario histories; it is reported to complete the characterization of the multi-response model and its out-of-fold performance.
+
+{{< include /_fig/demand.PPA.qmd >}}

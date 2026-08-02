@@ -1,0 +1,3 @@
+## <br>Residuals — PPV
+
+{{< include /_fig/residuals.PPV.qmd >}}

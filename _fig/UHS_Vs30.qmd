@@ -1,0 +1,92 @@
+:::{.content-hidden when-format='docx'}
+
+
+:::{.panel-tabset .full-width }
+
+#### `r Site.label[7]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-uhs-vs30-7
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[7], if (exists("TR.target", inherits = FALSE)) prettyNum(round(TR.target, 0), big.mark = ",") else "")
+
+Vs30.target <- Vs30.gmdp[7]
+source(file.path(root,"scripts","fig/UHS.R"))
+PLOT
+```
+
+#### `r Site.label[6]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-uhs-vs30-1
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[6], if (exists("TR.target", inherits = FALSE)) prettyNum(round(TR.target, 0), big.mark = ",") else "")
+
+Vs30.target <- Vs30.gmdp[6]
+source(file.path(root,"scripts","fig/UHS.R"))
+PLOT
+```
+
+#### `r Site.label[5]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-uhs-vs30-2
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[5], if (exists("TR.target", inherits = FALSE)) prettyNum(round(TR.target, 0), big.mark = ",") else "")
+
+Vs30.target <- Vs30.gmdp[5]
+source(file.path(root,"scripts","fig/UHS.R"))
+PLOT
+```
+
+#### `r Site.label[4]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-uhs-vs30-3
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[4], if (exists("TR.target", inherits = FALSE)) prettyNum(round(TR.target, 0), big.mark = ",") else "")
+
+Vs30.target <- Vs30.gmdp[4]
+source(file.path(root,"scripts","fig/UHS.R"))
+PLOT
+```
+
+#### `r Site.label[3]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-uhs-vs30-4
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[3], if (exists("TR.target", inherits = FALSE)) prettyNum(round(TR.target, 0), big.mark = ",") else "")
+
+Vs30.target <- Vs30.gmdp[3]
+source(file.path(root,"scripts","fig/UHS.R"))
+PLOT
+```
+
+#### `r Site.label[2]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-uhs-vs30-5
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[2], if (exists("TR.target", inherits = FALSE)) prettyNum(round(TR.target, 0), big.mark = ",") else "")
+
+Vs30.target <- Vs30.gmdp[2]
+source(file.path(root,"scripts","fig/UHS.R"))
+PLOT
+```
+
+#### `r Site.label[1]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-uhs-vs30-6
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[1], if (exists("TR.target", inherits = FALSE)) prettyNum(round(TR.target, 0), big.mark = ",") else "")
+
+Vs30.target <- Vs30.gmdp[1]
+source(file.path(root,"scripts","fig/UHS.R"))
+PLOT
+```
+
+:::
+
+:::

@@ -1,0 +1,37 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+DATASET <- "QDS"
+PathDataset <- file.path(root, "data", "datasets", sprintf("%s.csv", DATASET))
+PathSources <- file.path(root, "data", "domains", "sources.csv")
+PathScenarios <- file.path(root, "data", "records", "scenarios", "IMW.csv")
+if (any(!file.exists(c(PathDataset, PathSources, PathScenarios)))) {
+  stop("model.domain: required model products are missing.", call. = FALSE)
+}
+if (!exists("CAP", inherits = FALSE)) {
+  CAP <- "Observed distance--charge domain of the QDS dataset used for model fitting, by data source, and scenario grid for the evaluated predictive level. Logarithmic axes retain the full observed range; scenario points identify demand conditions, not a record selection."
+}
+if (!exists("GROUP_LEGEND", inherits = FALSE)) GROUP_LEGEND <- "Set"
+if (!exists("GRID_LABEL", inherits = FALSE)) GRID_LABEL <- "Scenario grid"
+SOURCE_COLORS <- setNames(
+  c("#00838f", "rgba(110,110,110,0.28)", "#d95f02"),
+  c("IMPALA", "S11D", GRID_LABEL)
+)
+```
+
+```{r}
+#| label: fig-model-domain
+#| fig-cap: !expr CAP
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| echo: false
+#| warning: false
+source(file.path(root, "scripts", "fig", "model.domain.R"))
+PLOT
+```
+
+```{r}
+#| include: false
+rm(CAP, DATASET, GRID_LABEL, GROUP_LEGEND, PathDataset, PathScenarios,
+   PathSources, SOURCE_COLORS)
+```

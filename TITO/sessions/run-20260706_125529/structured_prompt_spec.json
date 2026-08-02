@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "task_file": "/Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/md/gap-standards-and-charge-window.prompt.md",
+  "slot_count": 5,
+  "constraint_count": 3,
+  "slots": [
+    {"ordinal": 1, "title": "Relevant Standards and Guidance Documents", "instruction": "Determine which South African and international standards or guidance documents are most relevant for blast-induced ground-vibration monitoring and reporting in a mining or TSF context. Write in flowing paragraphs."},
+    {"ordinal": 2, "title": "Criteria and Reporting Distinctions", "instruction": "Describe how those sources distinguish structural damage criteria, human perception or comfort criteria, geotechnical effects, and monitoring/reporting requirements. Write in flowing paragraphs."},
+    {"ordinal": 3, "title": "Charge Per Delay and Charge Window Definitions", "instruction": "Explain how authoritative blasting references define maximum charge per delay, maximum instantaneous charge, and short-delay charge windows. Write in flowing paragraphs."},
+    {"ordinal": 4, "title": "Status of a 9 ms Charge Window", "instruction": "Assess whether a 9 ms charge window is supported by standards or literature, or whether it should be treated as a project/vendor-specific definition unless project documents say otherwise. Write in flowing paragraphs."},
+    {"ordinal": 5, "title": "Dual-Blast or Multi-Design Events", "instruction": "Describe how dual-blast or multi-design events should be described when charge and distance must be paired by blast design. Write in flowing paragraphs."}
+  ],
+  "constraints": [
+    "Write for an English technical report.",
+    "Focus on the authority of standards, guidance documents, and charge-window definitions rather than basic definitions of PPV, PPA, component peaks, or scaled distance.",
+    "Do not invent a compliance criterion."
+  ]
+}

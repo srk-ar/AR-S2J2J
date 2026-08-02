@@ -1,0 +1,6 @@
+```{r}
+#| include: false
+source(file.path(root, "scripts", "setup", "summary", "criteriaResults.R"))
+```
+
+Los criterios probabilísticos de diseño se evaluaron con `r paste(CriteriaSummary$standards, collapse = ", ")` para `r uniqueN(CriteriaSummary$data$Class)` clases de consecuencia (`r paste(unique(CriteriaSummary$data$Class), collapse = ", ")`) y las etapas de operación, cierre y post-cierre. En el conjunto de estándares, clases, etapas y condiciones de sitio, la PGA media varía de `r paste(.formatNumber(range(CriteriaSummary$data$PGA), 0), collapse = " a ")` $\mathrm{cm/s^2}$, equivalente aproximadamente a `r paste(.formatNumber(range(CriteriaSummary$data$SaF), 2), collapse = " a ")` g. Las tablas y los espectros conservan la trazabilidad del criterio probabilístico a su estándar, clase de consecuencia y etapa del ciclo de vida; no incorporan una envolvente con el MCE, cuya evaluación se presenta por separado en el capítulo [-@sec-mce].

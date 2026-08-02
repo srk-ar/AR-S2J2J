@@ -1,0 +1,7 @@
+```{r}
+#| include: false
+CAP <- "Valores característicos de la PPV %s a $D=%d$ m para los niveles predictivos exportados."
+RESP <- c(ppvL = "longitudinal", ppvT = "transversal", ppvV = "vertical", ppv = "resultante")
+```
+
+{{< include /_tbl/conditional.PPV.qmd >}}

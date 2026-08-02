@@ -1,0 +1,34 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+if (!exists("SRS.PGA.units", inherits = FALSE)) SRS.PGA.units <- "g"
+SRS.range.word <- "a"
+source(file.path(root, "scripts", "setup", "summary", "srs.R"))
+SRS_TARGET_TEXT <- if (!is.na(SRS.config$id) && nzchar(SRS.config$id)) {
+  if (tolower(SRS.config$id) == "design") "el espectro de diseño" else paste("el espectro objetivo", SRS.config$id)
+} else {
+  "el espectro objetivo del proyecto"
+}
+SRS_SITE_TEXT <- .reportLabel()
+if (!nzchar(SRS_SITE_TEXT) && !is.null(params$site) && length(params$site)) {
+  SRS_SITE_TEXT <- trimws(as.character(params$site[[1L]]))
+}
+if (!nzchar(SRS_SITE_TEXT) && !is.null(params$location) && length(params$location)) {
+  SRS_SITE_TEXT <- trimws(as.character(params$location[[1L]]))
+}
+if (!nzchar(SRS_SITE_TEXT)) SRS_SITE_TEXT <- "el proyecto"
+```
+
+Para los análisis dinámicos de `r SRS_SITE_TEXT` se seleccionaron `r .fmti(SRS$records)` registros de `r .fmti(SRS$events)` sismos y `r .fmti(SRS$providers)` proveedores usando `r SRS_TARGET_TEXT`, definido para $V_{S30}=$ `r .fmti(SRS.config$Vs30)` m/s y con la banda `r SRS.config$envelope`. La componente H1 final cubre $M_w$ `r SRS$Mw`, distancia epicentral $R_{\mathrm{epi}}$ `r SRS$Repi`, duración significativa $D_{5-95}$ `r SRS$D0595` y PGA `r SRS$PGA`; los coeficientes de escala $c_i$ varían entre `r SRS_SCALE$range`. El RMSE relativo entre la media PSA del conjunto y el espectro objetivo es `r SRS_STAGE$RMSE`, y la razón entre el PGA medio del conjunto y el PGA objetivo es `r SRS_STAGE$pgaRatio`.
+
+```{r}
+#| include: false
+rm(list = intersect(c(
+  "SRS.target", "SRS.selection.text", "SRS.PGA.units", "SRS.range.word",
+  "SRS.performance.target",
+  "PathSRS", "SrsG", "SRS", "SRS.target.PGA", "SRS.config",
+  "SRS_STAGE", "SRS_SCALE", "SRS_PERFORMANCE", "SRS_TARGET_TEXT",
+  "SRS_SITE_TEXT"
+), ls()))
+```

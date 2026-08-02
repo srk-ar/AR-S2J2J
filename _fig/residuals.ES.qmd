@@ -1,0 +1,3 @@
+{{< include /_fig/residuals.PPV.ES.qmd >}}
+
+{{< include /_fig/residuals.PPA.ES.qmd >}}

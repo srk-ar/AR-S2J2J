@@ -1,0 +1,6 @@
+```{r}
+#| include: false
+CAP <- "Fidelidad numérica de los escenarios de demanda. PPV.UP identifica la reproducción del objetivo vertical; Norm.H, la conservación de la norma cuadrática horizontal; PGA, la no degeneración de las historias H1/H2/UP; y PASS, el cumplimiento conjunto."
+```
+
+{{< include /_tbl/audit.qmd >}}

@@ -1,0 +1,24 @@
+```{r}
+#| include: false
+source(file.path(root, "scripts", "setup", "summary", "mce.R"))
+Scn <- ScenarioTable[ID %in% ID.target]
+if ("siteID" %in% names(Scn) && exists("siteID.target", inherits = FALSE)) {
+  Scn <- Scn[siteID %in% siteID.target]
+}
+if (!exists("CAP", inherits = FALSE)) CAP <- "Deterministic scenario %s (%s, Mw %.1f at %d km): total-variability mixture fractiles p = %s of the maximum horizontal Sa(Tn) [g] with 5%% critical damping at the reference rock condition Vs30 = %.0f m/s."
+Vs30.target <- 760
+if (!exists("Sa.log", inherits = FALSE)) Sa.log <- TRUE
+```
+
+```{r}
+#| include: true
+#| label: fig-mce-uhs
+#| fig-cap: !expr CAP |> sprintf(ID.target, TRT.text[[Scn$TRT]], Scn$Mw, round(Scn$Repi), paste(p.target, collapse = ", "), Vs30.target)
+source(file.path(root, "scripts", "fig", "UHS.R"))
+PLOT
+```
+
+```{r}
+#| include: false
+rm(list = intersect(c("CAP", "Scn"), ls()))
+```

@@ -1,0 +1,17 @@
+### Cobertura instrumental
+
+La base instrumental procesada contiene `r RECORDS_N` registros y las tres componentes L, T y V para cada uno, equivalentes a `r RECORDS_N_COMPONENTS` historias procesadas. Los espectros de los `r RECORDS_N` registros cubren `r length(RECORDS_TN)` períodos entre `r formatC(min(RECORDS_TN), format = "f", digits = 3L)` y `r formatC(max(RECORDS_TN), format = "f", digits = 3L)` s con una razón de amortiguamiento de `r formatC(100 * RECORDS_XI, format = "f", digits = 0L)` %. Las historias comparten una frecuencia de muestreo de `r formatC(RECORDS_FS, format = "f", digits = 0L)` Hz y sus duraciones abarcan entre `r formatC(RECORDS_DURATION[1L], format = "f", digits = 2L)` y `r formatC(RECORDS_DURATION[2L], format = "f", digits = 2L)` s.
+
+La distancia fuente–receptor y la carga instantánea máxima reportadas por el contratista están disponibles para `r RECORDS_N_META` registros. Estos pares permiten asociar las historias instrumentales de ese subconjunto con las condiciones de distancia y carga de las voladuras monitoreadas.
+
+### Distribuciones de amplitud
+
+Las distribuciones de PPA y PPV caracterizan las observaciones admitidas para la modelación. La muestra de modelación reúne las observaciones locales y las observaciones S11D situadas fuera de la envolvente local de distancia o carga, conforme al criterio definido en la metodología; no constituye una mezcla ponderada entre procedencias. Los valores faltantes se excluyen por respuesta, por lo que cada panel informa el número de observaciones disponible y su desglose por procedencia. La evaluación OOF de la formulación retenida se presenta en el capítulo del modelo. Las abscisas representan amplitudes físicas en escala logarítmica y las columnas muestran el conteo por intervalo.
+
+#### PPV
+
+{{< include /_fig/records.PPV.ES.qmd >}}
+
+#### PPA
+
+{{< include /_fig/records.PPA.ES.qmd >}}

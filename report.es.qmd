@@ -1,0 +1,28 @@
+---
+lang: es
+bibliography:
+  - bib/references.bib
+  - bib/psha.bib
+chapters:
+  - index.qmd
+  - _index/executive.ES.qmd
+  - part: "Parte I — Amenaza Sísmica"
+    chapters:
+      - _index/hazard.ES.qmd
+      - _index/dsha.ES.qmd
+      - _index/gmm.ES.qmd
+      - _index/site.ES.qmd
+      - _index/srs.ES.qmd
+  - part: "Parte II — Criterios de Diseño"
+    chapters:
+      - _index/classification.ES.qmd
+      - _index/tailings.ES.qmd
+      - _index/structures.ES.qmd
+      - _index/dynamics.ES.qmd
+      - _index/displacements.ES.qmd
+      - _index/coefficients.ES.qmd
+  - _index/references.ES.qmd
+appendices:
+  - _index/tailings.appendix.ES.qmd
+  - _index/site.appendix.ES.qmd
+---

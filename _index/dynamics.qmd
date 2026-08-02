@@ -1,0 +1,20 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+```
+
+# Dynamic Properties of Slopes {#sec-slope_periods}
+
+## Executive Summary {#sec-dyn_summary}
+
+{{< include /_chapters/dynamics.summary.md >}}
+
+
+## Methodology {#sec-dyn_method}
+
+{{< include /_chapters/dynamics.model.md >}}
+
+## Results {#sec-periods_results}
+
+{{< include /_tbl/Ts.qmd >}}

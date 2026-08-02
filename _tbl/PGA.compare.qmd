@@ -1,0 +1,19 @@
+```{r}
+#| include: false
+root <- here::here()
+if (!exists("PSA_Units") || !length(PSA_Units)) PSA_Units <- "g"
+if (!exists("CAP", inherits = FALSE)) CAP <- "Mean peak ground acceleration PGA [%s] at the reference rock condition Vs30 = 760 m/s: rows are the probabilistic hazard levels (return period TR) followed by the deterministic scenarios; columns are the hazard models (PSHA) and the scenario values (MCE)."
+```
+
+```{r}
+#| include: true
+#| label: tbl-pga-compare
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units)
+source(file.path(root, "scripts", "tbl", "PGA.compare.R"))
+TBL
+```
+
+```{r}
+#| include: false
+rm(list = intersect(c("CAP"), ls()))
+```

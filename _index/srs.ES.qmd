@@ -1,0 +1,110 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+source(file.path(root, "scripts", "setup", "report.R"))
+SRSRuns <- lapply(seq_len(nrow(SiteTable)), function(i) {
+  .resolveReportSRS(
+    sites = SiteTable,
+    i = i,
+    root = root,
+    context = "capítulo SRS"
+  )
+})
+```
+
+# Selección de registros sísmicos {#sec-srs}
+
+## Resumen ejecutivo {#sec-srs_summary}
+
+{{< include /_chapters/srs.summary.es.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_summary/srs_summary.es.qmd",
+    stem = "srs-summary",
+    sites = SiteTable,
+    i = i,
+    vars = SRSRuns[[i]],
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-srs-summary-site",
+    context = "resumen SRS"
+  )
+}
+rm(i)
+```
+
+## Metodología {#sec-srs_method}
+
+{{< include /_chapters/srs.model.es.md >}}
+
+## Resultados {#sec-srs_results}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_summary/srs_performance.es.qmd",
+    stem = "srs-performance",
+    sites = SiteTable,
+    i = i,
+    vars = SRSRuns[[i]],
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-srs-performance-site",
+    context = "desempeño SRS"
+  )
+}
+rm(i)
+```
+
+### Conjunto seleccionado {#sec-srs_results_records}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_tbl/SRS.ES.qmd",
+    stem = "srs-records",
+    sites = SiteTable,
+    i = i,
+    vars = SRSRuns[[i]],
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-srs-records-site",
+    context = "registros SRS"
+  )
+}
+rm(i)
+```
+
+### Compatibilidad con el espectro objetivo {#sec-srs_results_psa}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_fig/PS_PSA_H1.ES.qmd",
+    stem = "srs-psa",
+    sites = SiteTable,
+    i = i,
+    vars = SRSRuns[[i]],
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-srs-psa-site",
+    context = "compatibilidad SRS"
+  )
+}
+rm(i, SRSRuns, SiteTable)
+```

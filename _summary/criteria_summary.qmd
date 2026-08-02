@@ -1,0 +1,6 @@
+```{r}
+#| include: false
+source(file.path(root, "scripts", "setup", "summary", "criteriaResults.R"))
+```
+
+TSF design criteria were compiled from `r paste(CriteriaSummary$standards, collapse = ", ")` for `r uniqueN(CriteriaSummary$data$Class)` consequence classes (`r paste(unique(CriteriaSummary$data$Class), collapse = ", ")`) and three lifecycle stages: `r paste(tolower(CriteriaSummary$stages), collapse = ", ")`. Across the evaluated standards, classes, lifecycle stages, and site conditions, mean design PGA ranges from `r formatRange(CriteriaSummary$data$PGA)` $\mathrm{cm/s^2}$, approximately `r formatRange(CriteriaSummary$data$SaF, digits = 2)` g. Stage-specific design ground motions are summarized in the design-criteria tables and spectra.

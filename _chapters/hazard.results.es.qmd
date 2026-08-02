@@ -1,0 +1,80 @@
+```{r}
+#| include: false
+ID.target <- ID.gmdp
+source(file.path(root, "scripts", "setup", "summary", "hazard.R"))
+source(file.path(root, "scripts", "setup", "summary", "disagg.R"))
+```
+
+```{r}
+#| echo: false
+#| results: asis
+TR.LO <- first(Hazard.TR.selected)
+TR.HI <- last(Hazard.TR.selected)
+
+cat(sprintf(
+  paste0(
+    "En la roca de referencia ($V_{S30}=760$ m/s), la curva media produce ",
+    "PGA de %s g para $T_R=%s$ años y %s g para $T_R=%s$ años. Los máximos de la UHS ",
+    "media alcanzan %s g en %s s y %s g en %s s, respectivamente. ",
+    "La configuración clásica reporta la media en roca; los fractiles de ",
+    "la condición $V_{S30}=800$ m/s se mantienen como resultados de sitio ",
+    "separados.\n\n"
+  ),
+  .fmt(PGA[Vs30 == 760 & TR == TR.LO & p == "mean", SaF]),
+  .fmti(TR.LO),
+  .fmt(PGA[Vs30 == 760 & TR == TR.HI & p == "mean", SaF]),
+  .fmti(TR.HI),
+  .fmt(SaPeak[TR == TR.LO & p == "mean", SaF]),
+  .fmt(SaPeak[TR == TR.LO & p == "mean", Tn], 2),
+  .fmt(SaPeak[TR == TR.HI & p == "mean", SaF]),
+  .fmt(SaPeak[TR == TR.HI & p == "mean", Tn], 2)
+))
+
+if (nrow(Hazard.source)) {
+  DOM <- Hazard.source[rank == 1L]
+  DOM.TEXT <- DOM[, sprintf(
+    "%s para %s a %s años (%s%% de la suma interpolada de tasas por fuente)",
+    sourceDisplay,
+    ifelse(Tn == 0, "PGA", sprintf("$S_a(%.2f\\,\\mathrm{s})$", Tn)),
+    .fmti(TR),
+    .fmti(100 * share)
+  )]
+  cat(sprintf(
+    "Las curvas desagregadas por fuente identifican como contribuciones principales %s. Se conserva el identificador exacto de cada fuente del modelo y, entre paréntesis, se indica el régimen tectónico.\n\n",
+    paste(DOM.TEXT, collapse = "; ")
+  ))
+  rm(DOM, DOM.TEXT)
+}
+
+RM.PGA.LO <- RMw[Tn == 0 & TR == TR.LO]
+RM.PGA.HI <- RMw[Tn == 0 & TR == TR.HI]
+RM.SA.LO <- RMw[Tn == 1 & TR == TR.LO]
+RM.SA.HI <- RMw[Tn == 1 & TR == TR.HI]
+cat(sprintf(
+  paste0(
+    "La desagregación magnitud--distancia sitúa el modo de PGA en $M_w$ %s ",
+    "a %s km para %s años y en $M_w$ %s a %s km para %s años. Para ",
+    "$S_a(1.0\\,\\mathrm{s})$, los modos correspondientes son $M_w$ %s a ",
+    "%s km y $M_w$ %s a %s km.\n"
+  ),
+  .fmt(RM.PGA.LO$Mw, 1), .fmti(RM.PGA.LO$R), .fmti(TR.LO),
+  .fmt(RM.PGA.HI$Mw, 1), .fmti(RM.PGA.HI$R), .fmti(TR.HI),
+  .fmt(RM.SA.LO$Mw, 1), .fmti(RM.SA.LO$R),
+  .fmt(RM.SA.HI$Mw, 1), .fmti(RM.SA.HI$R)
+))
+if (length(Hazard.scope$ITo)) {
+  ITO.TEXT <- paste(.fmti(Hazard.scope$ITo), collapse = " y ")
+  cat(sprintf(
+    "Los productos PoE transforman las mismas tasas al intervalo de exposición de %s %s.\n",
+    ITO.TEXT,
+    if (length(Hazard.scope$ITo) == 1L && Hazard.scope$ITo == 1) "año" else "años"
+  ))
+  rm(ITO.TEXT)
+}
+
+rm(
+  TR.LO, TR.HI, RM.PGA.LO, RM.PGA.HI, RM.SA.LO, RM.SA.HI,
+  PGA, SaPeak, RMw, RMw.PGA, Hazard.source, Hazard.PoE,
+  Hazard.TR.selected, Hazard.Tn.selected
+)
+```

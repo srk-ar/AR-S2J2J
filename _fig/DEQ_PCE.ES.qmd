@@ -1,0 +1,6 @@
+```{r}
+#| include: false
+CAP <- "Sismos de diseño de post-cierre. Espectros de amenaza uniforme (UHS) para aceleraciones espectrales horizontales máximas Sa(Tn) [g], con 5%% de amortiguamiento crítico, para condiciones de sitio con Vs30 = %d [m/s]."
+```
+
+{{< include /_fig/DEQ_PCE.qmd >}}

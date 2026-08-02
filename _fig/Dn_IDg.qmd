@@ -1,0 +1,185 @@
+
+:::{.content-hidden when-format='docx'}
+
+
+:::{.panel-tabset .full-width }
+
+#### `r IDg.gmdp[1]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idg-1
+#| fig-cap: !expr local({ IDg.target <- IDg.gmdp[1]; CAP |> sprintf(IDg.target, IDg.target |> gsub(pattern = "S", replacement = "") |> as.numeric(), TR.target) })
+ 
+IDg.target <- IDg.gmdp[1]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg.gmdp[2]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idg-2
+#| fig-cap: !expr local({ IDg.target <- IDg.gmdp[2]; CAP |> sprintf(IDg.target, IDg.target |> gsub(pattern = "S", replacement = "") |> as.numeric(), TR.target) })
+ 
+IDg.target <- IDg.gmdp[2]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg.gmdp[3]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idg-3
+#| fig-cap: !expr local({ IDg.target <- IDg.gmdp[3]; CAP |> sprintf(IDg.target, IDg.target |> gsub(pattern = "S", replacement = "") |> as.numeric(), TR.target) })
+ 
+IDg.target <- IDg.gmdp[3]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg.gmdp[4]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idg-4
+#| fig-cap: !expr local({ IDg.target <- IDg.gmdp[4]; CAP |> sprintf(IDg.target, IDg.target |> gsub(pattern = "S", replacement = "") |> as.numeric(), TR.target) })
+ 
+IDg.target <- IDg.gmdp[4]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg.gmdp[5]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idg-5
+#| fig-cap: !expr local({ IDg.target <- IDg.gmdp[5]; CAP |> sprintf(IDg.target, IDg.target |> gsub(pattern = "S", replacement = "") |> as.numeric(), TR.target) })
+ 
+IDg.target <- IDg.gmdp[5]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg.gmdp[6]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idg-6
+#| fig-cap: !expr local({ IDg.target <- IDg.gmdp[6]; CAP |> sprintf(IDg.target, IDg.target |> gsub(pattern = "S", replacement = "") |> as.numeric(), TR.target) })
+ 
+IDg.target <- IDg.gmdp[6]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+
+#### `r IDg.gmdp[7]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idg-7
+#| fig-cap: !expr local({ IDg.target <- IDg.gmdp[7]; CAP |> sprintf(IDg.target, IDg.target |> gsub(pattern = "S", replacement = "") |> as.numeric(), TR.target) })
+ 
+
+IDg.target <- IDg.gmdp[7]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+
+
+#### `r IDg.gmdp[8]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idg-8
+#| fig-cap: !expr local({ IDg.target <- IDg.gmdp[8]; CAP |> sprintf(IDg.target, IDg.target |> gsub(pattern = "S", replacement = "") |> as.numeric(), TR.target) })
+ 
+
+IDg.target <- IDg.gmdp[8]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg.gmdp[9]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idg-9
+#| fig-cap: !expr local({ IDg.target <- IDg.gmdp[9]; CAP |> sprintf(IDg.target, IDg.target |> gsub(pattern = "S", replacement = "") |> as.numeric(), TR.target) })
+ 
+
+IDg.target <- IDg.gmdp[9]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg.gmdp[10]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idg-10
+#| fig-cap: !expr local({ IDg.target <- IDg.gmdp[10]; CAP |> sprintf(IDg.target, IDg.target |> gsub(pattern = "S", replacement = "") |> as.numeric(), TR.target) })
+ 
+IDg.target <- IDg.gmdp[10]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg.gmdp[11]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idg-11
+#| fig-cap: !expr local({ IDg.target <- IDg.gmdp[11]; CAP |> sprintf(IDg.target, IDg.target |> gsub(pattern = "S", replacement = "") |> as.numeric(), TR.target) })
+ 
+IDg.target <- IDg.gmdp[11]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+
+#### `r IDg.gmdp[12]`
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-dn-idg-12
+#| fig-cap: !expr local({ IDg.target <- IDg.gmdp[12]; CAP |> sprintf(IDg.target, IDg.target |> gsub(pattern = "S", replacement = "") |> as.numeric(), TR.target) })
+ 
+IDg.target <- IDg.gmdp[12]
+source(file.path(root,"scripts","fig/Dn.R"))
+PLOT
+```
+
+:::
+
+
+
+
+:::

@@ -1,0 +1,45 @@
+```{=html}
+<script>
+(function () {
+  function fireSlideEnter() {
+    var event = document.createEvent("Event");
+    event.initEvent("slideenter", true, true);
+    document.dispatchEvent(event);
+  }
+
+  function reflowHighcharts() {
+    if (!window.Highcharts || !Highcharts.charts) return;
+    Highcharts.charts.forEach(function (chart) {
+      if (chart && chart.renderTo && chart.renderTo.offsetParent !== null) {
+        chart.reflow();
+      }
+    });
+  }
+
+  function scheduleReflow() {
+    [0, 100, 300].forEach(function (delay) {
+      window.setTimeout(function () {
+        fireSlideEnter();
+        reflowHighcharts();
+      }, delay);
+    });
+  }
+
+  document.addEventListener("tabby", scheduleReflow, true);
+  document.addEventListener("DOMContentLoaded", scheduleReflow);
+})();
+</script>
+```
+
+
+## <br>Contents
+
+::: {.index}
+
+- [ ] Regional Seismicity
+- [ ] Seismic Hazard (PoE / AEP)
+- [ ] Hazard Deaggregation
+- [ ] Pseudo-Spectral Accelerations (PSA)
+- [ ] References
+
+:::

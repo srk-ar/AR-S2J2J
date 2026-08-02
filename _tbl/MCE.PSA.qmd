@@ -1,0 +1,20 @@
+```{r}
+#| include: false
+root <- here::here()
+if (!exists("PSA_Units") || !length(PSA_Units)) PSA_Units <- "g"
+if (!exists("p.target") || !length(p.target)) p.target <- c("0.50", "0.84", "0.90", "0.95", "mean")
+if (!exists("CAP", inherits = FALSE)) CAP <- "Maximum credible earthquake (MCE) response spectra, maximum horizontal pseudo-spectral acceleration PSA [%s] with 5%% critical damping at the reference rock condition Vs30 = 760 m/s. Rows are structural periods Tn; column groups report each deterministic scenario at the fractiles p = %s of its total-variability mixture."
+```
+
+```{r}
+#| include: true
+#| label: tbl-mce-psa
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, paste(p.target, collapse = ", "))
+source(file.path(root, "scripts", "tbl", "MCE.PSA.R"))
+TBL
+```
+
+```{r}
+#| include: false
+rm(list = intersect(c("CAP"), ls()))
+```

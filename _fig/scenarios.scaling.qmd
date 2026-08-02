@@ -1,0 +1,133 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+ScenarioConfig <- jsonlite::read_json(
+  file.path(root, "scripts", "runScenarios.json"), simplifyVector = TRUE
+)
+INPUT_ID <- as.character(ScenarioConfig$InputID)
+SCENARIO_P <- as.numeric(ScenarioConfig$P)
+if (length(INPUT_ID) != 1L || !nzchar(INPUT_ID) ||
+    length(SCENARIO_P) != 1L || !is.finite(SCENARIO_P)) {
+  stop("scenarios.scaling: invalid scenario family contract.", call. = FALSE)
+}
+PathSummary <- file.path(root, "data", "audit", "summary.csv")
+PathScenarios <- file.path(root, "data", "records", "scenarios", "IMW.csv")
+PathSource <- file.path(root, "data", "gmsp", INPUT_ID, "IMW.csv")
+if (any(!file.exists(c(PathSummary, PathScenarios, PathSource)))) {
+  stop("scenarios.scaling: required scenario products are missing.",
+       call. = FALSE)
+}
+SCENARIO_SUMMARY <- data.table::fread(
+  PathSummary,
+  select = c(
+    "ScenarioID", "D", "MIC", "SF.L", "SF.T", "SF.V", "n.records"
+  )
+)
+SCENARIO_SOURCE <- data.table::fread(
+  PathSource,
+  select = c("RecordID", "OCID", "PGV")
+)
+SCENARIO_N <- unique(SCENARIO_SUMMARY$n.records)
+if (length(SCENARIO_N) != 1L || !is.finite(SCENARIO_N) ||
+    SCENARIO_N < 1L) {
+  stop("scenarios.scaling: scenarios have inconsistent realization counts.",
+       call. = FALSE)
+}
+SCENARIO_M <- data.table::uniqueN(SCENARIO_SUMMARY$ScenarioID)
+if (!is.finite(SCENARIO_M) || SCENARIO_M < 1L) {
+  stop("scenarios.scaling: scenario inventory is empty.", call. = FALSE)
+}
+SCENARIO_META <- unique(data.table::fread(
+  PathScenarios,
+  select = c("ScenarioID", "D", "MIC", "P", "RecordID")
+))[P == SCENARIO_P]
+if (!exists("COMPONENT_LABELS", inherits = FALSE)) {
+  COMPONENT_LABELS <- c(
+    L = "longitudinal",
+    T = "transverse",
+    V = "vertical"
+  )
+}
+if (!exists("TABS", inherits = FALSE)) {
+  TABS <- c(L = "Longitudinal", T = "Transverse", V = "Vertical")
+}
+if (!exists("CAP", inherits = FALSE)) {
+  CAP <- paste(
+    "Exact PPV-based scale factor $\\lambda_{s,r,c}=",
+    "\\mathrm{PPV}^{\\mathrm{tar}}_{s,c}/\\mathrm{PGV}_{r,c}$ for source",
+    "component %s. The matrix contains %s source histories and %s $D$--$Q$",
+    "conditions at predictive level $p=%s$; each cell represents one scenario",
+    "and source-history combination. Columns are ordered by $D$ and then $Q$,",
+    "and the common history order is retained across L, T, and V. The color",
+    "scale is logarithmic; the interactive label reports the exact factor,",
+    "target PPV, and source",
+    "PGV. $\\lambda=1$ denotes no amplitude modification, $\\lambda>1$",
+    "amplification, and $\\lambda<1$ attenuation. All individual values are",
+    "shown. Marks at 2, 5, 10, 20, and 50 are multiplicative reading",
+    "references, not acceptance criteria."
+  )
+}
+if (!exists("X_AXIS", inherits = FALSE)) X_AXIS <- "Scenario condition"
+if (!exists("Y_AXIS", inherits = FALSE)) Y_AXIS <- "Source history"
+if (!exists("SERIES_LABEL", inherits = FALSE)) SERIES_LABEL <- "λ [-]"
+if (!exists("TOOLTIP_FORMAT", inherits = FALSE)) {
+  TOOLTIP_FORMAT <- paste0(
+    "Scenario: <b>{point.scenario}</b><br>",
+    "D: <b>{point.d} m</b> | Q (MIC): <b>{point.q} kg</b><br>",
+    "Record identifier: <b>{point.record}</b> | Component: <b>{point.component}</b><br>",
+    "Target PPV: <b>{point.target} mm/s</b><br>",
+    "Source PGV: <b>{point.pgv} mm/s</b><br>",
+    "Scale factor λ: <b>{point.lambda}</b>"
+  )
+}
+```
+
+::: {.panel-tabset .full-width}
+
+### `r TABS[["L"]]`
+
+```{r}
+#| label: fig-scenarios-scaling-l
+#| fig-cap: !expr sprintf(CAP, COMPONENT_LABELS[["L"]], SCENARIO_N, SCENARIO_M, formatC(SCENARIO_P, format = "f", digits = 2L))
+#| echo: false
+#| warning: false
+COMPONENT <- "L"
+source(file.path(root, "scripts", "fig", "scenarios.scaling.R"))
+PLOT
+```
+
+### `r TABS[["T"]]`
+
+```{r}
+#| label: fig-scenarios-scaling-t
+#| fig-cap: !expr sprintf(CAP, COMPONENT_LABELS[["T"]], SCENARIO_N, SCENARIO_M, formatC(SCENARIO_P, format = "f", digits = 2L))
+#| echo: false
+#| warning: false
+COMPONENT <- "T"
+source(file.path(root, "scripts", "fig", "scenarios.scaling.R"))
+PLOT
+```
+
+### `r TABS[["V"]]`
+
+```{r}
+#| label: fig-scenarios-scaling-v
+#| fig-cap: !expr sprintf(CAP, COMPONENT_LABELS[["V"]], SCENARIO_N, SCENARIO_M, formatC(SCENARIO_P, format = "f", digits = 2L))
+#| echo: false
+#| warning: false
+COMPONENT <- "V"
+source(file.path(root, "scripts", "fig", "scenarios.scaling.R"))
+PLOT
+```
+
+:::
+
+```{r}
+#| include: false
+rm(
+  CAP, COMPONENT, COMPONENT_LABELS, INPUT_ID, PLOT, PathScenarios, PathSource,
+  PathSummary, SCENARIO_M, SCENARIO_META, SCENARIO_N, SCENARIO_P,
+  SCENARIO_SOURCE, SCENARIO_SUMMARY, SERIES_LABEL, ScenarioConfig, TABS,
+  TOOLTIP_FORMAT, X_AXIS, Y_AXIS
+)
+```

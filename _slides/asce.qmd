@@ -1,0 +1,16 @@
+## <br>`r if (exists("TITLE", inherits = FALSE)) TITLE else "ASCE-7 Design Criteria"`
+
+:::{.panel-tabset .full-width}
+
+### Criteria
+
+### MCER
+
+{{< include /_fig/MCER.qmd >}}
+
+:::
+
+```{r}
+#| include: false
+rm(list = intersect(c("TITLE"), ls()))
+```

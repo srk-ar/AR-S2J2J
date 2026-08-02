@@ -1,0 +1,6 @@
+```{r}
+#| include: false
+CAP <- "Formulaciones PPV retenidas por respuesta, con iteración seleccionada, número de pares OOF, $R^2$ y RMSE en la escala de modelamiento y en unidades físicas."
+```
+
+{{< include /_tbl/demand.PPV.qmd >}}

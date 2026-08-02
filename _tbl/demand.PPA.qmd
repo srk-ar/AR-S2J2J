@@ -1,0 +1,34 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+if (!exists("CAP", inherits = FALSE)) {
+  CAP <- "Selected PPA formulations by response, with retained iteration, number of OOF pairs, $R^2$, and RMSE in the modelling and physical domains."
+}
+DATASET <- "QDS"
+METHOD <- "ensemble.RMSE"
+FAMILY <- "^ppa([LTV])?$"
+.MODEL_CONFIG <- jsonlite::read_json(
+  file.path(root, "scripts", "manifest.json"), simplifyVector = TRUE
+)
+RESPONSES <- as.character(.MODEL_CONFIG$responses$names)
+RESPONSES <- RESPONSES[grepl(FAMILY, RESPONSES)]
+PathSummary <- file.path(root, "data", "summary")
+PathIter <- file.path(root, "data", "iter")
+UNITS <- unlist(jsonlite::read_json(
+  file.path(root, "data", "domains", "units.json"),
+  simplifyVector = TRUE
+)["ppa"])
+```
+
+```{r}
+#| label: tbl-demand-ppa-metrics
+#| tbl-cap: !expr CAP
+source(file.path(root, "scripts", "tbl", "performance.R"))
+TBL
+```
+
+```{r}
+#| include: false
+rm(CAP, DATASET, FAMILY, METHOD, PathIter, PathSummary, RESPONSES, UNITS,
+   .MODEL_CONFIG)
+```

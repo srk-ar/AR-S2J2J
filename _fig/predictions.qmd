@@ -1,0 +1,142 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+if (!exists("FAMILY", inherits = FALSE) ||
+    length(FAMILY) != 1L ||
+    !FAMILY %in% c("ppv", "ppa")) {
+  stop("predictions: set exactly one response family.", call. = FALSE)
+}
+.MODEL_CONFIG <- jsonlite::read_json(
+  file.path(root, "scripts", "manifest.json"), simplifyVector = TRUE
+)
+.MODEL_IDS <- as.character(.MODEL_CONFIG$responses$names)
+.MODEL_IDS <- .MODEL_IDS[
+  grepl(sprintf("^%s([LTV])?$", FAMILY), .MODEL_IDS)
+]
+.MODEL_SUFFIX <- sub(sprintf("^%s", FAMILY), "", .MODEL_IDS)
+.MODEL_KEYS <- ifelse(.MODEL_SUFFIX == "", "resultant", .MODEL_SUFFIX)
+if (!length(.MODEL_IDS) ||
+    any(!.MODEL_KEYS %in% c("resultant", "L", "T", "V"))) {
+  stop(sprintf("predictions: invalid %s response family.", FAMILY),
+       call. = FALSE)
+}
+if (!exists("FAMILY_LABEL", inherits = FALSE)) {
+  FAMILY_LABEL <- toupper(FAMILY)
+}
+if (!exists("COMPONENT_LABELS", inherits = FALSE)) {
+  COMPONENT_LABELS <- c(
+    resultant = "resultant",
+    L = "longitudinal",
+    T = "transverse",
+    V = "vertical"
+  )
+}
+.MODEL_AXIS_LABELS <- c(
+  resultant = "resultant",
+  L = "longitudinal",
+  T = "transverse",
+  V = "vertical"
+)
+RESP <- setNames(
+  paste(unname(COMPONENT_LABELS[.MODEL_KEYS]), FAMILY_LABEL),
+  .MODEL_IDS
+)
+.MODEL_AXIS <- setNames(
+  paste(unname(.MODEL_AXIS_LABELS[.MODEL_KEYS]), FAMILY_LABEL),
+  .MODEL_IDS
+)
+TABS <- setNames(
+  paste(tools::toTitleCase(unname(COMPONENT_LABELS[.MODEL_KEYS])), FAMILY_LABEL),
+  .MODEL_IDS
+)
+DATASET <- "QDS"
+if (!DATASET %in% names(.MODEL_CONFIG$datasets)) {
+  stop("predictions: dataset QDS is not declared in the manifest.",
+       call. = FALSE)
+}
+.MODEL_UNITS <- jsonlite::read_json(
+  file.path(root, "data", "domains", "units.json"), simplifyVector = TRUE
+)
+UNIT <- as.character(.MODEL_UNITS[[FAMILY]])
+if (length(UNIT) != 1L || is.na(UNIT) || !nzchar(UNIT)) {
+  stop(sprintf("predictions: units.json does not define %s.", FAMILY),
+       call. = FALSE)
+}
+PathResiduals <- file.path(root, "data", "summary", "residuals_oof.csv")
+PathSources <- file.path(root, "data", "domains", "sources.csv")
+if (any(!file.exists(c(PathResiduals, PathSources)))) {
+  stop("predictions: required OOF products are missing.", call. = FALSE)
+}
+.MODEL_N <- data.table::fread(
+  PathResiduals,
+  select = c("response", "dataset", "SampleID", "y_obs", "y_hat_oof")
+)[
+  dataset == DATASET &
+    response %in% .MODEL_IDS &
+    is.finite(y_obs) &
+    is.finite(y_hat_oof),
+  .N,
+  by = response
+]
+if (!setequal(.MODEL_N$response, .MODEL_IDS) ||
+    .MODEL_N[, any(!is.finite(N) | N < 1L)]) {
+  stop("predictions: incomplete OOF sample for the response family.",
+       call. = FALSE)
+}
+.MODEL_N <- setNames(.MODEL_N$N, .MODEL_N$response)
+if (!exists("CAP", inherits = FALSE)) {
+  CAP <- "%s: observed values versus OOF predictions from the response-specific retained iteration $t_h^*$, evaluated on %d pairs. The diagonal is the 1:1 line; the axes show physical response units."
+}
+if (!exists("X_AXIS", inherits = FALSE)) {
+  X_AXIS <- "OOF prediction of %s [%s]"
+}
+if (!exists("Y_AXIS", inherits = FALSE)) {
+  Y_AXIS <- "Observed %s [%s]"
+}
+if (!exists("GROUP_LEGEND", inherits = FALSE)) GROUP_LEGEND <- "Source"
+if (!exists("SOURCE_UNKNOWN", inherits = FALSE)) {
+  SOURCE_UNKNOWN <- "Unclassified"
+}
+if (!exists("ONE_TO_ONE", inherits = FALSE)) ONE_TO_ONE <- "1:1"
+```
+
+::: {.panel-tabset .full-width}
+
+```{r}
+#| results: asis
+#| echo: false
+#| eval: !expr knitr::is_html_output()
+for (.ID in names(RESP)) {
+  cat(sprintf("\n#### %s\n\n", TABS[[.ID]]))
+  NGR::knitBlock(
+    path = "/_fig/predictions.cell.qmd",
+    stem = sprintf("fpred-%s", .ID),
+    labels = "rewrite",
+    vars = list(
+      DATASET = DATASET,
+      ID = .ID,
+      X_AXIS = sprintf(X_AXIS, .MODEL_AXIS[[.ID]], UNIT),
+      Y_AXIS = sprintf(Y_AXIS, .MODEL_AXIS[[.ID]], UNIT),
+      GROUP_LEGEND = GROUP_LEGEND,
+      SOURCE_UNKNOWN = SOURCE_UNKNOWN,
+      ONE_TO_ONE = ONE_TO_ONE,
+      PathResiduals = PathResiduals,
+      PathSources = PathSources,
+      CAPTION = sprintf(CAP, RESP[[.ID]], .MODEL_N[[.ID]])
+    ),
+    root = root
+  )
+}
+```
+
+:::
+
+```{r}
+#| include: false
+rm(CAP, COMPONENT_LABELS, DATASET, FAMILY, FAMILY_LABEL, GROUP_LEGEND,
+   ONE_TO_ONE, PathResiduals, PathSources, RESP, SOURCE_UNKNOWN, TABS,
+   UNIT, X_AXIS, Y_AXIS)
+rm(.MODEL_CONFIG, .MODEL_IDS, .MODEL_KEYS, .MODEL_N, .MODEL_SUFFIX,
+   .MODEL_UNITS, .MODEL_AXIS, .MODEL_AXIS_LABELS)
+if (knitr::is_html_output()) rm(.ID)
+```

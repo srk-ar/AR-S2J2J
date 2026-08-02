@@ -1,0 +1,50 @@
+```{r}
+#| include: false
+Target <- .currentTarget("ID.target")
+ID.target <- .resolveDerivedIDTarget(
+  kmaxTable,
+  "kh_IDn.qmd",
+  suffix = ".max",
+  target = Target,
+  siteID = .currentTarget("siteID.target")
+)
+IDg.target <- IDg.gmdp
+p.target <- "mean"
+TR.target <- TR.gmdp
+```
+
+### Performance-Based $k_h$ Table - Ensemble`r if (.reportMultiple()) sprintf(" {#%s}", .composeTargetStem("sec-kh-table-ensemble")) else ""`
+
+```{r}
+#| include: false
+IDn.target <- "ensemble"
+```
+
+{{< include /_tbl/kh.qmd >}}
+
+### Performance-Based $k_h$ Table - Rigid`r if (.reportMultiple()) sprintf(" {#%s}", .composeTargetStem("sec-kh-table-rigid")) else ""`
+
+```{r}
+#| include: false
+IDn.target <- "rigid"
+```
+
+{{< include /_tbl/kh.qmd >}}
+
+### Performance-Based $k_h$ Table - Flexible`r if (.reportMultiple()) sprintf(" {#%s}", .composeTargetStem("sec-kh-table-flexible")) else ""`
+
+```{r}
+#| include: false
+IDn.target <- "flexible"
+```
+
+{{< include /_tbl/kh.qmd >}}
+
+```{r}
+#| include: false
+rm(list = intersect(c(
+  "ID.target", "IDg.target", "IDn.target", "p.target", "TR.target"
+), ls()))
+if (exists("Target", inherits = FALSE) && length(Target)) ID.target <- Target
+rm(list = intersect("Target", ls()))
+```

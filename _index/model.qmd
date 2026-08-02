@@ -1,0 +1,15 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+```
+
+# ML Model {#sec-amplitude}
+
+## Methodology {#sec-model_method}
+
+{{< include /_chapters/model.md >}}
+
+## Results {#sec-model_results}
+
+{{< include /_summary/model.results.qmd >}}

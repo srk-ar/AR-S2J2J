@@ -1,0 +1,5 @@
+## <br>Conditional Demand
+
+{{< include /_fig/conditional.PPV.qmd >}}
+
+{{< include /_tbl/conditional.PPV.qmd >}}

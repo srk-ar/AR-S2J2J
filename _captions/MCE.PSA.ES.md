@@ -1,0 +1,1 @@
+Maximum credible earthquake (MCE) response spectra, maximum horizontal pseudo-spectral acceleration PSA [%s] with 5%% critical damping at the reference rock condition Vs30 = 760 m/s. Rows are structural periods Tn; column groups report each deterministic scenario at the fractiles p = %s of its total-variability mixture.

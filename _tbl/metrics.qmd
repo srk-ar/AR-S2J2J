@@ -1,0 +1,204 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+if (!exists("CAP")) CAP <- c(
+  executive = paste(
+    "Retained-model OOF performance for the PPV response family and",
+    "resultant PPA. N is the number of common OOF pairs; OOF RMSE is",
+    "reported in the physical unit shown. Delta RMSE is the reduction",
+    "relative to t=0 on the log10(response) scale, and Delta R2 is the",
+    "corresponding increase in OOF R2. PPV.L, PPV.T, and PPV.V are retained",
+    "because they define the component targets used to construct scenarios."
+  ),
+  performance = paste(
+    "OOF performance of the inverse-OOF-RMSE-weighted ensemble at the",
+    "response-specific retained iteration $t^*$, defined as the first",
+    "iteration attaining the maximum OOF $R^2$. $N$ is the number of OOF",
+    "observation--prediction pairs; $R^2=\\operatorname{Cor}^2(z,",
+    "\\hat z_{\\mathrm{OOF}})$. Log-scale RMSE is computed on",
+    "$z=\\log_{10}y$; physical RMSE uses the back-transformed OOF point",
+    "predictions and is reported in mm/s for PPV and g for PPA."
+  ),
+  conditioning = paste(
+    "OOF comparison over the same sample between the independent",
+    "formulation $t=0$, which uses the physical covariates, and the retained",
+    "formulation $t^*$, which may include p50 companion-response predictions.",
+    "$N$ is the number of common OOF observation--prediction pairs. Both RMSE",
+    "values are calculated on",
+    "$\\log_{10}(response)$; $\\Delta\\mathrm{RMSE}=100[1-",
+    "\\mathrm{RMSE}_{t^*}/\\mathrm{RMSE}_{t=0}]$ and",
+    "$\\Delta R^2=R^2_{t^*}-R^2_{t=0}$. The retained iteration is selected",
+    "by OOF $R^2$, not by RMSE."
+  ),
+  bands = paste(
+    "Empirical quantiles of the signed OOF residual",
+    "$z-\\hat z_{\\mathrm{OOF}}$ from the retained formulation. $q_{50}$,",
+    "$q_{90}$, and $q_{95}$ are additive offsets on the $\\log_{10}$ scale;",
+    "the p90/p50 and p95/p50 columns are the multiplicative factors",
+    "$10^{q_p-q_{50}}$."
+  ),
+  learnersPPV = paste(
+    "Formal SSEL OOF metrics at each PPV response's retained iteration",
+    "$t^*$. Column names are retained from `metrics.csv`: `response`",
+    "identifies the modeled amplitude; `method` is the exact SSEL method",
+    "identifier; `n` is the training-row count; `rmse` is the root-mean-square",
+    "OOF error; and `r2` is the squared sample correlation between observations",
+    "and OOF predictions. Because the responses are modeled as",
+    "$z=\\log_{10}y$, `rmse` has $\\log_{10}(response)$ units; `r2` is",
+    "dimensionless. Rows comprise the five base learners and the",
+    "`ensemble.R2` and `ensemble.RMSE` formulations."
+  ),
+  learnersPPA = paste(
+    "Formal SSEL OOF metrics at each PPA response's retained iteration",
+    "$t^*$. Column names are retained from `metrics.csv`: `response`",
+    "identifies the modeled amplitude; `method` is the exact SSEL method",
+    "identifier; `n` is the training-row count; `rmse` is the root-mean-square",
+    "OOF error; and `r2` is the squared sample correlation between observations",
+    "and OOF predictions. Because the responses are modeled as",
+    "$z=\\log_{10}y$, `rmse` has $\\log_{10}(response)$ units; `r2` is",
+    "dimensionless. Rows comprise the five base learners and the",
+    "`ensemble.R2` and `ensemble.RMSE` formulations."
+  )
+)
+if (!exists("TABS")) TABS <- c(
+  performance = "OOF performance",
+  conditioning = "Independent vs retained formulation",
+  bands = "Residual-quantile adjustments",
+  learnersPPV = "PPV base learners and ensembles",
+  learnersPPA = "PPA base learners and ensembles"
+)
+DATASET <- "QDS"
+METHOD <- "ensemble.RMSE"
+LEARNERS <- c("ranger", "earth", "gbm", "gamSpline", "glm")
+ENSEMBLES <- c("ensemble.R2", "ensemble.RMSE")
+.MODEL_CONFIG <- jsonlite::read_json(
+  file.path(root, "scripts", "manifest.json"), simplifyVector = TRUE
+)
+RESPONSES <- as.character(.MODEL_CONFIG$responses$names)
+RESPONSE_LABELS <- c(
+  ppv = "PPV",
+  ppvL = "PPV.L",
+  ppvT = "PPV.T",
+  ppvV = "PPV.V",
+  ppa = "PPA",
+  ppaL = "PPA.L",
+  ppaT = "PPA.T",
+  ppaV = "PPA.V"
+)
+if (!setequal(names(RESPONSE_LABELS), RESPONSES) ||
+    anyDuplicated(c(LEARNERS, ENSEMBLES))) {
+  stop("metrics: response labels or method identifiers are invalid.",
+       call. = FALSE)
+}
+PathSummary <- file.path(root, "data", "summary")
+PathIter <- file.path(root, "data", "iter")
+UNITS <- unlist(jsonlite::read_json(
+  file.path(root, "data", "domains", "units.json"),
+  simplifyVector = TRUE
+)[c("ppv", "ppa")])
+if (any(!dir.exists(c(PathSummary, PathIter))) ||
+    any(!c("ppv", "ppa") %in% names(UNITS))) {
+  stop("metrics: model-product contract is incomplete.", call. = FALSE)
+}
+```
+
+:::{.content-visible when-format='docx'}
+
+```{r}
+#| include: false
+#| eval: !expr knitr::pandoc_to("docx")
+RESPONSES.ALL <- RESPONSES
+RESPONSES <- c("ppv", "ppvL", "ppvT", "ppvV", "ppa")
+if (any(!RESPONSES %in% RESPONSES.ALL)) {
+  stop("metrics: executive responses are absent from the model manifest.",
+       call. = FALSE)
+}
+EXECUTIVE <- TRUE
+```
+
+```{r}
+#| include: true
+#| eval: !expr knitr::pandoc_to("docx")
+#| label: tbl-metrics-executive
+#| tbl-cap: !expr CAP[["executive"]]
+source(file.path(root, "scripts", "tbl", "comparison.R"))
+TBL
+```
+
+```{r}
+#| include: false
+#| eval: !expr knitr::pandoc_to("docx")
+RESPONSES <- RESPONSES.ALL
+rm(EXECUTIVE, RESPONSES.ALL)
+```
+
+:::
+
+:::{.content-hidden when-format='docx'}
+
+::: {.panel-tabset .full-width}
+
+#### `r TABS[["performance"]]`
+
+```{r include=TRUE}
+#| eval: !expr knitr::is_html_output()
+#| label: tbl-metrics-performance
+#| tbl-cap: !expr CAP[["performance"]]
+source(file.path(root, "scripts", "tbl", "performance.R"))
+TBL
+```
+
+#### `r TABS[["conditioning"]]`
+
+```{r include=TRUE}
+#| eval: !expr knitr::is_html_output()
+#| label: tbl-metrics-conditioning
+#| tbl-cap: !expr CAP[["conditioning"]]
+source(file.path(root, "scripts", "tbl", "comparison.R"))
+TBL
+```
+
+#### `r TABS[["bands"]]`
+
+```{r include=TRUE}
+#| eval: !expr knitr::is_html_output()
+#| label: tbl-metrics-bands
+#| tbl-cap: !expr CAP[["bands"]]
+source(file.path(root, "scripts", "tbl", "bands.R"))
+TBL
+```
+
+#### `r TABS[["learnersPPV"]]`
+
+```{r include=TRUE}
+#| eval: !expr knitr::is_html_output()
+#| label: tbl-metrics-learners-ppv
+#| tbl-cap: !expr CAP[["learnersPPV"]]
+FAMILY <- "^ppv"
+source(file.path(root, "scripts", "tbl", "learners.R"))
+TBL
+```
+
+#### `r TABS[["learnersPPA"]]`
+
+```{r include=TRUE}
+#| eval: !expr knitr::is_html_output()
+#| label: tbl-metrics-learners-ppa
+#| tbl-cap: !expr CAP[["learnersPPA"]]
+FAMILY <- "^ppa"
+source(file.path(root, "scripts", "tbl", "learners.R"))
+TBL
+```
+
+:::
+
+:::
+
+```{r}
+#| include: false
+rm(list = intersect(c(
+  "CAP", "CLASS_LABELS", "DATASET", "ENSEMBLES", "FAMILY", "LEARNERS",
+  "METHOD", "METHOD_LABELS", "PathIter", "PathSummary", "RESPONSE_LABELS",
+  "RESPONSES", "TABS", "UNITS", ".MODEL_CONFIG"
+), ls()))
+```

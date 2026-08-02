@@ -1,0 +1,6 @@
+```{r}
+#| include: false
+CAP <- "Dominio observado de distancia y carga de la muestra QDS utilizada para el ajuste, identificado por procedencia, y malla de escenarios del nivel predictivo evaluado. Los ejes logarítmicos conservan el rango observado; los puntos de la malla representan condiciones de demanda, no una selección de historias."
+```
+
+{{< include /_fig/model.domain.qmd >}}

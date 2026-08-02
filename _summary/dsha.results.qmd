@@ -1,0 +1,8 @@
+```{r}
+#| include: false
+source(file.path(root, "scripts", "setup", "summary", "dshaResults.R"))
+```
+
+The assessment considered `r .fmti(nrow(DSHASummary$scenarios))` postulated rupture scenarios, with moment magnitudes from `r .fmt(min(DSHASummary$scenarios$Mw), 1)` to `r .fmt(max(DSHASummary$scenarios$Mw), 1)` and epicentral distances from `r .fmti(round(min(DSHASummary$scenarios$Repi)))` to `r .fmti(round(max(DSHASummary$scenarios$Repi)))` km.
+
+At PGA and reference rock, $V_{S30}=760$ m/s, `r DSHASummary$governorMean` defines the maximum of the means and `r DSHASummary$governorQ84` defines the maximum of the 84th percentiles. The envelopes reach `r .fmt(DSHASummary$envelope$PGA.mean)` g for the mean-based MCE and `r .fmt(DSHASummary$envelope$PGA.p84)` g for the MCE (84%). As a probabilistic benchmark, the mean PGA of the uniform hazard spectrum for $T_R=10{,}000$ years is `r .fmt(DSHASummary$probabilisticPGA)` g. These values describe the PGA comparison; at the other periods, the scenario defining each envelope is selected again for the corresponding period and statistic.

@@ -1,0 +1,16 @@
+```{r}
+#| include: false
+if (!exists("SCENARIO_AUDIT")) {
+  SCENARIO_AUDIT <- fread(file.path(root, "data", "audit", "summary.csv"))
+  SCENARIO_MASTER <- fread(file.path(root, "data", "records", "scenarios", "IMW.csv"))
+  SCENARIO_COMPLETE <- unique(SCENARIO_MASTER$ScenarioID)
+  if (!nrow(SCENARIO_AUDIT) || !length(SCENARIO_COMPLETE)) stop("scenarios.results.es.qmd: scenario audit and inventory must be non-empty.")
+  if (!setequal(SCENARIO_AUDIT$ScenarioID, SCENARIO_COMPLETE)) stop("scenarios.results.es.qmd: audit and generated scenario inventory do not match.")
+}
+```
+
+### Familia evaluada
+
+La Tabla @tbl-scenarios-inventory presenta las condiciones evaluadas, los tres objetivos PPV empleados en el escalamiento y el número de realizaciones de cada escenario. Cada fila corresponde a una condición $(d,q,p)$; sus realizaciones proceden de las historias fuente que integran la población instrumental.
+
+{{< include /_tbl/scenarios.ES.qmd >}}

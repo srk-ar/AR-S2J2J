@@ -1,0 +1,322 @@
+{
+  "agents": {
+    "agent-1783352883614-xiwvzl": {
+      "agentId": "agent-1783352883614-xiwvzl",
+      "agentType": "worker",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "session-prompt",
+        "stageProfile": "prompt",
+        "sessionId": "run-20260706_124803",
+        "topology": "hierarchical"
+      },
+      "createdAt": "2026-07-06T15:48:03.618Z",
+      "domain": "general",
+      "model": "haiku",
+      "modelRoutedBy": "router"
+    },
+    "agent-1783352883785-4c8l1q": {
+      "agentId": "agent-1783352883785-4c8l1q",
+      "agentType": "worker",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "session-prompt",
+        "stageProfile": "prompt",
+        "sessionId": "run-20260706_124803_30686",
+        "topology": "hierarchical"
+      },
+      "createdAt": "2026-07-06T15:48:03.788Z",
+      "domain": "general",
+      "model": "haiku",
+      "modelRoutedBy": "router"
+    },
+    "agent-1783352936486-e4mpjt": {
+      "agentId": "agent-1783352936486-e4mpjt",
+      "agentType": "researcher",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "research",
+        "stageProfile": "research",
+        "sessionId": "run-20260706_124856_3374",
+        "topology": "mesh",
+        "model": "sonnet"
+      },
+      "createdAt": "2026-07-06T15:48:56.486Z",
+      "domain": "research",
+      "model": "sonnet",
+      "modelRoutedBy": "explicit"
+    },
+    "agent-1783352963666-z8nrbw": {
+      "agentId": "agent-1783352963666-z8nrbw",
+      "agentType": "researcher",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "research",
+        "stageProfile": "research",
+        "sessionId": "run-20260706_124923_14118",
+        "topology": "mesh",
+        "model": "sonnet"
+      },
+      "createdAt": "2026-07-06T15:49:23.666Z",
+      "domain": "research",
+      "model": "sonnet",
+      "modelRoutedBy": "explicit"
+    },
+    "agent-1783353329759-dttvoo": {
+      "agentId": "agent-1783353329759-dttvoo",
+      "agentType": "researcher",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "research",
+        "stageProfile": "research",
+        "sessionId": "run-20260706_125529",
+        "topology": "mesh",
+        "model": "sonnet"
+      },
+      "createdAt": "2026-07-06T15:55:29.759Z",
+      "domain": "research",
+      "model": "sonnet",
+      "modelRoutedBy": "explicit"
+    },
+    "agent-1783354606228-lr3x02": {
+      "agentId": "agent-1783354606228-lr3x02",
+      "agentType": "worker",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "session-prompt",
+        "stageProfile": "prompt",
+        "sessionId": "run-20260706_131645",
+        "topology": "hierarchical"
+      },
+      "createdAt": "2026-07-06T16:16:46.232Z",
+      "domain": "general",
+      "model": "haiku",
+      "modelRoutedBy": "router"
+    },
+    "agent-1783354659246-6pe1ta": {
+      "agentId": "agent-1783354659246-6pe1ta",
+      "agentType": "researcher",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "research",
+        "stageProfile": "research",
+        "sessionId": "run-20260706_131738_28818",
+        "topology": "mesh",
+        "model": "sonnet"
+      },
+      "createdAt": "2026-07-06T16:17:39.246Z",
+      "domain": "research",
+      "model": "sonnet",
+      "modelRoutedBy": "explicit"
+    },
+    "agent-1783354903960-75tsjz": {
+      "agentId": "agent-1783354903960-75tsjz",
+      "agentType": "researcher",
+      "status": "idle",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "research",
+        "stageProfile": "research",
+        "sessionId": "run-20260706_132143",
+        "topology": "mesh",
+        "model": "sonnet"
+      },
+      "createdAt": "2026-07-06T16:21:43.960Z",
+      "domain": "research",
+      "model": "sonnet",
+      "modelRoutedBy": "explicit"
+    },
+    "agent-1783357733175-3litgy": {
+      "agentId": "agent-1783357733175-3litgy",
+      "agentType": "worker",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "session-prompt",
+        "stageProfile": "prompt",
+        "sessionId": "run-20260706_140852",
+        "topology": "hierarchical"
+      },
+      "createdAt": "2026-07-06T17:08:53.178Z",
+      "domain": "general",
+      "model": "haiku",
+      "modelRoutedBy": "router"
+    },
+    "agent-1783357734772-wxqx3b": {
+      "agentId": "agent-1783357734772-wxqx3b",
+      "agentType": "worker",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "session-prompt",
+        "stageProfile": "prompt",
+        "sessionId": "run-20260706_140854",
+        "topology": "hierarchical"
+      },
+      "createdAt": "2026-07-06T17:08:54.774Z",
+      "domain": "general",
+      "model": "haiku",
+      "modelRoutedBy": "router"
+    },
+    "agent-1783357785193-b73tou": {
+      "agentId": "agent-1783357785193-b73tou",
+      "agentType": "researcher",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "research",
+        "stageProfile": "research",
+        "sessionId": "run-20260706_140944_27580",
+        "topology": "mesh",
+        "model": "sonnet"
+      },
+      "createdAt": "2026-07-06T17:09:45.193Z",
+      "domain": "research",
+      "model": "sonnet",
+      "modelRoutedBy": "explicit"
+    },
+    "agent-1783357790336-3pi08n": {
+      "agentId": "agent-1783357790336-3pi08n",
+      "agentType": "researcher",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "research",
+        "stageProfile": "research",
+        "sessionId": "run-20260706_140950_25299",
+        "topology": "mesh",
+        "model": "sonnet"
+      },
+      "createdAt": "2026-07-06T17:09:50.336Z",
+      "domain": "research",
+      "model": "sonnet",
+      "modelRoutedBy": "explicit"
+    },
+    "agent-1783366741854-yuf4ir": {
+      "agentId": "agent-1783366741854-yuf4ir",
+      "agentType": "worker",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "session-prompt",
+        "stageProfile": "prompt",
+        "sessionId": "run-20260706_163901",
+        "topology": "hierarchical"
+      },
+      "createdAt": "2026-07-06T19:39:01.858Z",
+      "domain": "general",
+      "model": "haiku",
+      "modelRoutedBy": "router"
+    },
+    "agent-1783366742078-lqfm8y": {
+      "agentId": "agent-1783366742078-lqfm8y",
+      "agentType": "worker",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "session-prompt",
+        "stageProfile": "prompt",
+        "sessionId": "run-20260706_163901_2593",
+        "topology": "hierarchical"
+      },
+      "createdAt": "2026-07-06T19:39:02.081Z",
+      "domain": "general",
+      "model": "haiku",
+      "modelRoutedBy": "router"
+    },
+    "agent-1783366791178-b2pt2d": {
+      "agentId": "agent-1783366791178-b2pt2d",
+      "agentType": "researcher",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "research",
+        "stageProfile": "research",
+        "sessionId": "run-20260706_163950_16820",
+        "topology": "mesh",
+        "model": "sonnet"
+      },
+      "createdAt": "2026-07-06T19:39:51.178Z",
+      "domain": "research",
+      "model": "sonnet",
+      "modelRoutedBy": "explicit"
+    },
+    "agent-1783366857832-gjpeu4": {
+      "agentId": "agent-1783366857832-gjpeu4",
+      "agentType": "researcher",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "research",
+        "stageProfile": "research",
+        "sessionId": "run-20260706_164057_11000",
+        "topology": "mesh",
+        "model": "sonnet"
+      },
+      "createdAt": "2026-07-06T19:40:57.832Z",
+      "domain": "research",
+      "model": "sonnet",
+      "modelRoutedBy": "explicit"
+    },
+    "agent-1783370624777-fklq3g": {
+      "agentId": "agent-1783370624777-fklq3g",
+      "agentType": "researcher",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "research",
+        "stageProfile": "research",
+        "sessionId": "run-20260706_174344",
+        "topology": "mesh",
+        "model": "sonnet"
+      },
+      "createdAt": "2026-07-06T20:43:44.777Z",
+      "domain": "research",
+      "model": "sonnet",
+      "modelRoutedBy": "explicit"
+    },
+    "agent-1783371077836-96m21d": {
+      "agentId": "agent-1783371077836-96m21d",
+      "agentType": "researcher",
+      "status": "terminated",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "workflow": "research",
+        "stageProfile": "research",
+        "sessionId": "run-20260706_175117_4357",
+        "topology": "mesh",
+        "model": "sonnet"
+      },
+      "createdAt": "2026-07-06T20:51:17.836Z",
+      "domain": "research",
+      "model": "sonnet",
+      "modelRoutedBy": "explicit"
+    }
+  },
+  "version": "3.0.0"
+}

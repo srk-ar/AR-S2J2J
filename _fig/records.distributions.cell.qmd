@@ -1,0 +1,56 @@
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: false
+AUX <- RECORDS_EDA[
+  response == ID,
+  .(X = value, ID = RESPONSE_LABEL, Source)
+]
+if (!nrow(AUX) || AUX[, any(!is.finite(X) | X <= 0)]) {
+  stop(sprintf("records.distributions: invalid observations for %s.", ID),
+       call. = FALSE)
+}
+Bounds <- range(AUX$X)
+DT <- AUX[, .N, by = Source][match(RECORDS_EDA_SOURCE_NAMES, Source)]
+if (anyNA(DT$Source) || anyNA(DT$N) || sum(DT$N) != nrow(AUX)) {
+  stop(sprintf("records.distributions: invalid source counts for %s.", ID),
+       call. = FALSE)
+}
+OUT <- paste0(DT$Source, ": n = ", DT$N, collapse = "; ")
+Range <- range(log10(AUX$X))
+if (length(Range) != 2L || any(!is.finite(Range))) {
+  stop(sprintf("records.distributions: invalid combined range for %s.", ID),
+       call. = FALSE)
+}
+if (diff(Range) > 0) {
+  Range <- Range + c(-0.1, 0.1) * diff(Range)
+} else {
+  Range <- Range + c(-0.5, 0.5)
+}
+CAP.txt <- sprintf(
+  CAP, RESPONSE_LABEL, nrow(AUX), OUT, Bounds[1L], Bounds[2L], UNIT
+)
+AUX <- AUX[, .(X, ID)]
+AUX[, X := log10(X)]
+```
+
+```{r}
+#| label: fig-records-distribution
+#| fig-cap: !expr CAP.txt
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| echo: false
+#| warning: false
+source(file.path(root, "scripts", "fig", "records.distributions.R"))
+PLOT <- highcharter::hc_size(
+  PLOT,
+  height = if (knitr::pandoc_to("revealjs")) 480 else 650
+)
+PLOT <- highcharter::hc_chart(PLOT, height = NULL)
+PLOT
+```
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: false
+rm(AUX, Bounds, CAP.txt, DT, OUT, PLOT, Range)
+```

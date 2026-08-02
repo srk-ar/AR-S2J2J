@@ -1,0 +1,3 @@
+# Part III — Seismic Design Parameters
+
+{{< include /_chapters/parameters.md >}}

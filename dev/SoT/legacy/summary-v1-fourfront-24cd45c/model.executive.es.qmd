@@ -1,0 +1,97 @@
+```{r}
+#| include: false
+MODEL_DATASET <- "QDS"
+MODEL_METHOD <- "ensemble.RMSE"
+MODEL_PATH <- file.path(root, "data", "summary")
+MODEL_METRICS <- data.table::fread(file.path(MODEL_PATH, "metrics.csv"))[
+  method == MODEL_METHOD & dataset == MODEL_DATASET,
+  .(response, N = n, RMSE.log10 = rmse, R2 = r2)
+]
+MODEL_RESIDUALS <- data.table::fread(
+  file.path(MODEL_PATH, "residuals_oof.csv")
+)[
+  dataset == MODEL_DATASET & is.finite(y_obs) & is.finite(y_hat_oof)
+]
+COLS <- c("response", "dataset", "SampleID", "y_obs", "y_hat_oof")
+if (!nrow(MODEL_METRICS) || !nrow(MODEL_RESIDUALS) ||
+    length(setdiff(COLS, names(MODEL_RESIDUALS)))) {
+  stop("model summary: incomplete retained-model products.", call. = FALSE)
+}
+MODEL_RESIDUAL_CHECK <- MODEL_RESIDUALS[,
+  .(rmse.residuals = sqrt(mean((y_obs - y_hat_oof)^2)),
+    r2.residuals = stats::cor(y_obs, y_hat_oof)^2),
+  by = response
+][MODEL_METRICS, on = "response"]
+if (nrow(MODEL_RESIDUAL_CHECK) != nrow(MODEL_METRICS) ||
+    MODEL_RESIDUAL_CHECK[, any(!is.finite(rmse.residuals) |
+      !is.finite(r2.residuals) |
+      abs(rmse.residuals - RMSE.log10) > 1e-8 |
+      abs(r2.residuals - R2) > 1e-8)]) {
+  stop("model: residuals_oof does not reconstruct the retained ensemble metrics.",
+       call. = FALSE)
+}
+MODEL_PHYSICAL <- MODEL_RESIDUALS[, .(
+  RMSE.physical = sqrt(mean((10^y_obs - 10^y_hat_oof)^2))
+), by = response]
+MODEL_PERFORMANCE <- merge(MODEL_METRICS, MODEL_PHYSICAL, by = "response")
+
+AUX <- data.table::fread(file.path(
+  root, "data", "iter", "summary_0", "residuals_oof.csv"
+))[
+  dataset == MODEL_DATASET & is.finite(y_obs) & is.finite(y_hat_oof)
+]
+KEY <- c("response", "dataset", "SampleID")
+if (length(setdiff(COLS, names(AUX))) ||
+    AUX[, anyDuplicated(.SD), .SDcols = KEY] ||
+    MODEL_RESIDUALS[, anyDuplicated(.SD), .SDcols = KEY]) {
+  stop("model summary: invalid or duplicated OOF keys.", call. = FALSE)
+}
+MODEL_COMPARISON <- merge(
+  AUX[, .(
+    response, dataset, SampleID,
+    y_obs.t0 = y_obs,
+    y_hat.t0 = y_hat_oof
+  )],
+  MODEL_RESIDUALS[, .(
+    response, dataset, SampleID,
+    y_obs.retained = y_obs,
+    y_hat.retained = y_hat_oof
+  )],
+  by = KEY,
+  all = FALSE
+)
+if (nrow(MODEL_COMPARISON) != nrow(MODEL_RESIDUALS) ||
+    MODEL_COMPARISON[, any(abs(y_obs.t0 - y_obs.retained) > 1e-10)]) {
+  stop("model summary: t=0 and retained OOF samples are not comparable.",
+       call. = FALSE)
+}
+MODEL_COMPARISON <- MODEL_COMPARISON[, .(
+  N.common = .N,
+  RMSE.reduction = 100 * (1 -
+    sqrt(mean((y_obs.retained - y_hat.retained)^2)) /
+    sqrt(mean((y_obs.retained - y_hat.t0)^2))),
+  Delta.R2 = stats::cor(y_obs.retained, y_hat.retained)^2 -
+    stats::cor(y_obs.retained, y_hat.t0)^2
+), by = response]
+if (!setequal(MODEL_COMPARISON$response, MODEL_PERFORMANCE$response) ||
+    MODEL_COMPARISON[, any(!is.finite(RMSE.reduction) |
+      !is.finite(Delta.R2))]) {
+  stop("model summary: incomplete common-sample comparison.", call. = FALSE)
+}
+
+MODEL_N_RANGE <- range(MODEL_COMPARISON$N.common)
+MODEL_SUPPORT_TEXT <- if (MODEL_N_RANGE[1L] == MODEL_N_RANGE[2L]) {
+  sprintf("%d pares observación--predicción OOF comunes por respuesta", MODEL_N_RANGE[1L])
+} else {
+  sprintf(
+    "entre %d y %d pares observación--predicción OOF comunes por respuesta",
+    MODEL_N_RANGE[1L], MODEL_N_RANGE[2L]
+  )
+}
+MODEL_PPV <- MODEL_PERFORMANCE[grepl("^ppv", response)]
+MODEL_PPA <- MODEL_PERFORMANCE[grepl("^ppa", response)]
+```
+
+La evaluación se sustenta en `r MODEL_SUPPORT_TEXT`. Para PPV, el $R^2$ OOF se encuentra entre `r formatC(min(MODEL_PPV$R2), format = "f", digits = 3L)` y `r formatC(max(MODEL_PPV$R2), format = "f", digits = 3L)`, con RMSE en unidades físicas entre `r formatC(min(MODEL_PPV$RMSE.physical), format = "f", digits = 2L)` y `r formatC(max(MODEL_PPV$RMSE.physical), format = "f", digits = 2L)` mm/s. Para PPA, el $R^2$ OOF se encuentra entre `r formatC(min(MODEL_PPA$R2), format = "f", digits = 3L)` y `r formatC(max(MODEL_PPA$R2), format = "f", digits = 3L)`, con RMSE en unidades físicas entre `r formatC(min(MODEL_PPA$RMSE.physical), format = "f", digits = 3L)` y `r formatC(max(MODEL_PPA$RMSE.physical), format = "f", digits = 3L)` g.
+
+Sobre los mismos pares observación--predicción OOF, la formulación retenida reduce el RMSE en escala logarítmica entre `r formatC(min(MODEL_COMPARISON$RMSE.reduction), format = "f", digits = 1L)` y `r formatC(max(MODEL_COMPARISON$RMSE.reduction), format = "f", digits = 1L)` % respecto de $t=0$, y aumenta el $R^2$ entre `r formatC(min(MODEL_COMPARISON$Delta.R2), format = "f", digits = 3L)` y `r formatC(max(MODEL_COMPARISON$Delta.R2), format = "f", digits = 3L)` para las `r nrow(MODEL_COMPARISON)` respuestas. Esta comparación cuantifica el aporte del refinamiento multirrespuesta y sustenta los niveles predictivos utilizados en los escenarios; no constituye todavía un resultado de riesgo geotécnico.

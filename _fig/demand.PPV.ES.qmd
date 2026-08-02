@@ -1,0 +1,12 @@
+```{r}
+#| include: false
+COMPONENT_LABELS <- c(
+  resultant = "resultante",
+  L = "longitudinal",
+  T = "transversal",
+  V = "vertical"
+)
+CAP <- "PPV %s en función de la distancia escalada $\\mathrm{SD}=d/\\sqrt{q}$. Las curvas corresponden a p50 (línea continua), p90 (trazos) y p95 (puntos) para las cargas representadas; los puntos son las observaciones admitidas al ajuste, identificadas por procedencia."
+```
+
+{{< include /_fig/demand.PPV.qmd >}}

@@ -1,0 +1,26 @@
+{
+  "InputID": [
+    "F125.Qo.Do.vmd"
+  ],
+  "D.grid": [
+    150,
+    200,
+    250,
+    300,
+    350,
+    400
+  ],
+  "MIC.grid": [
+    150,
+    200,
+    250,
+    300,
+    350,
+    400
+  ],
+  "P": 0.9,
+  "D50": false,
+  "nTheta": 36,
+  "PARALLEL": false,
+  "OVERRIDE": false
+}

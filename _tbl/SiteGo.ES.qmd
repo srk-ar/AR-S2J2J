@@ -1,0 +1,6 @@
+```{r}
+#| include: false
+CAP <- "Parámetros de rigidez al corte para gravas, arenas y finos."
+```
+
+{{< include /_tbl/SiteGo.qmd >}}

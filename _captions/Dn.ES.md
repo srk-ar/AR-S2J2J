@@ -1,0 +1,1 @@
+Modelo de bloque deslizante de Newmark. Desplazamientos residuales [cm] para la geometría %s (escenario %d). Se muestran curvas ensemble, rígida y flexible con fractiles. Los valores se reportan para el movimiento objetivo con AEP 1/%.0f [1/año].

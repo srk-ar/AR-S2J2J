@@ -1,0 +1,29 @@
+---
+bibliography:
+  - bib/references.bib
+  - bib/psha.bib
+chapters:
+  - _index/executive.qmd
+  - index.qmd
+  - part: "Part I — Seismic Hazard"
+    chapters:
+      - _index/hazard.qmd
+      - _index/dsha.qmd
+      - _index/gmm.qmd
+      - _index/site.qmd
+      - _index/srs.qmd
+  - part: "Part II — Design Criteria"
+    chapters:
+      - _index/classification.qmd
+      - _index/tailings.qmd
+      - _index/pseudostatic.qmd
+      - _index/structures.qmd
+  - part: _index/parameters.qmd
+    chapters:
+      - _index/dynamics.qmd
+      - _index/displacements.qmd
+      - _index/coefficients.qmd
+  - _index/references.qmd
+appendices:
+  - _index/site.appendix.qmd
+---

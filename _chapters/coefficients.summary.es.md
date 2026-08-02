@@ -1,0 +1,7 @@
+El diseño sísmico de taludes por el método pseudoestático requiere un coeficiente horizontal que represente la acción del sismo sobre la masa deslizante. Este capítulo lo deriva del desempeño en desplazamientos, siguiendo el marco de Bray y Travasarou [-@BrayTravasarou2009] y Macedo et al. [-@MacedoEtAl2018]. El coeficiente $k_{\max}$ es la menor aceleración de fluencia $k_y$ compatible con un objetivo de desempeño en desplazamientos,
+
+$$k_{\max}(p_e \mid D_a) = \inf\{k_y : \Pr[D_n(k_y) > D_a] \leq p_e\},$$
+
+donde $D_n$ es el desplazamiento de Newmark, $D_a$ el desplazamiento admisible y $p_e$ la probabilidad objetivo de excedencia. La calibración enlaza el nivel de amenaza —una probabilidad anual de excedencia fijada por la categoría de consecuencia de la instalación, desde $1/100$ por año para carga operacional hasta $1/10{,}000$ por año para escenarios extremos de instalaciones de alta consecuencia— con las propiedades dinámicas del talud, la aceleración de fluencia $k_y$ y el período fundamental $T_s$.
+
+La inversión de las curvas $D_n(k_y)$ se realiza por modelo y realización antes de combinar las familias; el fractil numérico asociado al objetivo cumple $q=1-p_e$. El coeficiente normalizado $k_h=100\,k_{\max}/\mathrm{PGA}_{\mathrm{rock}}$ expresa el resultado como porcentaje de la PGA media en roca de referencia. Los coeficientes se reportan por talud y nivel de amenaza, y trasladan el criterio de desplazamiento admisible a la acción sísmica de la verificación pseudoestática.

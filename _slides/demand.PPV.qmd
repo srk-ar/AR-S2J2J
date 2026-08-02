@@ -1,0 +1,3 @@
+## <br>Demand Curves — PPV
+
+{{< include /_fig/demand.PPV.qmd >}}

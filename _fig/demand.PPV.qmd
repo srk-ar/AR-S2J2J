@@ -1,0 +1,110 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+FAMILY <- "ppv"
+.MODEL_CONFIG <- jsonlite::read_json(
+  file.path(root, "scripts", "manifest.json"), simplifyVector = TRUE
+)
+.MODEL_IDS <- as.character(.MODEL_CONFIG$responses$names)
+.MODEL_IDS <- .MODEL_IDS[grepl(sprintf("^%s([LTV])?$", FAMILY), .MODEL_IDS)]
+.MODEL_SUFFIX <- sub(sprintf("^%s", FAMILY), "", .MODEL_IDS)
+.MODEL_KEYS <- ifelse(.MODEL_SUFFIX == "", "resultant", .MODEL_SUFFIX)
+if (!length(.MODEL_IDS) ||
+    any(!.MODEL_KEYS %in% c("resultant", "L", "T", "V"))) {
+  stop("demand.PPV: unsupported response family.", call. = FALSE)
+}
+if (!exists("COMPONENT_LABELS", inherits = FALSE)) {
+  COMPONENT_LABELS <- c(
+    resultant = "resultant",
+    L = "longitudinal",
+    T = "transverse",
+    V = "vertical"
+  )
+}
+RESP <- setNames(unname(COMPONENT_LABELS[.MODEL_KEYS]), .MODEL_IDS)
+TABS <- setNames(tools::toTitleCase(RESP), .MODEL_IDS)
+if (!exists("CAP", inherits = FALSE)) {
+  CAP <- "%s PPV as a function of scaled distance $\\mathrm{SD}=d/\\sqrt{q}$. The curves show p50 (solid), p90 (dashed), and p95 (dotted) for the represented MIC values; the points are the observations used for model fitting, distinguished by source."
+}
+DATASET <- "QDS"
+if (!DATASET %in% names(.MODEL_CONFIG$datasets)) {
+  stop("demand.PPV: dataset QDS is not declared in the manifest.", call. = FALSE)
+}
+PathDataset <- file.path(root, "data", "datasets", sprintf("%s.csv", DATASET))
+PathDemand <- file.path(root, "data", "export", "Yo.csv")
+PathSources <- file.path(root, "data", "domains", "sources.csv")
+.MODEL_PATHS <- c(PathDataset, PathDemand, PathSources)
+if (any(!file.exists(.MODEL_PATHS))) {
+  stop("demand.PPV: required model products are missing.", call. = FALSE)
+}
+.MODEL_UNITS <- jsonlite::read_json(
+  file.path(root, "data", "domains", "units.json"), simplifyVector = TRUE
+)
+UNIT <- as.character(.MODEL_UNITS[[FAMILY]])
+if (length(UNIT) != 1L || is.na(UNIT) || !nzchar(UNIT)) {
+  stop("demand.PPV: units.json does not define ppv.", call. = FALSE)
+}
+.MODEL_Q <- data.table::fread(
+  PathDataset,
+  select = c("set", "MIC")
+)[set == "predict", sort(unique(MIC))]
+if (!length(.MODEL_Q) || any(!is.finite(.MODEL_Q))) {
+  stop("demand.PPV: the prediction grid does not define finite charges.",
+       call. = FALSE)
+}
+Q.TARGET <- .MODEL_Q[
+  unique(round(seq(1, length(.MODEL_Q), length.out = min(6L, length(.MODEL_Q)))))
+]
+P.TARGET <- c(0.50, 0.90, 0.95)
+X_AXIS <- "SD [m/kg^0.5]"
+if (!exists("GROUP_LEGEND", inherits = FALSE)) GROUP_LEGEND <- "Condition"
+if (!exists("SOURCE_UNKNOWN", inherits = FALSE)) SOURCE_UNKNOWN <- "Unclassified"
+SOURCE_COLORS <- c(IMPALA = "#00838f", S11D = "rgba(130,130,130,0.35)")
+LINE_FORMAT <- "MIC=%s kg | p%02d"
+```
+
+::: {.panel-tabset .full-width}
+
+```{r}
+#| results: asis
+#| echo: false
+#| eval: !expr knitr::is_html_output()
+for (.ID in names(RESP)) {
+  cat(sprintf("\n#### %s\n\n", TABS[[.ID]]))
+  NGR::knitBlock(
+    path = "/_fig/demand.PPV.cell.qmd",
+    stem = sprintf("fdemand-%s", .ID),
+    labels = "rewrite",
+    vars = list(
+      DATASET = DATASET,
+      ID = .ID,
+      Q.TARGET = Q.TARGET,
+      P.TARGET = P.TARGET,
+      UNIT = UNIT,
+      X_AXIS = X_AXIS,
+      Y_AXIS = sprintf("%s [%s]", .ID, UNIT),
+      GROUP_LEGEND = GROUP_LEGEND,
+      SOURCE_UNKNOWN = SOURCE_UNKNOWN,
+      SOURCE_COLORS = SOURCE_COLORS,
+      LINE_FORMAT = LINE_FORMAT,
+      PathDataset = PathDataset,
+      PathDemand = PathDemand,
+      PathSources = PathSources,
+      CAPTION = sprintf(CAP, RESP[[.ID]])
+    ),
+    root = root
+  )
+}
+```
+
+:::
+
+```{r}
+#| include: false
+rm(CAP, COMPONENT_LABELS, DATASET, FAMILY, GROUP_LEGEND, LINE_FORMAT,
+   P.TARGET, PathDataset, PathDemand, PathSources, Q.TARGET, RESP,
+   SOURCE_COLORS, SOURCE_UNKNOWN, TABS, UNIT, X_AXIS)
+rm(.MODEL_CONFIG, .MODEL_IDS, .MODEL_KEYS, .MODEL_PATHS, .MODEL_Q,
+   .MODEL_SUFFIX, .MODEL_UNITS)
+if (knitr::is_html_output()) rm(.ID)
+```

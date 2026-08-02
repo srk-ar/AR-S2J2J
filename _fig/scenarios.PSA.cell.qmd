@@ -1,0 +1,8 @@
+```{r}
+#| label: fig-scenarios-psa
+#| fig-cap: !expr CAPTION
+#| include: !expr knitr::is_html_output()
+#| warning: false
+source(file.path(root, "scripts", "fig", "scenarios.PSA.R"))
+PLOT
+```

@@ -1,0 +1,8 @@
+```{r}
+#| include: false
+source(file.path(root, "scripts", "setup", "summary", "structures.R"))
+```
+
+Para el nivel de riesgo objetivo del espectro MCER se obtuvieron espectros medios para `r uniqueN(StructuresSummary$spectra$Vs30)` condiciones de sitio, con $V_{S30}$ entre `r .fmt(min(StructuresSummary$spectra$Vs30), 0)` y `r .fmt(max(StructuresSummary$spectra$Vs30), 0)` m/s. La PGA MCER varía entre `r .fmt(min(StructuresSummary$pga$PGA), 2)` y `r .fmt(max(StructuresSummary$pga$PGA), 2)` g, mientras que las máximas ordenadas espectrales de las condiciones evaluadas varían entre `r .fmt(min(StructuresSummary$peak$SaPeak), 2)` y `r .fmt(max(StructuresSummary$peak$SaPeak), 2)` g.
+
+Los cuatro parámetros de la Sección 21.4 se leen directamente del producto MCER, una vez por condición de sitio: $S_{DS}$ varía entre `r .fmt(min(StructuresSummary$parameters$SDS), 2)` y `r .fmt(max(StructuresSummary$parameters$SDS), 2)` g; $S_{D1}$, entre `r .fmt(min(StructuresSummary$parameters$SD1), 2)` y `r .fmt(max(StructuresSummary$parameters$SD1), 2)` g; $S_{MS}$, entre `r .fmt(min(StructuresSummary$parameters$SMS), 2)` y `r .fmt(max(StructuresSummary$parameters$SMS), 2)` g; y $S_{M1}$, entre `r .fmt(min(StructuresSummary$parameters$SM1), 2)` y `r .fmt(max(StructuresSummary$parameters$SM1), 2)` g.

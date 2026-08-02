@@ -1,0 +1,66 @@
+:::{.content-hidden when-format='docx'}
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+ID <- "CAV5"
+```
+
+:::{.panel-tabset .full-width }
+
+#### H1
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+DIR <- "H1"
+if (exists("CAPTION", inherits = FALSE)) rm(CAPTION)
+source(file.path(root, "scripts", "fig", "IM.R"))
+```
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| label: fig-im-cav5-h1
+#| fig-cap: !expr CAPTION
+PLOT
+```
+
+#### H2
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+DIR <- "H2"
+if (exists("CAPTION", inherits = FALSE)) rm(CAPTION)
+source(file.path(root, "scripts", "fig", "IM.R"))
+```
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| label: fig-im-cav5-h2
+#| fig-cap: !expr CAPTION
+PLOT
+```
+
+#### UP
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+DIR <- "UP"
+if (exists("CAPTION", inherits = FALSE)) rm(CAPTION)
+source(file.path(root, "scripts", "fig", "IM.R"))
+```
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| label: fig-im-cav5-up
+#| fig-cap: !expr CAPTION
+PLOT
+```
+
+:::
+
+:::

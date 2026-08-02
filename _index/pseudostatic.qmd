@@ -1,0 +1,11 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+```
+
+# Normative Framework for Seismic Coefficients {#sec-pseudostatic}
+
+## Methodology {#sec-pseudo_method}
+
+{{< include /_chapters/pseudostatic.md >}}

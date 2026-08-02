@@ -1,0 +1,120 @@
+
+```{r}
+#| include: true
+if (!exists("CAP", inherits = FALSE)) CAP <- paste0(Standard.target, " post-closure design earthquakes. Uniform Hazard Spectra (UHS) for maximum horizontal spectral accelerations Sa(Tn) in [g] with 5%% critical damping assuming site conditions with Vs30 = %d [m/s].")
+ID.target <- .resolveDerivedIDTarget(
+  DEQTable,
+  "DEQ_PCE figure",
+  suffix = ".site",
+  target = .currentTarget("ID.target"),
+  siteID = .currentTarget("siteID.target")
+)
+Sa.log <- TRUE
+Tn.log <- TRUE
+Stage.target <- "Post-Closure"
+root <- here::here()
+```
+
+:::{.content-visible when-format='docx'}
+
+```{r}
+#| include: true
+#| label: fig-deq_pce_vs30_800_docx
+#| fig-cap: !expr CAP |> sprintf(800)
+Vs30.target <- 800
+source(file.path(root, "scripts", "fig/DEQ.R"))
+PLOT
+```
+
+:::
+
+:::{.content-hidden when-format='docx'}
+:::{.panel-tabset .full-width }
+
+#### `r Site.label[7]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-deq_pce_vs30_1500
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[7])
+Vs30.target <- Vs30.gmdp[7]
+source(file.path(root, "scripts", "fig/DEQ.R"))
+PLOT
+```
+
+#### `r Site.label[6]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-deq_pce_vs30_1250
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[6])
+Vs30.target <- Vs30.gmdp[6]
+source(file.path(root, "scripts", "fig/DEQ.R"))
+PLOT
+```
+
+#### `r Site.label[5]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-deq_pce_vs30_800
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[5])
+Vs30.target <- Vs30.gmdp[5]
+source(file.path(root, "scripts", "fig/DEQ.R"))
+PLOT
+```
+
+
+#### `r Site.label[4]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-deq_pce_vs30_560
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[4])
+Vs30.target <- Vs30.gmdp[4]
+source(file.path(root, "scripts", "fig/DEQ.R"))
+PLOT
+```
+
+#### `r Site.label[3]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-deq_pce_vs30_360
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[3])
+Vs30.target <- Vs30.gmdp[3]
+source(file.path(root, "scripts", "fig/DEQ.R"))
+PLOT
+```
+
+#### `r Site.label[2]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-deq_pce_vs30_270
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[2])
+Vs30.target <- Vs30.gmdp[2]
+source(file.path(root, "scripts", "fig/DEQ.R"))
+PLOT
+```
+
+#### `r Site.label[1]`
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| include: true
+#| label: fig-deq_pce_vs30_180
+#| fig-cap: !expr CAP |> sprintf(Vs30.gmdp[1])
+Vs30.target <- Vs30.gmdp[1]
+source(file.path(root, "scripts", "fig/DEQ.R"))
+PLOT
+```
+
+
+
+:::
+:::
+
+```{r}
+#| include: false
+rm(ID.target, Stage.target, Vs30.target, Sa.log, Tn.log, CAP)
+```

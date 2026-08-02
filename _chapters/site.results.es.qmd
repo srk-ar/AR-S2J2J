@@ -1,0 +1,36 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+source(file.path(root, "scripts", "setup", "summary", "site.R"))
+SITE_CONTROL_TEXT <- paste(
+  SITE_CONTROL[, sprintf(
+    "%s %s de %s ordenadas (%s)",
+    data.table::fcase(
+      controller == "rama directa", "la rama directa aportó",
+      controller == "rama transformada", "la rama transformada aportó",
+      default = "ambas ramas coincidieron en"
+    ),
+    .fmti(N), .fmti(sum(N)), paste0(.formatNumber(100 * fraction, 0), "%")
+  )],
+  collapse = "; "
+)
+SITE_TR_LOW <- min(SITE_TR)
+SITE_TR_HIGH <- max(SITE_TR)
+```
+
+La comparación se realizó para `r SITE_SCOPE$nVs30` condiciones $V_{S30}$ entre `r SITE_SCOPE$Vs30` y `r SITE_SCOPE$nTR` períodos de retorno entre `r SITE_SCOPE$TR`. En la malla completa de períodos, condiciones de sitio y períodos de retorno, `r SITE_CONTROL_TEXT`. Esta distribución identifica qué rama aporta cada ordenada de la envolvente y mantiene separada la comparación de los valores finalmente adoptados.
+
+Para $T_R=$ `r .fmti(SITE_TR_LOW)` años, el PGA medio envolvente varía entre `r SITE_PGA[TR == SITE_TR_LOW, range]`; para $T_R=$ `r .fmti(SITE_TR_HIGH)` años, varía entre `r SITE_PGA[TR == SITE_TR_HIGH, range]`. Los máximos espectrales de los UHS se ubican entre períodos de `r SITE_PEAK_RANGE[TR == SITE_TR_LOW, period]` en el primer nivel y de `r SITE_PEAK_RANGE[TR == SITE_TR_HIGH, period]` en el segundo. Las figuras siguientes muestran las dos ramas y las tablas presentan la envolvente empleada en diseño.
+
+En esas mismas condiciones, las máximas ordenadas espectrales de los UHS varían de `r SITE_PEAK_RANGE[TR == SITE_TR_LOW, range]` para $T_R=$ `r .fmti(SITE_TR_LOW)` años y de `r SITE_PEAK_RANGE[TR == SITE_TR_HIGH, range]` para $T_R=$ `r .fmti(SITE_TR_HIGH)` años. Este resultado y los períodos en que ocurre se obtienen de la misma envolvente fila a fila empleada para PGA.
+
+```{r}
+#| include: false
+rm(list = intersect(c(
+  "SITE_ID", "BASE_ID", "DIRECT_ID", "TRANSFORMED_ID", "ENVELOPE_ID",
+  "SITE_MAX", "SITE_VS30", "SITE_TR", "SITE_SCOPE", "SITE_TN_PGA",
+  "SITE_PGA", "SITE_PEAK", "SITE_PEAK_RANGE", "SITE_COMPARE", "SITE_CONTROL",
+  "SITE_CONTROL_TEXT", "SITE_TR_LOW", "SITE_TR_HIGH"
+), ls()))
+```

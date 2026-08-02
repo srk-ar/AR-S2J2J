@@ -1,0 +1,27 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+if (!exists("SRS.PGA.units", inherits = FALSE)) SRS.PGA.units <- "g"
+SRS.range.word <- "a"
+source(file.path(root, "scripts", "setup", "summary", "srs.R"))
+SRS_TARGET_TEXT <- if (!is.na(SRS.config$id) && nzchar(SRS.config$id)) {
+  if (tolower(SRS.config$id) == "design") "el espectro de diseño" else paste("el espectro objetivo", SRS.config$id)
+} else {
+  "el espectro objetivo del proyecto"
+}
+```
+
+El conjunto seleccionado comprende `r .fmti(SRS$records)` registros de `r .fmti(SRS$events)` eventos y `r .fmti(SRS$providers)` proveedores, con $M_w$ `r SRS$Mw`, $R_{\mathrm{epi}}$ `r SRS$Repi`, $D_{5-95}$ `r SRS$D0595` y PGA H1 `r SRS$PGA`. La selección se verificó contra `r SRS_TARGET_TEXT`, definido para $V_{S30}=$ `r .fmti(SRS.config$Vs30)` m/s y con la banda `r SRS.config$envelope`. Los coeficientes $c_i$ aplicados después de la reconstrucción modal y de la normalización de energía abarcan `r SRS_SCALE$range`. La tabla siguiente identifica cada registro y evento y presenta las medidas de intensidad finales empleadas para caracterizar el conjunto.
+
+La media PSA del conjunto presenta un RMSE relativo de `r SRS_STAGE$RMSE` respecto del espectro objetivo y una razón PGA media/objetivo de `r SRS_STAGE$pgaRatio`. El `r SRS_STAGE$inside` de las ordenadas PSA de registros individuales evaluadas en la malla de períodos queda comprendido entre las envolventes inferior y superior. La fracción contenida caracteriza la dispersión individual; el RMSE y la razón de PGA caracterizan la compatibilidad de la media del conjunto.
+
+```{r}
+#| include: false
+rm(list = intersect(c(
+  "SRS.target", "SRS.selection.text", "SRS.PGA.units", "SRS.range.word",
+  "SRS.performance.target",
+  "PathSRS", "SrsG", "SRS", "SRS.target.PGA", "SRS.config",
+  "SRS_STAGE", "SRS_SCALE", "SRS_PERFORMANCE", "SRS_TARGET_TEXT"
+), ls()))
+```

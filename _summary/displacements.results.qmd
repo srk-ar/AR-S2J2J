@@ -1,0 +1,6 @@
+```{r}
+#| include: false
+source(file.path(root, "scripts", "setup", "summary", "displacements.R"))
+```
+
+The $D_n(k_y)$ curves relate yield acceleration to expected permanent displacement for each slope and hazard level. The overall set, identified as *ensemble*, is the estimate adopted for design; the *rigid* and *flexible* families quantify sensitivity to the dynamic representation of the sliding mass. At $k_y=`r .fmt(DisplacementsSummary$ky, 2)`$ g, the mean *ensemble* curves of the evaluated geometries span `r paste(DisplacementsSummary$range[IDn == "ensemble", sprintf("%s–%s cm for %s years", .fmt(minimum, 2), .fmt(maximum, 2), .fmti(TR))], collapse = " and ")`. For an allowable displacement $D_a$, probabilistic inversion of these curves determines the yield acceleration $k_{\max}$ that satisfies the performance objective and provides the normalized coefficient $k_h$.

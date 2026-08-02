@@ -1,0 +1,60 @@
+## <br>`r if (exists("TITLE", inherits = FALSE)) TITLE else "Maximum Credible Earthquake (MCE)"`
+
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+# MCE products carry no TR and use their own fractile set: clear pins
+# left in the global env by earlier slides before any child knits.
+rm(list = intersect(c("TR.target", "p.target"), ls()))
+ID.target <- sort(unique(MCETable[
+  !ID %in% c("max", "min") & !grepl("\\.(site|max)$", ID),
+  ID
+]))
+if (!exists("siteID.target") || !length(siteID.target)) {
+  siteID.target <- sort(unique(MCETable[!is.na(siteID) & nzchar(siteID), siteID]))
+}
+Vs30.target <- 760
+.IDS <- ID.target
+.SITE <- if (length(siteID.target) == 1L) tolower(siteID.target) else NULL
+```
+
+:::{.panel-tabset .full-width}
+
+```{r}
+#| echo: false
+#| results: asis
+for (.scn in .IDS) {
+  cat("\n### ", .scn, "\n\n", sep = "")
+  NGR::knitBlock(
+    path = "/_fig/MCE.UHS.qmd",
+    stem = paste(c(.SITE, tolower(.scn), "mce-uhs"), collapse = "-"),
+    labels = "rewrite",
+    vars = list(ID.target = .scn, p.target = c("mean", "0.84", "0.90", "0.95"), Sa.log = TRUE),
+    root = root
+  )
+}
+rm(.scn)
+cat("\n### PGA\n\n")
+NGR::knitBlock(
+  path = "/_tbl/MCE.PGA.qmd",
+  stem = paste(c(.SITE, "mce-pga"), collapse = "-"),
+  labels = "rewrite",
+  vars = list(ID.target = .IDS, p.target = c("0.50", "0.84", "0.90", "0.95", "mean")),
+  root = root
+)
+cat("\n### PSA\n\n")
+NGR::knitBlock(
+  path = "/_tbl/MCE.PSA.qmd",
+  stem = paste(c(.SITE, "mce-psa"), collapse = "-"),
+  labels = "rewrite",
+  vars = list(ID.target = .IDS, p.target = c("0.50", "0.84", "0.90", "0.95", "mean")),
+  root = root
+)
+```
+
+:::
+
+```{r}
+#| include: false
+rm(list = intersect(c("ID.target", "siteID.target", "Vs30.target", "TITLE", ".SITE", ".IDS", "p.target"), ls()))
+```

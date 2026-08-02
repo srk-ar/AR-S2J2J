@@ -1,0 +1,7 @@
+```{r}
+#| include: false
+CAP <- "Demanda condicional en términos de la PPV %s a $D=%d$ m, por MIC."
+RESP <- c(ppvL = "longitudinal", ppvT = "transversal", ppvV = "vertical", ppv = "resultante")
+```
+
+{{< include /_fig/conditional.PPV.qmd >}}

@@ -1,0 +1,128 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+source(file.path(root, "scripts", "setup", "report.R"))
+```
+
+# Modelo de respuesta de sitio {#sec-site-response}
+
+## Resumen ejecutivo {#sec-site_summary}
+
+{{< include /_chapters/site.summary.es.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_summary/site.results.es.qmd",
+    stem = "site-summary",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-site-summary-site",
+    context = "resumen de sitio"
+  )
+}
+rm(i)
+```
+
+## Metodología {#sec-site_method}
+
+{{< include /_chapters/site.model.es.md >}}
+
+{{< include /_chapters/site.amplification.es.md >}}
+
+{{< include /_chapters/site.uncertainty.es.md >}}
+
+## Resultados {#sec-site_results}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_chapters/site.results.es.qmd",
+    stem = "site-results",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-site-results-site",
+    context = "resultados de sitio"
+  )
+}
+rm(i)
+```
+
+### Espectros de peligrosidad uniforme (UHS) {#sec-site_results_uhs}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_fig/UHS.ES.qmd",
+    stem = "site-uhs",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-site-uhs-site",
+    context = "UHS de sitio"
+  )
+}
+rm(i)
+```
+
+### Aceleraciones máximas del terreno (PGA)
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_tbl/PGA.ES.qmd",
+    stem = "site-pga",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-site-pga-site",
+    context = "PGA de sitio"
+  )
+}
+rm(i)
+```
+
+### Aceleraciones pseudoespectrales (PSA)
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_tbl/PSA.ES.qmd",
+    stem = "site-psa",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-site-psa-site",
+    context = "PSA de sitio"
+  )
+}
+rm(i, SiteTable)
+```

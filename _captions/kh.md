@@ -1,0 +1,1 @@
+Performance-based seismic coefficients $k_h$ [%%PGA] for the %s Newmark scenario as function of admissible residual displacement $D_a$ [cm]. Values are reported for target ground motion with 1/%.0f AEP [1/yr].

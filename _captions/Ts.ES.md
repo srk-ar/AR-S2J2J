@@ -1,0 +1,1 @@
+Períodos fundamentales en [s] y módulos de corte en [MPa] para un talud de %d m de altura, para clasificaciones de material (USCS) representativas de instalaciones de almacenamiento de relaves (TSF) y botaderos de esteril (WRD).

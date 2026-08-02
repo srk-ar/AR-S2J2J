@@ -1,0 +1,40 @@
+params:
+  ext: png
+
+  # Project identity
+  title: "Blast-Induced Dynamic Demand for TSF Dynamic Response Assessment"
+  site: "Impala Bafokeng — BRPM TSF"
+  location: "Rustenburg, North West, South Africa"
+  project_id: "AR-S2J2J"
+  year: 2026
+
+  # Organizations
+  client:
+    name: "Impala Platinum Holdings Limited (Implats)"
+    short: "Implats"
+    city: "Illovo, South Africa"
+    address:
+      - "2 Fricker Road"
+      - "Illovo, 2196"
+      - "South Africa"
+    web: "https://www.implats.co.za"
+  consultant:
+    name: "SRK Consulting (Argentina) S.A."
+    address:
+      - "Av. Emilio Civit 404"
+      - "Ciudad de Mendoza"
+      - "Mendoza (5502)"
+      - "Argentina"
+    web: "https://www.srk.com"
+
+  # People
+  roles:
+    - label: "Lead Author"
+      name: "Alejandro Verri Kozlowski"
+      title: "Corporate Consultant"
+      initials: "AVK"
+      email: "averri@srk.com.ar"
+
+  # Footer
+  footer:
+    title: "Blast-Induced Dynamic Demand for TSF Dynamic Response Assessment"

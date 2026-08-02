@@ -1,0 +1,19 @@
+The seismic design of tailings storage facilities follows the two-level performance philosophy consolidated by dam-safety practice: an Operating Basis Earthquake (OBE) that the facility must withstand without operational interruption, and a Safety Evaluation Earthquake (SEE) under which it must not release tailings. ICOLD Bulletin 148 formalizes this dual-level framework for embankment structures [@ICOLD2016; @ANCOLD2012], and the USACE regulation ER 1110-2-1806 expresses it in terms of the OBE and the Maximum Design Earthquake [@USACE1995].
+
+Three international frameworks implement this philosophy for tailings facilities on a consequence basis: the Global Industry Standard on Tailings Management [@gistm2020], the Canadian Dam Association guidelines [@cda2021; @CDA2019], and the Australian National Committee on Large Dams [@ancold2019]. The consequence classification reflects the potential severity of a failure — population at risk, anticipated loss of life, and environmental and socio-economic impacts — in classes ranging from Low to Extreme, with progressively more stringent seismic criteria. The GISTM, CDA and ANCOLD consequence classes and the corresponding design-earthquake annual exceedance probabilities (AEPs) are tabulated in Tables [-@tbl-gistm], [-@tbl-cda] and [-@tbl-ancold].
+
+### Design earthquake levels by consequence class
+
+The frameworks differ in structure. GISTM specifies a single earthquake design ground motion for each consequence class and lifecycle phase, with the Maximum Credible Earthquake (MCE) evaluated in parallel and governing whenever it produces the higher demand [-@gistm2020]. CDA specifies an earthquake design ground motion by consequence classification, states the Maximum Credible Earthquake as an alternative to the probabilistic level rather than as an upper bound, and allows the designer and owner to set more stringent levels, or less stringent ones where justified [-@cda2021]. ANCOLD applies a uniform OBE of 1/500 AEP across all consequence categories together with an SEE that ranges from 1/1,000 AEP to the MCE or the 1/10,000-year event (85th percentile) for Extreme-class facilities [-@ancold2019]. Mining-sector regulatory guidance concurs in assigning design return periods of 10,000 years or longer to extreme-consequence structures [@UBCThesis].
+
+{{< include /_tbl/gistm.qmd >}}
+
+{{< include /_tbl/cda.qmd >}}
+
+{{< include /_tbl/ancold.qmd >}}
+
+### Design earthquake levels by lifecycle phase
+
+For a given consequence class, the applicable design earthquake varies across construction, operation, closure and post-closure. During construction, partial-height embankments are verified at least at the OBE level, with SEE criteria applied to high-consequence facilities or high-seismicity regions. During operations — the phase with the largest stored volumes and the highest risk profile — the criteria are the most differentiated by consequence class: operational AEPs range from 1/200 (GISTM, Low) or 1/100 (CDA) to 1/10,000 for Extreme facilities. During closure and post-closure this differentiation collapses: all three frameworks converge to the most stringent criterion — the MCE or the 1/10,000-year event — irrespective of the original consequence class. GISTM keeps the operational AEPs through active closure and imposes the uniform 1/10,000 AEP at passive closure; CDA retains consequence-dependent criteria through closure and passive care, each classification below Extreme shifting one step more stringent than its operational level once active care with regular monitoring ends, and requires a demonstrated steady-state condition rather than a seismic threshold before passive care begins; ANCOLD mandates reassessment under Extreme-class criteria prior to abandonment.
+
+The design earthquakes reported in this chapter are organized into the three corresponding stages: operational (OBE), closure (SEE) and post-closure (PCE).

@@ -1,0 +1,20 @@
+```{r}
+#| include: false
+root <- here::here()
+if (!exists("PSA_Units") || !length(PSA_Units)) PSA_Units <- "g"
+if (!exists("Vs30.target", inherits = FALSE) || length(Vs30.target) != 1L) Vs30.target <- 760
+if (!exists("CAP", inherits = FALSE)) CAP <- "Probabilistic-deterministic comparison at Vs30 = %.0f m/s, maximum horizontal Sa(Tn) [%s] with 5%% critical damping: mean uniform hazard spectrum at TR = 10,000 yr (PSHA) against each deterministic scenario (mean and 84th fractile of its total-variability mixture). MCE is the per-period maximum of the scenario means; MCE (84%%) is the maximum of the scenario 84th fractiles."
+```
+
+```{r}
+#| include: true
+#| label: tbl-dsha
+#| tbl-cap: !expr CAP |> sprintf(Vs30.target, PSA_Units)
+source(file.path(root, "scripts", "tbl", "DSHA.R"))
+TBL
+```
+
+```{r}
+#| include: false
+rm(list = intersect(c("CAP"), ls()))
+```

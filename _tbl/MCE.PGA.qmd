@@ -1,0 +1,20 @@
+```{r}
+#| include: false
+root <- here::here()
+if (!exists("PSA_Units") || !length(PSA_Units)) PSA_Units <- "g"
+if (!exists("p.target") || !length(p.target)) p.target <- c("0.50", "0.84", "0.90", "0.95", "mean")
+if (!exists("CAP", inherits = FALSE)) CAP <- "Maximum credible earthquake (MCE) peak ground acceleration PGA [%s] at the reference rock condition Vs30 = 760 m/s. Rows report each deterministic scenario; columns report the fractiles p = %s of the scenario total-variability mixture."
+```
+
+```{r}
+#| include: true
+#| label: tbl-mce-pga
+#| tbl-cap: !expr CAP |> sprintf(PSA_Units, paste(p.target, collapse = ", "))
+source(file.path(root, "scripts", "tbl", "MCE.PGA.R"))
+TBL
+```
+
+```{r}
+#| include: false
+rm(list = intersect(c("CAP"), ls()))
+```

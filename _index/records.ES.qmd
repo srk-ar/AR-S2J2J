@@ -1,0 +1,17 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+```
+
+{{< include /_summary/records.setup.qmd >}}
+
+# Registros de voladura {#sec-records}
+
+## Metodología {#sec-records_method}
+
+{{< include /_chapters/records.es.md >}}
+
+## Resultados {#sec-records_results}
+
+{{< include /_summary/records.results.es.qmd >}}

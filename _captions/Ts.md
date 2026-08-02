@@ -1,0 +1,1 @@
+Fundamental Periods in [sec] and shear moduli in [MPa] for a slope of %d [m] height, for material classifications (USCS) representative of tailings storage facilities (TSF) and waste rock dumps (WRD).

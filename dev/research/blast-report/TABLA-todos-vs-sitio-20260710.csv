@@ -1,0 +1,13 @@
+candidato,response,n.train,R2,RMSE,sesgo,D.decae,Q.crece
+solo sitio (S),ppv,68,0.66,0.174,0,FALSE,FALSE
+todos crudo (POOL),ppv,1604,0.587,0.253,-0.12,FALSE,FALSE
+todos + fuente (SRC),ppv,1604,0.643,0.203,-0.01,FALSE,FALSE
+solo sitio (S),ppvL,68,0.657,0.195,0,FALSE,FALSE
+todos crudo (POOL),ppvL,1611,0.572,0.342,-0.22,FALSE,FALSE
+todos + fuente (SRC),ppvL,1611,0.629,0.233,-0.01,FALSE,FALSE
+solo sitio (S),ppvT,68,0.546,0.2,0,FALSE,FALSE
+todos crudo (POOL),ppvT,1611,0.397,0.287,-0.14,FALSE,FALSE
+todos + fuente (SRC),ppvT,1611,0.468,0.233,-0.01,FALSE,FALSE
+solo sitio (S),ppvV,68,0.64,0.158,0,FALSE,FALSE
+todos crudo (POOL),ppvV,1604,0.652,0.17,0,FALSE,FALSE
+todos + fuente (SRC),ppvV,1604,0.671,0.165,0,FALSE,FALSE

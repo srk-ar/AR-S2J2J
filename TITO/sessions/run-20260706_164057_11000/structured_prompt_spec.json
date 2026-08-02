@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "task_file": "/Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/md/gap-tsf-blasting-guidance.prompt.md",
+  "slot_count": 5,
+  "constraint_count": 1,
+  "slots": [
+    {"ordinal": 1, "title": "Authoritative Guidance Documents Covering Blasting Effects on TSFs", "instruction": "Authoritative guidance documents in the TSF, dam, mining, and tailings domain that address blasting, vibration, seismicity, dynamic loading, pore-pressure monitoring, or liquefaction screening as part of TSF safety or performance assessment are surveyed and documented, with the coverage of each source identified relative to the relevant dynamic-loading topics.\n\nWrite in flowing paragraphs."},
+    {"ordinal": 2, "title": "South African versus International Applicability of Sources", "instruction": "The surveyed guidance documents are assessed by geographic and regulatory context, distinguishing those that apply to or originate from South African mining practice from those that are international references or general good-practice documents applicable across jurisdictions.\n\nWrite in flowing paragraphs."},
+    {"ordinal": 3, "title": "Quantitative Acceptance Criteria versus Project-Specific Assessment", "instruction": "The surveyed sources are examined with respect to whether they supply quantitative acceptance criteria for blasting effects on TSFs, or whether they require project-specific assessment, monitoring, laboratory characterization, and engineering judgement in lieu of fixed thresholds.\n\nWrite in flowing paragraphs."},
+    {"ordinal": 4, "title": "Report Framing to Distinguish Criteria, Monitoring Requirements, and Assumptions", "instruction": "The appropriate framing in a technical report that distinguishes published reference criteria, project-specific criteria, monitoring requirements, and analysis assumptions - such that no generic building-vibration criterion is implied as governing TSF safety - is addressed.\n\nWrite in flowing paragraphs."},
+    {"ordinal": 5, "title": "Source-Backed Terminology for TSF Response to Blasting", "instruction": "Source-backed terminology drawn from the relevant guidance literature for describing TSF response to blasting is documented. The terms to be assessed include dynamic loading, transient vibration, pore-pressure generation, cyclic mobility, liquefaction potential, deformation, stability, monitoring, and related expressions as used in the authoritative sources.\n\nWrite in flowing paragraphs."}
+  ],
+  "constraints": [
+    "The output is in English."
+  ]
+}

@@ -1,0 +1,131 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+source(file.path(root, "scripts", "setup", "report.R"))
+SRSRuns <- lapply(seq_len(nrow(SiteTable)), function(i) {
+  .resolveReportSRS(
+    sites = SiteTable,
+    i = i,
+    root = root,
+    context = "SRS chapter"
+  )
+})
+```
+
+# Seismic Record Selection {#sec-srs}
+
+## Executive Summary {#sec-srs_summary}
+
+{{< include /_chapters/srs.summary.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_summary/srs_summary.qmd",
+    stem = "srs-summary",
+    sites = SiteTable,
+    i = i,
+    vars = SRSRuns[[i]],
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-srs-summary-site",
+    context = "SRS summary"
+  )
+}
+rm(i)
+```
+
+## Methodology {#sec-srs_method}
+
+{{< include /_chapters/srs.model.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_summary/srs_summary.qmd",
+    stem = "srs-summary",
+    sites = SiteTable,
+    i = i,
+    vars = SRSRuns[[i]],
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-srs-summary-site",
+    context = "SRS summary"
+  )
+  .knitReportBlock(
+    path = "/_summary/srs_performance.qmd",
+    stem = "srs-performance",
+    sites = SiteTable,
+    i = i,
+    vars = SRSRuns[[i]],
+    root = root,
+    context = "SRS performance"
+  )
+}
+rm(i)
+```
+
+## Results {#sec-srs_results}
+
+```{r}
+#| echo: false
+#| results: asis
+if (nrow(SiteTable) > 1L) {
+  cat("### Selected Suite {#sec-srs_results_records}\n\n")
+}
+```
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_tbl/SRS.qmd",
+    stem = "srs-records",
+    sites = SiteTable,
+    i = i,
+    vars = SRSRuns[[i]],
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-srs-records-site",
+    context = "SRS records"
+  )
+}
+rm(i)
+```
+
+```{r}
+#| echo: false
+#| results: asis
+if (nrow(SiteTable) > 1L) {
+  cat("### Target-Spectrum Compatibility {#sec-srs_results_psa}\n\n")
+}
+```
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_fig/PS_PSA_H1.qmd",
+    stem = "srs-psa",
+    sites = SiteTable,
+    i = i,
+    vars = SRSRuns[[i]],
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-srs-psa-site",
+    context = "SRS target compatibility"
+  )
+}
+rm(i, SRSRuns, SiteTable)
+```

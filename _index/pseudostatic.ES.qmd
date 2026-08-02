@@ -1,0 +1,11 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+```
+
+# Marco normativo para coeficientes sísmicos
+
+## Metodología {#sec-pseudo_method-es}
+
+{{< include /_chapters/pseudostatic.es.md >}}

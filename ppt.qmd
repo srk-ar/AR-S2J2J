@@ -1,0 +1,54 @@
+---
+title: ""
+number-sections: false
+toc: false
+
+author:
+  - name: "Alejandro Verri Kozlowski, PEng"
+    position: "Corporate Consultant (Geotechnical Earthquake Engineering)"
+    affiliation: "SRK Consulting"
+    email: averri@srk.com.ar
+
+bibliography:
+  - bib/references.bib
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| warning: false
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+```
+
+```{r}
+#| results: asis
+source(file.path(root, "scripts", "setup", "cover.R"))
+cat(buildCoverPpt(params))
+```
+
+{{< include /_slides/contents.qmd >}}
+
+{{< include /_slides/records.PPV.qmd >}}
+
+{{< include /_slides/records.PPA.qmd >}}
+
+{{< include /_slides/model.domain.qmd >}}
+
+{{< include /_slides/model.metrics.qmd >}}
+
+{{< include /_slides/predictions.PPV.qmd >}}
+
+{{< include /_slides/predictions.PPA.qmd >}}
+
+{{< include /_slides/residuals.PPV.qmd >}}
+
+{{< include /_slides/residuals.PPA.qmd >}}
+
+{{< include /_slides/demand.PPV.qmd >}}
+
+{{< include /_slides/demand.PPA.qmd >}}
+
+{{< include /_slides/scenarios.scaling.qmd >}}
+
+{{< include /_slides/scenarios.response.qmd >}}

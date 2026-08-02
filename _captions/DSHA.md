@@ -1,0 +1,1 @@
+Probabilistic-deterministic comparison at Vs30 = %.0f m/s, maximum horizontal Sa(Tn) [%s] with 5%% critical damping: mean uniform hazard spectrum at TR = 10,000 yr (PSHA) against each deterministic scenario (mean and 84th fractile of its total-variability mixture). MCE is the per-period maximum of the scenario means; MCE (84%%) is the maximum of the scenario 84th fractiles.

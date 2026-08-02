@@ -1,0 +1,84 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+```
+
+# Modelos de movimiento del suelo (GMM) {#sec-gmm_appendix}
+
+## Resumen ejecutivo {#sec-gmm_summary}
+
+{{< include /_chapters/gmm.summary.es.md >}}
+
+{{< include /_summary/gmm.results.es.qmd >}}
+
+## Metodología {#sec-gmm}
+
+{{< include /_chapters/hazard.GMM.es.md >}}
+
+{{< include /_chapters/gmm.trees.es.md >}}
+
+{{< include /_chapters/gmm.ASC.es.md >}}
+
+{{< include /_chapters/gmm.SCC.es.md >}}
+
+{{< include /_chapters/gmm.SIF.es.md >}}
+
+{{< include /_chapters/gmm.SIS.es.md >}}
+
+{{< include /_chapters/gmm.uncertainty.es.md >}}
+
+## Resultados {#sec-gmm_results}
+
+
+```{r}
+#| echo: false
+#| results: asis
+if (!is.null(GMPETable) && nrow(GMPETable[TRT == "ASC"])) {
+  cat("### Corteza superficial activa (ASC) {#sec-gmm_results_asc}\n\n")
+  Mw.target <- if (!exists("Mw.gmm", inherits = FALSE)) 6.5 else if (is.null(names(Mw.gmm))) Mw.gmm[[1L]] else if ("ASC" %in% names(Mw.gmm)) Mw.gmm[["ASC"]] else 6.5
+  Repi.target <- if (!exists("Repi.gmm", inherits = FALSE)) 100 else if (is.null(names(Repi.gmm))) Repi.gmm[[1L]] else if ("ASC" %in% names(Repi.gmm)) Repi.gmm[["ASC"]] else 100
+  NGR::knitBlock(path = "/_fig/GMPE.ES.qmd", stem = "a1-asc-att", labels = "rewrite", vars = list(ID.target = unique(GMPETable[TRT == "ASC", ID]), Mw.target = Mw.target), root = root)
+  NGR::knitBlock(path = "/_fig/GMPE.PSA.ES.qmd", stem = "a1-asc-psa", labels = "rewrite", vars = list(ID.target = unique(GMPETable[TRT == "ASC", ID]), Mw.target = Mw.target, Repi.target = Repi.target), root = root)
+  rm(Mw.target, Repi.target)
+}
+```
+
+```{r}
+#| echo: false
+#| results: asis
+if (!is.null(GMPETable) && nrow(GMPETable[TRT == "SCC"])) {
+  cat("### Corteza continental estable (SCC) {#sec-gmm_results_scc}\n\n")
+  Mw.target <- if (!exists("Mw.gmm", inherits = FALSE)) 6.5 else if (is.null(names(Mw.gmm))) Mw.gmm[[1L]] else if ("SCC" %in% names(Mw.gmm)) Mw.gmm[["SCC"]] else 6.5
+  Repi.target <- if (!exists("Repi.gmm", inherits = FALSE)) 100 else if (is.null(names(Repi.gmm))) Repi.gmm[[1L]] else if ("SCC" %in% names(Repi.gmm)) Repi.gmm[["SCC"]] else 100
+  NGR::knitBlock(path = "/_fig/GMPE.ES.qmd", stem = "a1-scc-att", labels = "rewrite", vars = list(ID.target = unique(GMPETable[TRT == "SCC", ID]), Mw.target = Mw.target), root = root)
+  NGR::knitBlock(path = "/_fig/GMPE.PSA.ES.qmd", stem = "a1-scc-psa", labels = "rewrite", vars = list(ID.target = unique(GMPETable[TRT == "SCC", ID]), Mw.target = Mw.target, Repi.target = Repi.target), root = root)
+  rm(Mw.target, Repi.target)
+}
+```
+
+```{r}
+#| echo: false
+#| results: asis
+if (!is.null(GMPETable) && nrow(GMPETable[TRT == "SIF"])) {
+  cat("### Interfaz de subducción (SIF) {#sec-gmm_results_sif}\n\n")
+  Mw.target <- if (!exists("Mw.gmm", inherits = FALSE)) 6.5 else if (is.null(names(Mw.gmm))) Mw.gmm[[1L]] else if ("SIF" %in% names(Mw.gmm)) Mw.gmm[["SIF"]] else 6.5
+  Repi.target <- if (!exists("Repi.gmm", inherits = FALSE)) 100 else if (is.null(names(Repi.gmm))) Repi.gmm[[1L]] else if ("SIF" %in% names(Repi.gmm)) Repi.gmm[["SIF"]] else 100
+  NGR::knitBlock(path = "/_fig/GMPE.ES.qmd", stem = "a1-sif-att", labels = "rewrite", vars = list(ID.target = unique(GMPETable[TRT == "SIF", ID]), Mw.target = Mw.target), root = root)
+  NGR::knitBlock(path = "/_fig/GMPE.PSA.ES.qmd", stem = "a1-sif-psa", labels = "rewrite", vars = list(ID.target = unique(GMPETable[TRT == "SIF", ID]), Mw.target = Mw.target, Repi.target = Repi.target), root = root)
+  rm(Mw.target, Repi.target)
+}
+```
+
+```{r}
+#| echo: false
+#| results: asis
+if (!is.null(GMPETable) && nrow(GMPETable[TRT == "SIS"])) {
+  cat("### Subducción intraplaca (SIS) {#sec-gmm_results_sis}\n\n")
+  Mw.target <- if (!exists("Mw.gmm", inherits = FALSE)) 6.5 else if (is.null(names(Mw.gmm))) Mw.gmm[[1L]] else if ("SIS" %in% names(Mw.gmm)) Mw.gmm[["SIS"]] else 6.5
+  Repi.target <- if (!exists("Repi.gmm", inherits = FALSE)) 100 else if (is.null(names(Repi.gmm))) Repi.gmm[[1L]] else if ("SIS" %in% names(Repi.gmm)) Repi.gmm[["SIS"]] else 100
+  NGR::knitBlock(path = "/_fig/GMPE.ES.qmd", stem = "a1-sis-att", labels = "rewrite", vars = list(ID.target = unique(GMPETable[TRT == "SIS", ID]), Mw.target = Mw.target), root = root)
+  NGR::knitBlock(path = "/_fig/GMPE.PSA.ES.qmd", stem = "a1-sis-psa", labels = "rewrite", vars = list(ID.target = unique(GMPETable[TRT == "SIS", ID]), Mw.target = Mw.target, Repi.target = Repi.target), root = root)
+  rm(Mw.target, Repi.target)
+}
+```

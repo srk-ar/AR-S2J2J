@@ -1,0 +1,6 @@
+```{r}
+#| include: false
+CAP <- "Espectros de respuesta del sismo máximo creíble (MCE), aceleración espectral máxima horizontal Sa(Tn) [%s] con 5%% de amortiguamiento crítico en la condición de roca de referencia Vs30 = %d m/s. Las columnas reportan cada escenario determinístico en la mediana y los percentiles 84, 90 y 95, y la media de la mezcla de variabilidad total."
+```
+
+{{< include /_tbl/MCE.qmd >}}

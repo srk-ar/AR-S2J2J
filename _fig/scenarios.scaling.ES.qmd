@@ -1,0 +1,26 @@
+```{r}
+#| include: false
+COMPONENT_LABELS <- c(
+  L = "longitudinal",
+  T = "transversal",
+  V = "vertical"
+)
+TABS <- c(L = "Longitudinal", T = "Transversal", V = "Vertical")
+CAP <- paste(
+  "Factor de escala exacto basado en PPV $\\lambda_{s,r,c}=",
+  "\\mathrm{PPV}^{\\mathrm{tar}}_{s,c}/\\mathrm{PGV}_{r,c}$ para la",
+  "componente fuente %s. La matriz contiene %s historias fuente y %s",
+  "condiciones $D$--$Q$ en el nivel predictivo $p=%s$; cada celda representa",
+  "una combinación de escenario e historia fuente. Las columnas están",
+  "ordenadas por $D$ y luego $Q$, y se conserva el mismo orden de historias en",
+  "L, T y V. La escala cromática es logarítmica; la consulta interactiva",
+  "informa el factor exacto, la PPV objetivo y la PGV",
+  "fuente. $\\lambda=1$ indica que no hay modificación de amplitud,",
+  "$\\lambda>1$ amplificación y $\\lambda<1$ atenuación. Se muestran todos",
+  "los valores individuales. Las marcas 2, 5, 10, 20 y 50 son referencias",
+  "multiplicativas de lectura, no criterios de aceptación."
+)
+SERIES_LABEL <- "λ [-]"
+```
+
+{{< include /_fig/scenarios.scaling.qmd >}}

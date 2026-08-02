@@ -1,0 +1,8 @@
+```{r}
+#| include: false
+source(file.path(root, "scripts", "setup", "summary", "structures.R"))
+```
+
+At the target risk level of the MCER spectrum, mean spectra were obtained for `r uniqueN(StructuresSummary$spectra$Vs30)` site conditions, with $V_{S30}$ between `r .fmt(min(StructuresSummary$spectra$Vs30), 0)` and `r .fmt(max(StructuresSummary$spectra$Vs30), 0)` m/s. MCER PGA ranges from `r .fmt(min(StructuresSummary$pga$PGA), 2)` to `r .fmt(max(StructuresSummary$pga$PGA), 2)` g, while the maximum spectral ordinates of the evaluated conditions range from `r .fmt(min(StructuresSummary$peak$SaPeak), 2)` to `r .fmt(max(StructuresSummary$peak$SaPeak), 2)` g.
+
+The Section 21.4 parameters are reported for each evaluated site condition: $S_{DS}$ ranges from `r .fmt(min(StructuresSummary$parameters$SDS), 2)` to `r .fmt(max(StructuresSummary$parameters$SDS), 2)` g and $S_{D1}$ from `r .fmt(min(StructuresSummary$parameters$SD1), 2)` to `r .fmt(max(StructuresSummary$parameters$SD1), 2)` g; the corresponding MCER parameters $S_{MS}$ and $S_{M1}$ follow from those values through the factor 1.5 prescribed in the same section.

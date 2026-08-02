@@ -1,0 +1,1 @@
+The plane-strain effective-stress dynamic model is pending. The required quantitative results comprise, for each criterion $\ell$ and scenario $s$, the responses $\mathbf R_{s,r}$, demands $\mathcal D_{\ell,s,r}$, capacities $\mathcal C_\ell$, realization-level indicators, the population and its weights, and the estimates of $\widehat p_{f,\ell}(s)$ and $\widehat\beta_\ell(s)$.

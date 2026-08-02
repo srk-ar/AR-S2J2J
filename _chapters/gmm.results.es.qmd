@@ -1,0 +1,56 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+source(file.path(root, "scripts", "setup", "summary", "gmpe.R"))
+.gmmSa <- function(x) trimws(formatC(x, format = "fg", digits = 3))
+```
+
+```{r}
+#| echo: false
+#| results: asis
+if (!is.null(GMPE.ref) && nrow(GMPE.ref)) {
+  LIST <- GMPE.ref[, sprintf(
+    "%s ($M_w$ %s, $R_{epi}$ %s km y profundidad %s km): media %s g, percentil 84 %s g y banda central p5–p95 %s–%s g",
+    TRT, .fmt(Mw, 1), .fmti(round(Repi)), .fmti(round(dep)),
+    .gmmSa(PGA.mean), .gmmSa(PGA.p84), .gmmSa(PGA.p05), .gmmSa(PGA.p95)
+  )]
+  cat(sprintf(
+    "En las celdas de referencia del capítulo, evaluadas para $V_{S30}=760$ m/s, la PGA de la mezcla ponderada es: %s. La banda central está delimitada por los percentiles 5 y 95 de la distribución condicional de cada celda.\n\n",
+    paste(LIST, collapse = "; ")
+  ))
+  rm(LIST)
+}
+
+if (!is.null(GMPE.atten) && nrow(GMPE.atten)) {
+  LIST <- GMPE.atten[, sprintf(
+    "%s: desde %s g a %s km hasta %s g a %s km",
+    TRT, .gmmSa(PGA.p50.near), .fmti(round(Repi.near)),
+    .gmmSa(PGA.p50.far), .fmti(round(Repi.far))
+  )]
+  cat(sprintf(
+    "Para las mismas magnitudes y profundidades, la mediana de PGA en los extremos de la grilla de distancia es: %s.\n\n",
+    paste(LIST, collapse = "; ")
+  ))
+  rm(LIST)
+}
+
+if (!is.null(GMPE.spectrum) && nrow(GMPE.spectrum)) {
+  LIST <- GMPE.spectrum[, sprintf(
+    "%s ($R_{epi}$ %s km): mediana máxima de %s g en $T_n=%s$ s, con p5–p95 de %s–%s g",
+    TRT, .fmti(round(Repi)), .gmmSa(Sa.p50.peak), .fmt(Tn.peak, 2),
+    .gmmSa(Sa.p05.peak), .gmmSa(Sa.p95.peak)
+  )]
+  AUX <- GMPE.spectrum[which.max(Sa.band.factor)]
+  cat(sprintf(
+    "Los máximos de la mediana de los espectros de respuesta son: %s. La mayor amplitud relativa de la banda en el máximo corresponde a %s, con una relación p95/p5 de %s; esta separación integra la variabilidad aleatoria de cada modelo y la dispersión entre ramas de la mezcla.\n",
+    paste(LIST, collapse = "; "), AUX$TRT[[1L]], .fmt(AUX$Sa.band.factor[[1L]], 1)
+  ))
+  rm(LIST, AUX)
+}
+```
+
+```{r}
+#| include: false
+rm(list = intersect(c("GMPE.ref", "GMPE.atten", "GMPE.spectrum", ".gmmSa"), ls()))
+```

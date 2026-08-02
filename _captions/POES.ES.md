@@ -1,0 +1,1 @@
+Probabilidad de excedencia (PoE) por fuente para Sa(Tn=%g) [g]. Intervalo de exposición ITo=%g años. Vs30=%s m/s.

@@ -1,0 +1,12 @@
+MANIFEST:        /Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/sessions/run-20260706_140950_25299/manifest.json
+TASK:            /Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/md/gap-tsf-blast-record-selection-metrics.prompt.md
+OUTPUT:          /Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/sessions/run-20260706_140950_25299/T6.research.md
+KB:              /Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/kb
+WORKFLOW:        /usr/local/libexec/tito/workflows/research.session.md
+FORMAT_RULES:    /usr/local/libexec/tito/rules/format.session.md
+CITATIONS_RULES: /usr/local/libexec/tito/rules/citations.research.md
+AUDIT_RULES:     /usr/local/libexec/tito/rules/audit.md
+
+Read WORKFLOW, FORMAT_RULES, CITATIONS_RULES, and AUDIT_RULES.
+Then execute the research workflow using TASK and KB.
+Write the full manuscript to OUTPUT.

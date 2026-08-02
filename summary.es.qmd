@@ -1,0 +1,52 @@
+---
+lang: es
+title: "Resumen ejecutivo"
+bibliography:
+  - bib/references.bib
+  - bib/psha.bib
+csl: bib/apa.csl
+---
+
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+```
+
+```{r}
+#| include: false
+if (!exists("_INCLUDE_RECORD_SELECTION", inherits = FALSE)) {
+  assign("_INCLUDE_RECORD_SELECTION", FALSE)
+}
+assign(
+  "_TEXT_RECORD_SELECTION",
+  "Seleccionar, mediante ventanas de magnitud y distancia vinculadas con los escenarios que controlan la peligrosidad y con un máximo de un registro por evento, un conjunto de registros de movimiento fuerte que represente la amplitud, la duración y el contenido de frecuencias de la demanda sísmica; procesar cada componente horizontal retirando el modo de baja frecuencia asociado con la deriva y el ruido y normalizando la energía de la señal reconstruida; escalar el conjunto para reproducir la media del espectro objetivo específico del sitio y contener los espectros individuales entre sus envolventes; y verificar la compatibilidad resultante mediante el error de la media espectral, la razón de PGA y la fracción de ordenadas contenida, conservando la identificación de eventos, estaciones y medidas de intensidad para los análisis dinámicos de deformaciones."
+)
+```
+
+## Antecedentes
+
+```{r}
+#| echo: false
+#| results: asis
+FILE <- file.path(root, "_chapters", "executive.background.es.md")
+if (file.exists(FILE)) cat(readLines(FILE, warn = FALSE), sep = "\n")
+rm(FILE)
+```
+
+## Objetivos
+
+{{< include /_chapters/intro.objectives.es.md >}}
+
+## Formato
+
+{{< include /_chapters/intro.format.es.md >}}
+
+## Resumen
+
+{{< include /_summary/executive.site.es.qmd >}}
+
+## Referencias {.unnumbered}
+
+::: {#refs .references}
+:::

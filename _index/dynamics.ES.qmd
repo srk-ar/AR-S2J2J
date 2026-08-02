@@ -1,0 +1,21 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+```
+
+# Propiedades dinámicas de taludes {#sec-slope_periods}
+
+## Resumen ejecutivo {#sec-dyn_summary}
+
+{{< include /_chapters/dynamics.summary.es.md >}}
+
+## Metodología {#sec-dyn_method}
+
+{{< include /_chapters/dynamics.model.es.md >}}
+
+## Resultados {#sec-periods_results}
+
+{{< include /_summary/dynamics.results.es.qmd >}}
+
+{{< include /_tbl/Ts.ES.qmd >}}

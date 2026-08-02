@@ -1,0 +1,125 @@
+```{r }
+#| include: true
+Target <- .currentTarget("ID.target")
+if (!exists("p.target") || !length(p.target)) p.target <- p.gmdp
+ID.target <- .resolveUhsIDTarget(
+  UHSTable,
+  "UHS.qmd",
+  target = Target,
+  siteID = .currentTarget("siteID.target")
+)
+Sa.log   <- TRUE
+Tn.log   <- TRUE
+TR.label <- prettyNum(TR.gmdp, big.mark = ",", scientific = FALSE)
+if (!exists("CAP", inherits = FALSE)) CAP <- "Uniform hazard spectra for maximum horizontal pseudo-spectral acceleration Sa(Tn) [g] with 5%% critical damping, reference site conditions Vs30 = %s m/s, and return period TR = %s yr."
+```
+
+:::{.content-visible when-format='docx'}
+
+```{r}
+#| eval: !expr knitr::pandoc_to("docx")
+#| include: true
+TR.target <- 10000
+Vs30.target <- Vs30.gmdp
+p.target <- "mean"
+Vs30.label <- paste(Vs30.target, collapse = ", ")
+```
+
+```{r}
+#| eval: !expr knitr::pandoc_to("docx")
+#| include: true
+#| label: fig-uhs_docx
+#| fig-cap: !expr CAP |> sprintf(Vs30.label, prettyNum(round(TR.target, 0), big.mark = ","))
+source(file.path(root, "scripts", "fig/UHS.R"))
+PLOT
+```
+
+:::
+
+:::{.content-hidden when-format='docx'}
+:::{.panel-tabset .full-width }
+
+### $`r TR.label[1]`$
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/UHS_Vs30.qmd", stem = .composeTargetStem("uhs-tr1"), labels = "rewrite", vars = list(TR.target = TR.gmdp[1]), root = root)
+```
+
+### $`r TR.label[2]`$
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/UHS_Vs30.qmd", stem = .composeTargetStem("uhs-tr2"), labels = "rewrite", vars = list(TR.target = TR.gmdp[2]), root = root)
+```
+
+### $`r TR.label[3]`$
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/UHS_Vs30.qmd", stem = .composeTargetStem("uhs-tr3"), labels = "rewrite", vars = list(TR.target = TR.gmdp[3]), root = root)
+```
+
+### $`r TR.label[4]`$
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/UHS_Vs30.qmd", stem = .composeTargetStem("uhs-tr4"), labels = "rewrite", vars = list(TR.target = TR.gmdp[4]), root = root)
+```
+
+### $`r TR.label[5]`$
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/UHS_Vs30.qmd", stem = .composeTargetStem("uhs-tr5"), labels = "rewrite", vars = list(TR.target = TR.gmdp[5]), root = root)
+```
+
+### $`r TR.label[6]`$
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/UHS_Vs30.qmd", stem = .composeTargetStem("uhs-tr6"), labels = "rewrite", vars = list(TR.target = TR.gmdp[6]), root = root)
+```
+
+### $`r TR.label[7]`$
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/UHS_Vs30.qmd", stem = .composeTargetStem("uhs-tr7"), labels = "rewrite", vars = list(TR.target = TR.gmdp[7]), root = root)
+```
+
+### $`r TR.label[8]`$
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/UHS_Vs30.qmd", stem = .composeTargetStem("uhs-tr8"), labels = "rewrite", vars = list(TR.target = TR.gmdp[8]), root = root)
+```
+
+:::
+:::
+
+```{r}
+#| include: false
+rm(list = intersect(c(
+  "ID.target", "p.target", "Sa.log", "Tn.log", "TR.target", "Vs30.target",
+  "Vs30.label", "CAP"
+), ls()))
+if (exists("Target", inherits = FALSE) && length(Target)) ID.target <- Target
+rm(list = intersect("Target", ls()))
+```

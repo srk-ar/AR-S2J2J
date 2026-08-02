@@ -1,0 +1,1 @@
+Spectra at the reference rock condition Vs30 = 760 m/s: mean uniform hazard spectra of the reported hazard model for return periods TR = %s-%s yr (PSHA), overlaid with the deterministic scenario mean and p = 0.84 spectra (MCE); maximum horizontal Sa(Tn) [g] with 5%% critical damping.

@@ -1,0 +1,19 @@
+```{r}
+#| include: false
+if (!exists("CAP", inherits = FALSE)) CAP <- "Seismic hazard deaggregation (Mw-R) for Tn=%g s and TR=%s yr."
+if (!exists("Tn.target")) Tn.target <- 0.0
+if (!exists("TR.target")) TR.target <- 10000
+```
+
+```{r}
+#| include: true
+#| label: fig-rmw3d
+#| fig-cap: !expr CAP |> sprintf(Tn.target, prettyNum(round(TR.target,0), big.mark=","))
+source(file.path(root,"scripts","fig/RMw3D.R"))
+PLOT
+```
+
+```{r}
+#| include: false
+rm(Tn.target, TR.target, CAP)
+```

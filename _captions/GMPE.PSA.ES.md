@@ -1,0 +1,1 @@
+Medianas de los espectros de respuesta Sa(Tn) [g] para el conjunto de modelos de movimiento del suelo %s a Mw = %s y Repi = %.0f km, condición de roca de referencia Vs30 = 760 m/s y 5%% de amortiguamiento crítico. La mezcla ponderada se reporta en los cuantiles p = %s; la banda sombreada cubre los percentiles 5 a 95 de la distribución condicional.

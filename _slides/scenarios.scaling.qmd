@@ -1,0 +1,7 @@
+## <br>Scenario Family {.scrollable}
+
+{{< include /_tbl/scenarios.qmd >}}
+
+## <br>PPV-Based Scale Factors
+
+{{< include /_fig/scenarios.scaling.qmd >}}

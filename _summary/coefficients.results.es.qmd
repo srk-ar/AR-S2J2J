@@ -1,0 +1,10 @@
+```{r}
+#| include: false
+source(file.path(root, "scripts", "setup", "summary", "coefficients.R"))
+```
+
+En las `r CoefficientsSummary$geometryCount` geometrías evaluadas, para el conjunto global y los períodos de retorno de `r paste(.fmti(CoefficientsSummary$returnPeriods), collapse = ", ")` años, los intervalos de la media fueron `r paste(CoefficientsSummary$kmax[.matchP(p, "mean"), sprintf("para $D_a=%s$ cm, $k_{\\max}$ = %s–%s g", format(Da, trim = TRUE, scientific = FALSE), .fmt(minimum, 3), .fmt(maximum, 3))], CoefficientsSummary$kh[.matchP(p, "mean"), sprintf("y $k_h$ = %s–%s%% PGA", .fmt(minimum, 0), .fmt(maximum, 0))], sep = " ", collapse = "; ")`.
+
+Para el fractil $q=0.84$, correspondiente a una probabilidad objetivo $p_e=0.16$, los intervalos fueron `r paste(CoefficientsSummary$kmax[.matchP(p, "0.84"), sprintf("para $D_a=%s$ cm, $k_{\\max}$ = %s–%s g", format(Da, trim = TRUE, scientific = FALSE), .fmt(minimum, 3), .fmt(maximum, 3))], CoefficientsSummary$kh[.matchP(p, "0.84"), sprintf("y $k_h$ = %s–%s%% PGA", .fmt(minimum, 0), .fmt(maximum, 0))], sep = " ", collapse = "; ")`.
+
+Para el subconjunto reportado, la inversión requirió prolongación logarítmica fuera del soporte calculado en `r paste(CoefficientsSummary$extrapolation[, sprintf("$D_a=%s$ cm: %s de %s curvas de componente (%s%%)", format(Da, trim = TRUE, scientific = FALSE), .fmti(extrapolated), .fmti(curves), .fmt(percent, 1))], collapse = "; ")`.

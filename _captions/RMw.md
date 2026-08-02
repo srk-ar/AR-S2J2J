@@ -1,0 +1,1 @@
+Seismic hazard deaggregation summary at the reference rock condition Vs30 = 760 m/s: each cell reports the modal (Mw, R [km]) block — the largest percent contributor to the exceedance of the Tn spectral acceleration at return period TR — on the same aggregated (Mw, R) grid as the deaggregation heatmaps. Rows: return period TR [yr]. Columns: structural period Tn [s].

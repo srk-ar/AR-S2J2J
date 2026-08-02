@@ -1,0 +1,14 @@
+```{r}
+#| include: false
+FAMILY_LABEL <- "PPV"
+COMPONENT_LABELS <- c(
+  resultant = "resultante",
+  L = "longitudinal",
+  T = "transversal",
+  V = "vertical"
+)
+CAP <- "%s: valores observados frente a predicciones OOF de la iteración $t_h^*$ retenida para la respuesta, sobre %d pares de la población evaluada. La diagonal representa la relación 1:1; los ejes muestran las unidades físicas de la respuesta."
+ONE_TO_ONE <- "1:1"
+```
+
+{{< include /_fig/predictions.PPV.qmd >}}

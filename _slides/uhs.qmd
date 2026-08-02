@@ -1,0 +1,54 @@
+## <br>`r if (exists("TITLE", inherits = FALSE)) TITLE else "Site Response Spectra"`
+
+:::{.panel-tabset .full-width }
+
+### Uniform Hazard Spectra (UHS)
+
+```{r}
+p.target <- c("mean", 0.84, 0.90, 0.95)
+.ID.BASE <- .currentTarget("ID.target")
+ID.target <- .resolveUhsIDTarget(
+  UHSTable,
+  "UHS slide",
+  target = .ID.BASE,
+  siteID = .currentTarget("siteID.target")
+)
+.ID.BASE <- .targetBaseID(ID.target, "UHS slide")
+```
+
+{{< include /_fig/UHS.qmd >}}
+
+### PGA
+
+```{r}
+ID.target <- .resolveDerivedIDTarget(
+  UHSTable,
+  "PGA slide",
+  suffix = ".max",
+  target = .ID.BASE,
+  siteID = .currentTarget("siteID.target")
+)
+```
+
+{{< include /_tbl/PGA.qmd >}}
+
+### PSA
+
+```{r}
+ID.target <- .resolveDerivedIDTarget(
+  UHSTable,
+  "PSA slide",
+  suffix = ".max",
+  target = .ID.BASE,
+  siteID = .currentTarget("siteID.target")
+)
+```
+
+{{< include /_tbl/PSA.qmd >}}
+
+:::
+
+```{r}
+#| include: false
+rm(ID.target, p.target, .ID.BASE)
+```

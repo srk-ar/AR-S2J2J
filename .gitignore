@@ -1,0 +1,38 @@
+# Quarto build
+/.quarto/
+**/*.quarto_ipynb
+*_cache/
+# Render products — delivered as dated zips in deliv/ (deliv is NEVER ignored)
+/html/
+/docx/
+# OpenQuake generated artifacts
+/oq/.tmp*/
+/oq/run/
+# Housekeeping
+.DS_Store
+.idea/
+.Rproj.user
+*.bak.json
+# R session noise
+.Rhistory
+.RData
+.Ruserdata
+# Tools / IDE
+.netlify
+.positai
+logs/
+# Local editor/agent metadata
+**/.obsidian/
+**/.claude/
+# Data
+data/legacy/
+data/trash/
+# Regenerated pipeline intermediates — kept on disk, not in git.
+# Aggregated outputs in data/summary/ are tracked instead.
+data/model/
+data/train/
+data/metrics/
+data/response/
+data/iter/
+# Legacy per-response outputs from the retired scripts/R/model/dataset.R
+data/dataset/

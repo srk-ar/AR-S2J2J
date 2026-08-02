@@ -1,0 +1,108 @@
+```{r}
+#| include: true
+Target <- .currentTarget("ID.target")
+ID.target <- .resolveDerivedIDTarget(
+  kmaxTable,
+  "kh.qmd",
+  suffix = ".max",
+  target = Target,
+  siteID = .currentTarget("siteID.target")
+)
+if (!exists("p.target"))   p.target   <- c(0.05,0.10,0.16,"mean", 0.84,0.90,0.95)
+if (!exists("Da.target"))  Da.target  <- sort(Da.gmdp)
+if (!exists("IDn.target")) IDn.target <- c("ensemble", "rigid", "flexible")
+if (!exists("PSA_Units"))  PSA_Units  <- "cm/s2"
+TR.label <- prettyNum(TR.gmdp, big.mark = ",", scientific = FALSE)
+if (!exists("CAP", inherits = FALSE)) CAP <- "Performance-based seismic coefficients $k_h$ in [%% PGA] as function of admissible residual displacement $D_a$ [cm] for geometry %s. Values are reported for target ground motion with 1/%.0f AEP [1/yr]."
+```
+
+:::{.content-visible when-format='docx'}
+:::
+
+:::{.content-hidden when-format='docx'}
+:::{.panel-tabset .full-width }
+
+#### $`r TR.label[1]`$
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/kh_IDg.qmd", stem = .composeTargetStem("kh-tr1"), labels = "rewrite", vars = list(TR.target = TR.gmdp[1]), root = root)
+```
+
+#### $`r TR.label[2]`$
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/kh_IDg.qmd", stem = .composeTargetStem("kh-tr2"), labels = "rewrite", vars = list(TR.target = TR.gmdp[2]), root = root)
+```
+
+#### $`r TR.label[3]`$
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/kh_IDg.qmd", stem = .composeTargetStem("kh-tr3"), labels = "rewrite", vars = list(TR.target = TR.gmdp[3]), root = root)
+```
+
+#### $`r TR.label[4]`$
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/kh_IDg.qmd", stem = .composeTargetStem("kh-tr4"), labels = "rewrite", vars = list(TR.target = TR.gmdp[4]), root = root)
+```
+
+#### $`r TR.label[5]`$
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/kh_IDg.qmd", stem = .composeTargetStem("kh-tr5"), labels = "rewrite", vars = list(TR.target = TR.gmdp[5]), root = root)
+```
+
+#### $`r TR.label[6]`$
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/kh_IDg.qmd", stem = .composeTargetStem("kh-tr6"), labels = "rewrite", vars = list(TR.target = TR.gmdp[6]), root = root)
+```
+
+#### $`r TR.label[7]`$
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/kh_IDg.qmd", stem = .composeTargetStem("kh-tr7"), labels = "rewrite", vars = list(TR.target = TR.gmdp[7]), root = root)
+```
+
+#### $`r TR.label[8]`$
+
+```{r}
+#| eval: !expr knitr::is_html_output()
+#| echo: false
+#| results: asis
+NGR::knitBlock(path = "/_fig/kh_IDg.qmd", stem = .composeTargetStem("kh-tr8"), labels = "rewrite", vars = list(TR.target = TR.gmdp[8]), root = root)
+```
+
+:::
+:::
+
+```{r}
+#| include: false
+rm(list = intersect(c(
+  "ID.target", "p.target", "Da.target", "PSA_Units", "TR.target",
+  "IDg.target", "IDn.target", "TR.label", "CAP"
+), ls()))
+if (exists("Target", inherits = FALSE) && length(Target)) ID.target <- Target
+rm(list = intersect("Target", ls()))
+```

@@ -1,0 +1,17 @@
+## <br>Seismic Record Selection
+
+:::{.panel-tabset .full-width }
+
+### Summary
+
+{{< include /_summary/srs_summary.qmd >}}
+
+### Spectral Match
+
+{{< include /_fig/PS_PSA_H1.qmd >}}
+
+### Suite
+
+{{< include /_tbl/SRS.qmd >}}
+
+:::

@@ -1,0 +1,19 @@
+{
+  "id": "T9",
+  "workflow": "research",
+  "source": {
+    "kb_dir": "/Users/averrik/Cloud/github/projects/AR-S2J2J.R/TITO/kb",
+    "documents": [
+      "EMPTY-KB.md",
+      "T1.compile.research.md",
+      "T3.compile.research.md"
+    ]
+  },
+  "orchestration": {
+    "structured_prompt_spec": "structured_prompt_spec.json",
+    "slot_orchestration_plan": "slot_orchestration_plan.json"
+  },
+  "outputs": {
+    "primary": "T9.research.md"
+  }
+}

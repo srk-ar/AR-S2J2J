@@ -1,0 +1,7 @@
+## <br>Predictive Domain
+
+{{< include /_fig/model.domain.compare.qmd >}}
+
+## <br>Available Observations by Response
+
+{{< include /_tbl/model.support.qmd >}}

@@ -1,0 +1,37 @@
+```{r}
+#| include: false
+root <- here::here()
+if (!exists("PSA_Units") || !length(PSA_Units)) PSA_Units <- "g"
+if (!exists("CAP", inherits = FALSE)) CAP <- "Spectra at the reference rock condition Vs30 = 760 m/s: mean uniform hazard spectra of the reported hazard model for return periods TR = %s-%s yr (PSHA), overlaid with the deterministic scenario mean and p = 0.84 spectra (MCE); maximum horizontal Sa(Tn) [g] with 5%% critical damping."
+if (!exists("CAP.tbl", inherits = FALSE)) CAP.tbl <- "Mean peak ground acceleration PGA [%s] at the reference rock condition Vs30 = 760 m/s: rows are the probabilistic hazard levels (return period TR) followed by the deterministic scenarios; columns are the hazard models (PSHA) and the scenario values (MCE)."
+if (!exists("CAP.dsha", inherits = FALSE)) CAP.dsha <- "Probabilistic-deterministic comparison at Vs30 = %.0f m/s, maximum horizontal Sa(Tn) [%s] with 5%% critical damping: mean uniform hazard spectrum at TR = 10,000 yr (PSHA) against each deterministic scenario (mean and 84th fractile of its total-variability mixture). MCE is the per-period maximum of the scenario means; MCE (84%%) is the maximum of the scenario 84th fractiles."
+```
+
+```{r}
+#| include: true
+#| label: fig-uhs-compare
+#| fig-cap: !expr CAP |> sprintf(prettyNum(min(UHSTable$TR), big.mark = ","), prettyNum(max(UHSTable$TR), big.mark = ","))
+source(file.path(root, "scripts", "fig", "UHS.compare.R"))
+PLOT
+```
+
+```{r}
+#| include: true
+#| echo: false
+#| results: asis
+# One conditional dispatch instead of two labeled eval-gated chunks: a
+# non-evaluated chunk with label + tbl-cap still emits an empty float.
+# The language wrapper's caption templates travel through vars.
+.STEM <- .composeTargetStem("dsha")
+if (exists("MCETable") && !is.null(MCETable)) {
+  NGR::knitBlock(path = "/_tbl/DSHA.qmd", stem = .STEM, labels = "rewrite", vars = list(CAP = CAP.dsha), root = root)
+} else {
+  NGR::knitBlock(path = "/_tbl/PGA.compare.qmd", stem = .STEM, labels = "rewrite", vars = list(CAP = CAP.tbl), root = root)
+}
+rm(.STEM)
+```
+
+```{r}
+#| include: false
+rm(list = intersect(c("CAP", "CAP.tbl", "CAP.dsha"), ls()))
+```

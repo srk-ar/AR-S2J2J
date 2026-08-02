@@ -1,0 +1,6 @@
+```{r}
+#| include: false
+source(file.path(root, "scripts", "setup", "summary", "classification.R"))
+```
+
+La evaluación considera `r ClassificationSummary$count` condiciones de sitio, con $V_{S30}$ entre `r .fmt(ClassificationSummary$minimum, 0)` y `r .fmt(ClassificationSummary$maximum, 0)` m/s. Estos valores definen las condiciones para las que se obtienen los espectros y parámetros sísmicos del proyecto; no sustituyen la clasificación geotécnica de una ubicación particular ni la evaluación específica exigida para una condición de Clase F.

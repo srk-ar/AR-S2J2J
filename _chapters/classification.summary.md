@@ -1,0 +1,15 @@
+Seismic site classification establishes the site condition against which the hazard, the site response, and the design spectra are interpreted. The condition is characterized by $V_{S30}$, the time-averaged shear-wave velocity of the upper 30 m, defined by the travel time through the layered profile,
+
+$$
+V_{S30}=\frac{30}{\displaystyle\sum_{i=1}^{N}\frac{H_i}{V_{S,i}}},
+$$
+
+where $H_i$ and $V_{S,i}$ are the thickness and the shear-wave velocity of each layer within the upper 30 m; the expression gives the equivalent uniform velocity that yields the same travel time as the actual profile. The $V_S$ profile is obtained from geophysical investigations—borehole logging, seismic cone penetration tests, and surface wave techniques.
+
+$V_{S30}$ is the site-condition predictor used by the ground-motion models and by the amplification relations of this assessment [@Borcherdt2012], and it identifies the reference condition from which the hazard spectra and the rock-to-site transformations are interpreted. The initial classification does not replace the characterization performed in site-specific response analyses.
+
+The NEHRP provisions classify sites into Site Classes A through E—hard rock with $V_{S30}>1500$ m/s, rock between 760 and 1500 m/s, very dense soil or soft rock between 360 and 760 m/s, stiff soil between 180 and 360 m/s, and soft soil with $V_{S30}<180$ m/s—and reserve Class F for profiles requiring site-specific evaluation, among them soils susceptible to liquefaction or collapse, peats, organic clays, thick high-plasticity clays, and very soft clays [@BSSC2015]. ASCE/SEI 7-22 updates that discretization with the intermediate classes BC, CD, and DE, the discretization adopted in this report [@ASCE722]. Where velocity measurements are available, $V_{S30}$ is the primary assignment criterion; the provisions also include criteria based on penetration resistance and on undrained shear strength where the geophysical information is insufficient. Class F is not assigned through a $V_{S30}$ range and leads to a site response analysis in lieu of the application of generic factors.
+
+$V_{S30}$ summarizes the average stiffness of the upper 30 m and does not by itself describe stratigraphic contrasts, depth to bedrock, basin effects, or resonance periods; these limitations define the scope of a site-specific evaluation. The class of a particular location is assigned from the applicable geotechnical profile and from the additional conditions defined by the standard; the $V_{S30}$ conditions evaluated in this report define the site conditions for which the spectra and the seismic parameters are computed.
+
+The evaluated conditions extend down to $V_{S30}=180$ m/s, which falls within Class DE, and do not reach Class E. For profiles softer than those evaluated, the spectra and parameters of this report are not applicable without a site-specific response evaluation. Class F, defined by subsoil conditions rather than by a $V_{S30}$ range, requires that evaluation whatever the velocity [@ASCE722].

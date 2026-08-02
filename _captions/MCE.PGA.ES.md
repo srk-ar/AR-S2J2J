@@ -1,0 +1,1 @@
+Maximum credible earthquake (MCE) peak ground acceleration PGA [%s] at the reference rock condition Vs30 = 760 m/s. Rows report each deterministic scenario; columns report the fractiles p = %s of the scenario total-variability mixture.

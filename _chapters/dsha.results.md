@@ -1,0 +1,1 @@
+The deterministic scenario set is compared against the probabilistic benchmark at the reference rock condition: the mean uniform hazard spectra are overlaid with the scenario mean and 84th-percentile spectra, and the tabulated comparison reports the corresponding ordinates together with the MCE envelopes ([-@eq-dsha-envelope]).

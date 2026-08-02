@@ -1,0 +1,27 @@
+```{r}
+#| include: true
+root <- here::here()
+if (!exists("Repi.target") || length(Repi.target) != 1L) Repi.target <- 100
+if (!exists("p.target") || !length(p.target)) p.target <- c("0.10", "0.16", "0.50", "0.84", "0.90")
+TRT.target <- GMPETable[ID %in% ID.target, TRT][1]
+# Snap here too: the caption must quote the cells actually plotted.
+AUX <- sort(unique(GMPETable[ID %in% ID.target, Repi]))
+Repi.target <- AUX[which.min(abs(log(AUX) - log(Repi.target)))]
+AUX <- sort(unique(GMPETable[ID %in% ID.target, Mw]))
+Mw.target <- AUX[which.min(abs(Mw.target - AUX))]
+rm(AUX)
+if (!exists("CAP", inherits = FALSE)) CAP <- "Median response spectra Sa(Tn) [g] for the %s ground-motion model set at Mw = %s and Repi = %.0f km, reference rock condition Vs30 = 760 m/s and 5%% critical damping. The weighted mixture is reported at quantiles p = %s; the shaded band spans the 5th to 95th percentiles of the conditional distribution."
+```
+
+```{r}
+#| include: true
+#| label: fig-gmpe-psa
+#| fig-cap: !expr CAP |> sprintf(TRT.target, Mw.target, Repi.target, paste(p.target, collapse = ", "))
+source(file.path(root, "scripts", "fig/GMPE.PSA.R"))
+PLOT
+```
+
+```{r}
+#| include: false
+rm(list = intersect(c("CAP", "Repi.target", "dep.target", "TRT.target"), ls()))
+```

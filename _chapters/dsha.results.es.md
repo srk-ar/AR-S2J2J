@@ -1,0 +1,3 @@
+Los resultados corresponden a la componente máxima horizontal de $S_a(T_n)$ con 5% de amortiguamiento crítico en roca de referencia, $V_{S30}=760$ m/s. Para cada escenario se presentan la media y el percentil 84 de la mezcla de variabilidad total; el MCE y el MCE (84%) se obtienen mediante máximos independientes por período. La figura superpone esos espectros a los espectros medios de amenaza uniforme disponibles, y la tabla compara sus ordenadas con el espectro medio de $TR=10{,}000$ años.
+
+La identificación del escenario gobernante se efectúa por separado para cada período y estadístico y representa los cambios de fuente controlante a lo largo del espectro. Cada envolvente conserva así la identidad del escenario que aporta su ordenada en cada período.

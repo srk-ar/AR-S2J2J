@@ -1,0 +1,152 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+source(file.path(root, "scripts", "setup", "report.R"))
+Standard.target <- c("GISTM", "CDA", "ANCOLD")
+```
+
+# Criterios de diseño de depósitos de relaves {#sec-criteria}
+
+## Resumen ejecutivo {#sec-tsf_summary}
+
+{{< include /_chapters/tailings.summary.es.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_summary/criteria_summary.es.qmd",
+    stem = "criteria-summary",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-criteria-summary-site",
+    context = "resumen de criterios de relaves"
+  )
+}
+rm(i)
+```
+
+## Metodología {#sec-tsf_method}
+
+{{< include /_chapters/tailings.es.md >}}
+
+## Resultados {#sec-criteria_results}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_summary/criteria_summary.es.qmd",
+    stem = "criteria-results",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-criteria-results-site",
+    context = "resultados de criterios de relaves"
+  )
+}
+rm(i)
+```
+
+### Etapa de operación {#sec-criteria_results_obe}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_tbl/DEQ_OBE.ES.qmd",
+    stem = "criteria-obe-table",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-criteria-obe-site",
+    context = "tabla de criterios operacionales de relaves"
+  )
+  .knitReportBlock(
+    path = "/_fig/DEQ_OBE.ES.qmd",
+    stem = "criteria-obe-figure",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    context = "figura de criterios operacionales de relaves"
+  )
+}
+rm(i)
+```
+
+### Etapa de cierre {#sec-criteria_results_sse}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_tbl/DEQ_SSE.ES.qmd",
+    stem = "criteria-sse-table",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-criteria-sse-site",
+    context = "tabla de criterios de cierre de relaves"
+  )
+  .knitReportBlock(
+    path = "/_fig/DEQ_SSE.ES.qmd",
+    stem = "criteria-sse-figure",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    context = "figura de criterios de cierre de relaves"
+  )
+}
+rm(i)
+```
+
+### Etapa de post-cierre {#sec-criteria_results_pce}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_tbl/DEQ_PCE.ES.qmd",
+    stem = "criteria-pce-table",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-criteria-pce-site",
+    context = "tabla de criterios post-cierre de relaves"
+  )
+  .knitReportBlock(
+    path = "/_fig/DEQ_PCE.ES.qmd",
+    stem = "criteria-pce-figure",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    context = "figura de criterios post-cierre de relaves"
+  )
+}
+rm(i, SiteTable)
+```

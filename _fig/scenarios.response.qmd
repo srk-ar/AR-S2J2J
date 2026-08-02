@@ -1,0 +1,133 @@
+```{r}
+#| include: false
+root <- normalizePath(here::here())
+ScenarioConfig <- jsonlite::read_json(
+  file.path(root, "scripts", "runScenarios.json"), simplifyVector = TRUE
+)
+INPUT_ID <- as.character(ScenarioConfig$InputID)
+SCENARIO_P <- as.numeric(ScenarioConfig$P)
+if (length(INPUT_ID) != 1L || !nzchar(INPUT_ID) ||
+    length(SCENARIO_P) != 1L || !is.finite(SCENARIO_P)) {
+  stop("scenarios.response: invalid scenario family contract.", call. = FALSE)
+}
+PathResponse <- file.path(
+  root, "data", "records", "scenarios", "IMW.csv"
+)
+PathUnits <- file.path(root, "data", "domains", "units.json")
+PathSourceMeta <- file.path(
+  root, "data", "gmsp", INPUT_ID, sprintf("%s.json", INPUT_ID)
+)
+if (any(!file.exists(c(PathResponse, PathUnits, PathSourceMeta)))) {
+  stop("scenarios.response: required scenario products are missing.",
+       call. = FALSE)
+}
+.SCENARIO_UNITS <- jsonlite::read_json(PathUnits, simplifyVector = TRUE)
+.SCENARIO_META <- jsonlite::read_json(PathSourceMeta, simplifyVector = TRUE)
+if (!"ppa" %in% names(.SCENARIO_UNITS) ||
+    !"TargetUnits" %in% names(.SCENARIO_META)) {
+  stop("scenarios.response: incomplete acceleration-unit contract.",
+       call. = FALSE)
+}
+if (!identical(as.character(.SCENARIO_UNITS$ppa), "g") ||
+    !identical(as.character(.SCENARIO_META$TargetUnits), "mm")) {
+  stop("scenarios.response: unsupported acceleration-unit bridge.",
+       call. = FALSE)
+}
+G <- 9806.65
+SCENARIO_RESPONSE <- data.table::fread(
+  PathResponse,
+  select = c("ScenarioID", "D", "MIC", "P", "RecordID", "OCID", "PGA")
+)
+AUX <- SCENARIO_RESPONSE[, .(N = uniqueN(RecordID)), by = ScenarioID]
+if (!nrow(AUX) || AUX[, uniqueN(N)] != 1L || AUX[, any(!is.finite(N) | N < 1L)]) {
+  stop("scenarios.response: scenarios have inconsistent realization counts.",
+       call. = FALSE)
+}
+SCENARIO_N <- unique(AUX$N)
+SCENARIO_M <- data.table::uniqueN(SCENARIO_RESPONSE$ScenarioID)
+rm(AUX)
+if (!exists("COMPONENT_LABELS", inherits = FALSE)) {
+  COMPONENT_LABELS <- c(
+    H1 = "principal horizontal H1",
+    H2 = "orthogonal horizontal H2",
+    UP = "vertical UP"
+  )
+}
+if (!exists("TABS", inherits = FALSE)) {
+  TABS <- c(H1 = "H1", H2 = "H2", UP = "UP")
+}
+if (!exists("CAP", inherits = FALSE)) {
+  CAP <- paste(
+    "Exact peak particle acceleration of the generated %s realizations. The",
+    "matrix contains %s source histories and %s $D$--$Q$ conditions at",
+    "predictive level $p=%s$; each cell represents one scenario and source-",
+    "history combination. Columns are ordered by $D$ and then $Q$, and the",
+    "common history order is retained across H1, H2, and UP. The color scale",
+    "is logarithmic, and the interactive label",
+    "reports the exact PPA in g. These are absolute peaks of the generated",
+    "accelerograms, not predictions from the PPA model. All individual values",
+    "are shown."
+  )
+}
+if (!exists("X_AXIS", inherits = FALSE)) X_AXIS <- "Scenario condition"
+if (!exists("Y_AXIS", inherits = FALSE)) Y_AXIS <- "Source history"
+if (!exists("SERIES_LABEL", inherits = FALSE)) SERIES_LABEL <- "PPA [g]"
+if (!exists("TOOLTIP_FORMAT", inherits = FALSE)) {
+  TOOLTIP_FORMAT <- paste0(
+    "Scenario: <b>{point.scenario}</b><br>",
+    "D: <b>{point.d} m</b> | Q (MIC): <b>{point.q} kg</b><br>",
+    "Record identifier: <b>{point.record}</b> | Direction: <b>{point.component}</b><br>",
+    "PPA: <b>{point.ppa} g</b>"
+  )
+}
+```
+
+::: {.panel-tabset .full-width}
+
+### `r TABS[["H1"]]`
+
+```{r}
+#| label: fig-scenarios-response-h1
+#| fig-cap: !expr sprintf(CAP, COMPONENT_LABELS[["H1"]], SCENARIO_N, SCENARIO_M, formatC(SCENARIO_P, format = "f", digits = 2L))
+#| echo: false
+#| warning: false
+COMPONENT <- "H1"
+source(file.path(root, "scripts", "fig", "scenarios.response.R"))
+PLOT
+```
+
+### `r TABS[["H2"]]`
+
+```{r}
+#| label: fig-scenarios-response-h2
+#| fig-cap: !expr sprintf(CAP, COMPONENT_LABELS[["H2"]], SCENARIO_N, SCENARIO_M, formatC(SCENARIO_P, format = "f", digits = 2L))
+#| echo: false
+#| warning: false
+COMPONENT <- "H2"
+source(file.path(root, "scripts", "fig", "scenarios.response.R"))
+PLOT
+```
+
+### `r TABS[["UP"]]`
+
+```{r}
+#| label: fig-scenarios-response-up
+#| fig-cap: !expr sprintf(CAP, COMPONENT_LABELS[["UP"]], SCENARIO_N, SCENARIO_M, formatC(SCENARIO_P, format = "f", digits = 2L))
+#| echo: false
+#| warning: false
+COMPONENT <- "UP"
+source(file.path(root, "scripts", "fig", "scenarios.response.R"))
+PLOT
+```
+
+:::
+
+```{r}
+#| include: false
+rm(
+  CAP, COMPONENT, COMPONENT_LABELS, G, INPUT_ID, PLOT, PathResponse,
+  PathSourceMeta, PathUnits, SCENARIO_M, SCENARIO_N, SCENARIO_P,
+  SCENARIO_RESPONSE, SERIES_LABEL, ScenarioConfig, TABS, TOOLTIP_FORMAT,
+  X_AXIS, Y_AXIS, .SCENARIO_META, .SCENARIO_UNITS
+)
+```

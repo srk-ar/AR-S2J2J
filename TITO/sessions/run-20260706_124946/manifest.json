@@ -1,0 +1,11 @@
+{
+  "id": "T1",
+  "workflow": "compile-research",
+  "sessions": [
+    { "path": "../run-20260706_124856_3374/T1.research.md" }
+  ],
+  "outputs": {
+    "primary": "T1.compile.research.md",
+    "biblatex": "biblatex.bib"
+  }
+}

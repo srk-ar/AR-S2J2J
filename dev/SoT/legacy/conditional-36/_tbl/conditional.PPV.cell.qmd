@@ -1,0 +1,6 @@
+```{r}
+#| label: tbl-cond
+#| tbl-cap: !expr CAPTION
+source(file.path(root, "scripts", "tbl", "quantiles.R"))
+TBL
+```

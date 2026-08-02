@@ -1,0 +1,15 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+```
+
+# Modelo de aprendizaje estadístico {#sec-amplitude}
+
+## Metodología {#sec-model_method}
+
+{{< include /_chapters/model.es.md >}}
+
+## Resultados {#sec-model_results}
+
+{{< include /_summary/model.results.es.qmd >}}

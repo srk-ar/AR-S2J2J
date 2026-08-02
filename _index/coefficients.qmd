@@ -1,0 +1,131 @@
+```{r}
+#| include: true
+root <- normalizePath(here::here())
+source(file.path(root, "scripts", "setup", "setup.R"))
+source(file.path(root, "scripts", "setup", "report.R"))
+```
+
+# Performance-Based Seismic Coefficients {#sec-coefficients}
+
+## Executive Summary {#sec-coef_summary}
+
+{{< include /_chapters/coefficients.summary.md >}}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_summary/coefficients.results.qmd",
+    stem = "coefficients-summary",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-coef-summary-site",
+    context = "resumen ejecutivo de coeficientes Newmark"
+  )
+}
+rm(i)
+```
+
+
+## Methodology {#sec-coef_method}
+
+{{< include /_chapters/coefficients.pbsd.md >}}
+
+## Results {#sec-kmax}
+
+:::{.content-visible when-format='docx'}
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_tbl/kmax_IDn.qmd",
+    stem = "coefficients-kmax-table",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-kmax-table-site",
+    context = "performance-based kmax tables"
+  )
+}
+rm(i)
+```
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_tbl/kh_IDn.qmd",
+    stem = "coefficients-kh-table",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 3L,
+    anchor = "sec-kh-table-site",
+    context = "performance-based kh tables"
+  )
+}
+rm(i)
+```
+
+:::
+
+:::{.content-hidden when-format='docx'}
+
+### Performance-Based $k_{\max}$ Curves
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_fig/kmax.qmd",
+    stem = "coefficients-kmax-figure",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-kmax-curves-site",
+    context = "performance-based kmax curves"
+  )
+}
+rm(i)
+```
+
+### Performance-Based $k_h$ Curves
+
+```{r}
+#| echo: false
+#| results: asis
+for (i in seq_len(nrow(SiteTable))) {
+  .knitReportBlock(
+    path = "/_fig/kh.qmd",
+    stem = "coefficients-kh-figure",
+    sites = SiteTable,
+    i = i,
+    vars = list(ID.target = ID.gmdp),
+    root = root,
+    heading = SiteTable$label[[i]],
+    level = 4L,
+    anchor = "sec-kh-curves-site",
+    context = "performance-based kh curves"
+  )
+}
+rm(i, SiteTable)
+```
+
+:::
