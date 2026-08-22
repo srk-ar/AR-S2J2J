@@ -1,5 +1,5 @@
-## scripts/ssel/runModel.R — AR-S2J2J single-pass supervised pipeline.
-## Usage: Rscript scripts/ssel/runModel.R [path/to/manifest.json]
+## scripts/runModel.R — AR-S2J2J single-pass supervised pipeline.
+## Usage: Rscript scripts/runModel.R [path/to/manifest.json]
 
 library(jsonlite)
 library(ssel)
