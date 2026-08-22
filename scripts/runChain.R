@@ -1,5 +1,5 @@
-## scripts/ssel/runChain.R — AR-S2J2J iterative chain regressor.
-## Usage: Rscript scripts/ssel/runChain.R [path/to/manifest.json]
+## scripts/runChain.R — AR-S2J2J iterative chain regressor.
+## Usage: Rscript scripts/runChain.R [path/to/manifest.json]
 
 library(jsonlite)
 library(ssel)
