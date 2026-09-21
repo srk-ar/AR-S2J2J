@@ -28,11 +28,17 @@ logs/
 data/legacy/
 data/trash/
 # Regenerated pipeline intermediates — kept on disk, not in git.
-# Aggregated outputs in data/summary/ are tracked instead.
+# Summary products and the report's iteration snapshots stay in Git.
 data/model/
 data/train/
 data/metrics/
 data/response/
-data/iter/
+# The report compares retained metrics with iteration snapshots.
+data/iter/*
+!data/iter/convergence.csv
+!data/iter/summary_*/
+data/iter/summary_*/*
+!data/iter/summary_*/metrics.csv
+!data/iter/summary_0/residuals_oof.csv
 # Legacy per-response outputs from the retired scripts/R/model/dataset.R
 data/dataset/

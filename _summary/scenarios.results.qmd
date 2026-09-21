@@ -14,3 +14,15 @@ if (!exists("SCENARIO_AUDIT")) {
 Table @tbl-scenarios-inventory presents the evaluated conditions, the three PPV targets used for scaling, and the number of realizations in each scenario. Each row represents a condition $(d,q,p)$; its realizations are obtained from the source histories in the instrumental population.
 
 {{< include /_tbl/scenarios.qmd >}}
+
+### Numerical verification
+
+Table @tbl-scenario-audit reports the vertical PPV, horizontal rotation, and positive-PGA checks for the generated family, using the acceptance criteria defined in the methodology.
+
+{{< include /_tbl/audit.qmd >}}
+
+### Response spectra
+
+The following panels show the pointwise median of the 5%-damped pseudoacceleration spectra over all realizations of each scenario. Components H1, H2, and UP and the charge levels are presented separately; the curves compare distances within each panel.
+
+{{< include /_fig/scenarios.PSA.qmd >}}

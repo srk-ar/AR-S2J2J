@@ -1,6 +1,6 @@
 {
-  "Fmax"    : [80],
+  "Fmax"    : [125],
   "P"       : 0.90,
-  "DIR"     : ["D50"],
+  "DIR"     : ["H1", "H2", "UP"],
   "OVERRIDE": false
 }

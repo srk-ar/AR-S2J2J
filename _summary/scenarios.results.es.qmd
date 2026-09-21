@@ -14,3 +14,15 @@ if (!exists("SCENARIO_AUDIT")) {
 La Tabla @tbl-scenarios-inventory presenta las condiciones evaluadas, los tres objetivos PPV empleados en el escalamiento y el número de realizaciones de cada escenario. Cada fila corresponde a una condición $(d,q,p)$; sus realizaciones proceden de las historias fuente que integran la población instrumental.
 
 {{< include /_tbl/scenarios.ES.qmd >}}
+
+### Verificación numérica
+
+La Tabla @tbl-scenario-audit presenta las verificaciones de PPV vertical, rotación horizontal y PGA positiva de la familia generada, con los criterios de aceptación definidos en la metodología.
+
+{{< include /_tbl/audit.ES.qmd >}}
+
+### Espectros de respuesta
+
+Los paneles siguientes muestran la mediana puntual de los espectros de pseudoaceleración al 5 % de amortiguamiento de todas las realizaciones de cada escenario. Se separan las componentes H1, H2 y UP y los niveles de carga; las curvas comparan las distancias dentro de cada panel.
+
+{{< include /_fig/scenarios.PSA.ES.qmd >}}

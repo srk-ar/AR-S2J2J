@@ -405,7 +405,5 @@ is an ordinary derived `OCID`.
   the old verbose `Units = "mm/s"`. Required by the gmsp strict units
   contract, which rejects verbose Units forms. See `gmsp/NEWS.md`
   § "Breaking changes — units contract".
-* `scripts/gmsp/setup.R` is project-gitignored (see `.gitignore:47`)
-  and not under version control here. The line change is on disk but
-  not commit-tracked at the project level. Keep this in mind if you
-  expect to find it via `git log`.
+* `scripts/gmsp/setup.R` is tracked in this repository. Check the current
+  index and `.gitignore` before attributing a missing script to an exclusion.

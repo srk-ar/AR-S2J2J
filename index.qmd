@@ -1,4 +1,5 @@
 ---
+title: "AR-S2J2J"
 format:
   html:
     body-classes: cover-page
@@ -40,4 +41,3 @@ ParamsCover$title <- ReportTitle
 CoverHTML <- buildCoverReport(ParamsCover)
 cat("```{=html}\n", CoverHTML, "\n```\n", sep = "")
 ```
-

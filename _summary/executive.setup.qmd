@@ -1,0 +1,53 @@
+```{r}
+#| include: false
+EXEC_METRICS <- data.table::fread(file.path(root, "data", "summary", "metrics.csv"))[
+  method == "ensemble.RMSE" & dataset == "QDS", .(response, n, r2, rmse)
+]
+if (!nrow(EXEC_METRICS) || anyNA(EXEC_METRICS)) {
+  stop("executive: retained metrics are unavailable.", call. = FALSE)
+}
+EXEC_N_PAIRS <- unique(EXEC_METRICS$n)
+if (length(EXEC_N_PAIRS) != 1L) {
+  stop("executive: OOF support differs among responses.", call. = FALSE)
+}
+EXEC_R2_PPV <- range(EXEC_METRICS[grepl("^ppv", response), r2])
+EXEC_R2_PPA <- range(EXEC_METRICS[grepl("^ppa", response), r2])
+
+DT <- data.table::fread(file.path(root, "data", "summary", "residuals_oof.csv"))[
+  dataset == "QDS" & is.finite(y_obs) & is.finite(y_hat_oof)
+]
+AUX <- DT[, .(rmse.phys = sqrt(mean((10^y_obs - 10^y_hat_oof)^2))), by = response]
+EXEC_ERR_PPV <- range(AUX[response %chin% c("ppvL", "ppvT", "ppvV"), rmse.phys])
+EXEC_ERR_PPA <- range(AUX[response %chin% c("ppaL", "ppaT", "ppaV"), rmse.phys])
+
+KEY <- c("response", "dataset", "SampleID")
+OUT <- data.table::fread(file.path(
+  root, "data", "iter", "summary_0", "residuals_oof.csv"
+))[
+  dataset == "QDS" & is.finite(y_obs) & is.finite(y_hat_oof),
+  .(response, dataset, SampleID, y_obs.t0 = y_obs, y_hat.t0 = y_hat_oof)
+][DT, on = KEY, nomatch = NULL]
+if (nrow(OUT) != nrow(DT) || OUT[, any(abs(y_obs.t0 - y_obs) > 1e-10)]) {
+  stop("executive: t=0 and retained OOF samples are not comparable.", call. = FALSE)
+}
+if (OUT[, .(gain = sqrt(mean((y_obs - y_hat.t0)^2)) - sqrt(mean((y_obs - y_hat_oof)^2))),
+        by = response][, any(gain <= 0)]) {
+  stop("executive: not every response improves with the multi-response coupling.",
+       call. = FALSE)
+}
+
+EXEC_SC <- data.table::fread(file.path(root, "data", "audit", "summary.csv"))
+EXEC_IM <- data.table::fread(file.path(root, "data", "records", "scenarios", "IMW.csv"))
+if (!nrow(EXEC_SC) || !setequal(EXEC_SC$ScenarioID, unique(EXEC_IM$ScenarioID))) {
+  stop("executive: scenario audit and inventory do not match.", call. = FALSE)
+}
+EXEC_SC_N <- nrow(EXEC_SC)
+EXEC_SC_D <- range(EXEC_SC$D)
+EXEC_SC_Q <- range(EXEC_SC$MIC)
+EXEC_SC_RPS <- unique(EXEC_SC$n.records)
+EXEC_SC_REAL <- data.table::uniqueN(EXEC_IM[, .(ScenarioID, RecordID)])
+if (length(EXEC_SC_RPS) != 1L || EXEC_SC_RPS != RECORDS_N ||
+    EXEC_SC_REAL != sum(EXEC_SC$n.records)) {
+  stop("executive: scenario realization inventory is inconsistent.", call. = FALSE)
+}
+```

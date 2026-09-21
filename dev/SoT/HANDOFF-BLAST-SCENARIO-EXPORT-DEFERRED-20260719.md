@@ -1,5 +1,13 @@
 # Blast scenario export deferred — 2026-07-19
 
+> **Superseded by owner instruction, 2026-09-21:** «no. regenera los 36
+> escenarios y actualiza el informe». The complete family has been regenerated
+> from the current SSEL predictions and integrated: 36/36 audit PASS, matching
+> per-scenario/aggregate products, both HTML books and the principal RevealJS
+> presentation updated. See [the completion receipt](../scenarios-20260921/README.md).
+> Everything below describes the superseded July state; it does not prohibit
+> this completed regeneration or describe the current family.
+
 > **E127 correction:** “do not regenerate/export” does not prohibit consuming
 > an already complete and coherent `TSW.csv`/`PSW.csv` family. The blanket
 > instruction below not to reconnect `scenarios.PSA` was an agent inference,

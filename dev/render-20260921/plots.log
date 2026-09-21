@@ -1,0 +1,10 @@
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+✓ PSA F125.D150.Q200.p90 / H1
+✓ TS  F125.D150.Q200.p90 / H1
+✓ PSA F125.D150.Q200.p90 / H2
+✓ TS  F125.D150.Q200.p90 / H2
+✓ PSA F125.D150.Q200.p90 / UP
+✓ TS  F125.D150.Q200.p90 / UP
+runPlots done — 1 scenarios x 3 dirs

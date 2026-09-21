@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 2,
+  "artifacts": [
+    {
+      "alias": "report.es",
+      "kind": "quarto",
+      "path": "html/report.es",
+      "required": true,
+      "renderSource": "report.es.qmd",
+      "profile": "book",
+      "siteSlug": "ars2j2j-es",
+      "domain": "ars2j2j-es.srk.ar"
+    },
+    {
+      "alias": "report.en",
+      "kind": "quarto",
+      "path": "html/report.en",
+      "required": true,
+      "renderSource": "report.en.qmd",
+      "profile": "book",
+      "siteSlug": "ars2j2j-en",
+      "domain": "ars2j2j-en.srk.ar"
+    },
+    {
+      "alias": "ppt",
+      "kind": "quarto",
+      "path": "html/ppt",
+      "required": true,
+      "renderSource": "ppt.qmd",
+      "profile": "revealjs",
+      "siteSlug": "ars2j2j-ppt",
+      "domain": "ars2j2j-ppt.srk.ar"
+    }
+  ],
+  "scaffolds": {
+    "ngr": {
+      "files": {
+        "lua/footer.lua": {
+          "commit": "a18dfecd0547c3212fb169d72bb0212cb5532fb4",
+          "dirty": true,
+          "md5": "82bbc04b11a4d1f8d51d19bef071a99b",
+          "sha256": "410f627d66a0de83ab55ac8bfedec855fa2f0563476a5466399713e6d0245d1b"
+        },
+        "lua/page-footer.lua": {
+          "commit": "a18dfecd0547c3212fb169d72bb0212cb5532fb4",
+          "dirty": true,
+          "md5": "86011ebc7a696b96481b9f5129cd4ee5",
+          "sha256": "a4e8493d8f1add75b03f6d072e0940fc2c7d095a740f2e3ddcd851c69c30fa48"
+        }
+      },
+      "claims": {
+        "lua/footer.lua": {
+          "sha256": "410f627d66a0de83ab55ac8bfedec855fa2f0563476a5466399713e6d0245d1b",
+          "ownership": "managed"
+        },
+        "lua/page-footer.lua": {
+          "sha256": "a4e8493d8f1add75b03f6d072e0940fc2c7d095a740f2e3ddcd851c69c30fa48",
+          "ownership": "managed"
+        }
+      },
+      "manifest": "/usr/local/libexec/ngr/scaffold/manifest.json",
+      "checks": [],
+      "selection": [
+        "lua/footer.lua",
+        "lua/page-footer.lua"
+      ],
+      "complete": true
+    }
+  }
+}

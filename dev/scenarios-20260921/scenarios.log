@@ -1,0 +1,7 @@
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+.scaleAT: 36 scenarios (D×MIC=6x6) P=0.90 D50=FALSE InputID=F125.Qo.Do.vmd
+done -> F125.D150.Q150.p90
+
+Execution halted

@@ -1,0 +1,377 @@
+[render manifest] report.es source=report.es.qmd profile=book path=html/report.es
+Render timestamp: 2026-09-21 12:11:59 -03
+[render] book -> html/report.es/
+[1/8] index.qmd
+
+
+processing file: index.qmd
+1/3                  
+2/3 [unnamed-chunk-1]
+3/3                  
+output file: index.knit.md
+
+[2/8] _index/summary.ES.qmd
+
+
+processing file: summary.ES.qmd
+1/6 [unnamed-chunk-1]
+2/6                  
+3/6 [unnamed-chunk-2]
+4/6                  
+5/6 [unnamed-chunk-3]
+6/6                  
+output file: summary.ES.knit.md
+
+[3/8] _index/blast.ES.qmd
+
+
+processing file: blast.ES.qmd
+1/2 [unnamed-chunk-1]
+2/2                  
+output file: blast.ES.knit.md
+
+[4/8] _index/records.ES.qmd
+
+
+processing file: records.ES.qmd
+1/24 [unnamed-chunk-1] 
+2/24                   
+3/24 [unnamed-chunk-2] 
+4/24                   
+5/24 [unnamed-chunk-3] 
+6/24                   
+7/24 [unnamed-chunk-4] 
+8/24                   
+9/24 [unnamed-chunk-5] 
+10/24                   
+11/24 [unnamed-chunk-6] 
+12/24                   
+13/24 [unnamed-chunk-7] 
+14/24                   
+15/24 [unnamed-chunk-8] 
+16/24                   
+17/24 [unnamed-chunk-9] 
+18/24                   
+19/24 [unnamed-chunk-10]
+20/24                   
+21/24 [unnamed-chunk-11]
+22/24                   
+23/24 [unnamed-chunk-12]
+24/24                   
+output file: records.ES.knit.md
+
+[5/8] _index/model.ES.qmd
+
+
+processing file: model.ES.qmd
+1/98 [unnamed-chunk-1]         
+2/98                           
+3/98 [unnamed-chunk-2]         
+4/98                           
+5/98 [unnamed-chunk-3]         
+6/98                           
+7/98 [unnamed-chunk-4]         
+8/98                           
+9/98 [fig-model-domain]        
+10/98                           
+11/98 [unnamed-chunk-5]         
+12/98                           
+13/98 [unnamed-chunk-6]         
+14/98                           
+15/98 [unnamed-chunk-7]         
+16/98                           
+17/98 [tbl-model-support]       
+18/98                           
+19/98 [unnamed-chunk-8]         
+20/98                           
+21/98 [unnamed-chunk-9]         
+22/98                           
+23/98 [unnamed-chunk-10]        
+24/98                           
+25/98 [unnamed-chunk-11]        
+26/98                           
+27/98 [tbl-metrics-executive]   
+28/98                           
+29/98 [unnamed-chunk-12]        
+30/98                           
+31/98 [tbl-metrics-performance] 
+32/98                           
+33/98 [tbl-metrics-conditioning]
+34/98                           
+35/98 [tbl-metrics-bands]       
+36/98                           
+37/98 [tbl-metrics-learners-ppv]
+38/98                           
+39/98 [tbl-metrics-learners-ppa]
+40/98                           
+41/98 [unnamed-chunk-13]        
+42/98                           
+43/98 [unnamed-chunk-14]        
+44/98                           
+45/98 [unnamed-chunk-15]        
+46/98                           
+47/98 [unnamed-chunk-16]        
+48/98                           
+49/98 [unnamed-chunk-17]        
+50/98                           
+51/98 [unnamed-chunk-18]        
+52/98                           
+53/98 [unnamed-chunk-19]        
+54/98                           
+55/98 [unnamed-chunk-20]        
+56/98                           
+57/98 [unnamed-chunk-21]        
+58/98                           
+59/98 [unnamed-chunk-22]        
+60/98                           
+61/98 [unnamed-chunk-23]        
+62/98                           
+63/98 [unnamed-chunk-24]        
+64/98                           
+65/98 [unnamed-chunk-25]        
+66/98                           
+67/98 [unnamed-chunk-26]        
+68/98                           
+69/98 [unnamed-chunk-27]        
+70/98                           
+71/98 [unnamed-chunk-28]        
+72/98                           
+73/98 [unnamed-chunk-29]        
+74/98                           
+75/98 [unnamed-chunk-30]        
+76/98                           
+77/98 [unnamed-chunk-31]        
+78/98                           
+79/98 [unnamed-chunk-32]        
+80/98                           
+81/98 [unnamed-chunk-33]        
+82/98                           
+83/98 [unnamed-chunk-34]        
+84/98                           
+85/98 [unnamed-chunk-35]        
+86/98                           
+87/98 [unnamed-chunk-36]        
+88/98                           
+89/98 [unnamed-chunk-37]        
+90/98                           
+91/98 [unnamed-chunk-38]        
+92/98                           
+93/98 [unnamed-chunk-39]        
+94/98                           
+95/98 [unnamed-chunk-40]        
+96/98                           
+97/98 [unnamed-chunk-41]        
+98/98                           
+output file: model.ES.knit.md
+
+[6/8] _index/scenarios.ES.qmd
+
+
+processing file: scenarios.ES.qmd
+1/16 [unnamed-chunk-1]        
+2/16                          
+3/16 [unnamed-chunk-2]        
+4/16                          
+5/16 [unnamed-chunk-3]        
+6/16                          
+7/16 [unnamed-chunk-4]        
+8/16                          
+9/16 [tbl-scenarios-executive]
+10/16                          
+11/16 [unnamed-chunk-5]        
+12/16                          
+13/16 [tbl-scenarios-inventory]
+14/16                          
+15/16 [unnamed-chunk-6]        
+16/16                          
+output file: scenarios.ES.knit.md
+
+[7/8] _index/risk.ES.qmd
+
+
+processing file: risk.ES.qmd
+1/2 [unnamed-chunk-1]
+2/2                  
+output file: risk.ES.knit.md
+
+[8/8] _index/references.ES.qmd
+
+Output created: _ngr-output/index.html
+
+[render manifest] report.en source=report.en.qmd profile=book path=html/report.en
+Render timestamp: 2026-09-21 12:12:18 -03
+[render] book -> html/report.en/
+[1/8] index.qmd
+
+
+processing file: index.qmd
+1/3                  
+2/3 [unnamed-chunk-1]
+3/3                  
+output file: index.knit.md
+
+[2/8] _index/summary.qmd
+
+
+processing file: summary.qmd
+1/6 [unnamed-chunk-1]
+2/6                  
+3/6 [unnamed-chunk-2]
+4/6                  
+5/6 [unnamed-chunk-3]
+6/6                  
+output file: summary.knit.md
+
+[3/8] _index/blast.qmd
+
+
+processing file: blast.qmd
+1/2 [unnamed-chunk-1]
+2/2                  
+output file: blast.knit.md
+
+[4/8] _index/records.qmd
+
+
+processing file: records.qmd
+1/20 [unnamed-chunk-1] 
+2/20                   
+3/20 [unnamed-chunk-2] 
+4/20                   
+5/20 [unnamed-chunk-3] 
+6/20                   
+7/20 [unnamed-chunk-4] 
+8/20                   
+9/20 [unnamed-chunk-5] 
+10/20                   
+11/20 [unnamed-chunk-6] 
+12/20                   
+13/20 [unnamed-chunk-7] 
+14/20                   
+15/20 [unnamed-chunk-8] 
+16/20                   
+17/20 [unnamed-chunk-9] 
+18/20                   
+19/20 [unnamed-chunk-10]
+20/20                   
+output file: records.knit.md
+
+[5/8] _index/model.qmd
+
+
+processing file: model.qmd
+1/80 [unnamed-chunk-1]         
+2/80                           
+3/80 [unnamed-chunk-2]         
+4/80                           
+5/80 [unnamed-chunk-3]         
+6/80                           
+7/80 [fig-model-domain]        
+8/80                           
+9/80 [unnamed-chunk-4]         
+10/80                           
+11/80 [unnamed-chunk-5]         
+12/80                           
+13/80 [tbl-model-support]       
+14/80                           
+15/80 [unnamed-chunk-6]         
+16/80                           
+17/80 [unnamed-chunk-7]         
+18/80                           
+19/80 [unnamed-chunk-8]         
+20/80                           
+21/80 [tbl-metrics-executive]   
+22/80                           
+23/80 [unnamed-chunk-9]         
+24/80                           
+25/80 [tbl-metrics-performance] 
+26/80                           
+27/80 [tbl-metrics-conditioning]
+28/80                           
+29/80 [tbl-metrics-bands]       
+30/80                           
+31/80 [tbl-metrics-learners-ppv]
+32/80                           
+33/80 [tbl-metrics-learners-ppa]
+34/80                           
+35/80 [unnamed-chunk-10]        
+36/80                           
+37/80 [unnamed-chunk-11]        
+38/80                           
+39/80 [unnamed-chunk-12]        
+40/80                           
+41/80 [unnamed-chunk-13]        
+42/80                           
+43/80 [unnamed-chunk-14]        
+44/80                           
+45/80 [unnamed-chunk-15]        
+46/80                           
+47/80 [unnamed-chunk-16]        
+48/80                           
+49/80 [unnamed-chunk-17]        
+50/80                           
+51/80 [unnamed-chunk-18]        
+52/80                           
+53/80 [unnamed-chunk-19]        
+54/80                           
+55/80 [unnamed-chunk-20]        
+56/80                           
+57/80 [unnamed-chunk-21]        
+58/80                           
+59/80 [unnamed-chunk-22]        
+60/80                           
+61/80 [unnamed-chunk-23]        
+62/80                           
+63/80 [unnamed-chunk-24]        
+64/80                           
+65/80 [unnamed-chunk-25]        
+66/80                           
+67/80 [unnamed-chunk-26]        
+68/80                           
+69/80 [unnamed-chunk-27]        
+70/80                           
+71/80 [unnamed-chunk-28]        
+72/80                           
+73/80 [unnamed-chunk-29]        
+74/80                           
+75/80 [unnamed-chunk-30]        
+76/80                           
+77/80 [unnamed-chunk-31]        
+78/80                           
+79/80 [unnamed-chunk-32]        
+80/80                           
+output file: model.knit.md
+
+[6/8] _index/scenarios.qmd
+
+
+processing file: scenarios.qmd
+1/14 [unnamed-chunk-1]        
+2/14                          
+3/14 [unnamed-chunk-2]        
+4/14                          
+5/14 [unnamed-chunk-3]        
+6/14                          
+7/14 [tbl-scenarios-executive]
+8/14                          
+9/14 [unnamed-chunk-4]        
+10/14                          
+11/14 [tbl-scenarios-inventory]
+12/14                          
+13/14 [unnamed-chunk-5]        
+14/14                          
+output file: scenarios.knit.md
+
+[7/8] _index/risk.qmd
+
+
+processing file: risk.qmd
+1/2 [unnamed-chunk-1]
+2/2                  
+output file: risk.knit.md
+
+[8/8] _index/references.qmd
+
+Output created: _ngr-output/index.html
+
+[render manifest] complete
