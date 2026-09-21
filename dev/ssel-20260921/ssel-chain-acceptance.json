@@ -1,0 +1,18 @@
+{
+  "ssel": "0.5.1",
+  "root": "/private/tmp/AR-S2J2J-ssel-20260921-chain",
+  "mode": "chain",
+  "scripts": "unmodified",
+  "iterations": [1, 2, 3],
+  "trainingRows": 1448,
+  "gridRows": 517,
+  "methods": ["earth", "ensemble.R2", "ensemble.RMSE", "gamSpline", "gbm", "glm", "ranger"],
+  "responses": ["ppa", "ppaL", "ppaT", "ppaV", "ppv", "ppvL", "ppvT", "ppvV"],
+  "metricsRows": 56,
+  "modelFiles": 40,
+  "unseenRows": 12408,
+  "predictionsRows": 3738,
+  "gridPredictionRows": 3102,
+  "gridPredictionsFinite": true,
+  "warning": "In pf(nl.chisq/nldf, nldf, rdf): NaNs produced"
+}
